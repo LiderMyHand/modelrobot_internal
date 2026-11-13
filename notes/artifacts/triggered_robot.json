@@ -1,0 +1,375 @@
+{
+  "initial": {
+    "time": 0,
+    "tick": 0,
+    "status": "running",
+    "robotPhase": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.2,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": false
+  },
+  "deviceMiddle": {
+    "time": 0.1,
+    "tick": 1,
+    "status": "running",
+    "robotPhase": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.3125,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": false
+  },
+  "planned": {
+    "time": 0.7000000000000001,
+    "tick": 7,
+    "status": "running",
+    "robotPhase": "moving",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 0.5480219944491279,
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.65,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": true
+  },
+  "robotMiddle": {
+    "time": 0.8,
+    "tick": 8,
+    "status": "running",
+    "robotPhase": "moving",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 0.5480219944491279,
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    },
+    "q": [
+      -0.006801289223341193,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": -0.006801289223341193,
+    "tray": [
+      0.65,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": true
+  },
+  "paused": {
+    "time": 0.9,
+    "tick": 9,
+    "status": "running",
+    "robotPhase": "moving",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 0.5480219944491279,
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    },
+    "q": [
+      -0.03882381224335542,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": -0.03882381224335542,
+    "tray": [
+      0.65,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": true
+  },
+  "final": {
+    "time": 1.5,
+    "tick": 15,
+    "status": "finished",
+    "robotPhase": "done",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 0.5480219944491279,
+    "signals": {
+      "cycle_done": 1,
+      "robot_done": 1,
+      "tray_ready": 1
+    },
+    "q": [
+      -0.15,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": -0.15,
+    "tray": [
+      0.65,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": true
+  },
+  "reset": {
+    "time": 0,
+    "tick": 0,
+    "status": "running",
+    "robotPhase": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.2,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": false
+  },
+  "planningFailure": {
+    "time": 0.7000000000000001,
+    "tick": 7,
+    "status": "error",
+    "robotPhase": "planning",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.65,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [
+      {
+        "code": "JOINT_LIMIT",
+        "program": "arm",
+        "line": 9,
+        "tick": 7,
+        "timeSeconds": 0.7000000000000001,
+        "message": "Movement line 5: PTP: PTP start or target exceeds joint limits.."
+      }
+    ],
+    "triggerPlayer": false
+  },
+  "unsafe": {
+    "time": 0.2,
+    "tick": 2,
+    "status": "error",
+    "robotPhase": "moving",
+    "robotStart": 0.2,
+    "robotDuration": 0.5480219944491279,
+    "signals": {
+      "robot_done": 0,
+      "start": 1
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.2,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [
+      {
+        "code": "UNSAFE_DEVICE_TIMING",
+        "tick": 2,
+        "timeSeconds": 0.2,
+        "message": "conveyor line 7: MOVE_MODEL tray overlaps the active robot trajectory.",
+        "program": "conveyor",
+        "line": 7,
+        "model": "tray"
+      }
+    ],
+    "triggerPlayer": true
+  },
+  "reopened": {
+    "tray": [
+      0.65,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": -0.15,
+    "robotSource": "# Robot trajectory is planned against the initial conveyor scene.\nROBOT classroom_six_axis_arm\nTOOL tcp_link\nJOINTS turn base_yaw=-0.15 shoulder_pitch=0 elbow_pitch=0 wrist_roll=0 wrist_pitch=0 wrist_final=0\nMOVEJ turn\n",
+    "signalSource": "# Move the tray first. RUN_ROBOT plans the movement source from the changed scene.\nPROGRAM conveyor\nMOVE_MODEL tray X 0.65 TICKS 4\nSET tray_ready 1\nEND\n\nPROGRAM arm\nWAIT_SET tray_ready TIMEOUT 20\nRUN_ROBOT\nWAIT_SET robot_done TIMEOUT 80\nSET cycle_done 1\nEND\n",
+    "triggerClock": null
+  },
+  "workerSnapshotTrayX": 0.65,
+  "changedStartQ": 0.05,
+  "resetDuringPlanning": {
+    "time": 0,
+    "tick": 0,
+    "status": "running",
+    "robotPhase": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.2,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": false
+  },
+  "afterStaleWorker": {
+    "time": 0,
+    "tick": 0,
+    "status": "running",
+    "robotPhase": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "baseYaw": 0,
+    "tray": [
+      0.2,
+      0.35,
+      0.73,
+      0,
+      0,
+      0
+    ],
+    "diagnostics": [],
+    "triggerPlayer": false
+  },
+  "pageErrors": []
+}

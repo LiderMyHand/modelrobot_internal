@@ -1,0 +1,12 @@
+# Signal-only robot/conveyor handshake. A device and motion adapter are still pending.
+PROGRAM robot
+SET rob_out 1
+WAIT_SET conv_done TIMEOUT 12
+SET conv_done 0
+END
+
+PROGRAM conveyor
+WAIT_SET rob_out TIMEOUT 12
+SET rob_out 0
+SET conv_done 1
+END

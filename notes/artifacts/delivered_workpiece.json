@@ -1,0 +1,189 @@
+{
+  "initial": {
+    "tick": 0,
+    "timeSeconds": 0,
+    "status": "running",
+    "robotStatus": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "boxWorld": [
+      0.2,
+      0.16,
+      0.765
+    ],
+    "attachment": [],
+    "baseYaw": 0,
+    "diagnostics": []
+  },
+  "deliveryMid": {
+    "tick": 1,
+    "timeSeconds": 0.1,
+    "status": "running",
+    "robotStatus": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "boxWorld": [
+      0.255,
+      0.16,
+      0.765
+    ],
+    "attachment": [],
+    "baseYaw": 0,
+    "diagnostics": []
+  },
+  "planned": {
+    "tick": 7,
+    "timeSeconds": 0.7000000000000001,
+    "status": "running",
+    "robotStatus": "moving",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 12.462946713513702,
+    "signals": {
+      "robot_done": 0,
+      "workpiece_ready": 1
+    },
+    "boxWorld": [
+      0.42,
+      0.16,
+      0.765
+    ],
+    "attachment": [],
+    "baseYaw": 0,
+    "diagnostics": [],
+    "playerTime": 0
+  },
+  "workerSnapshotBoxWorld": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0.42,
+    0.16,
+    0.765,
+    1
+  ],
+  "robotPlanEvents": [
+    {
+      "time": 6.54114114296513,
+      "kind": "GRAB",
+      "object": "pick_box",
+      "frame": "robot/classroom_six_axis_arm/link/tcp_link",
+      "line": 10
+    },
+    {
+      "time": 12.462946713513702,
+      "kind": "RELEASE",
+      "object": "pick_box",
+      "frame": "robot/classroom_six_axis_arm/link/tcp_link",
+      "line": 13
+    }
+  ],
+  "grabbed": {
+    "tick": 73,
+    "timeSeconds": 7.300000000000001,
+    "status": "running",
+    "robotStatus": "moving",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 12.462946713513702,
+    "signals": {
+      "robot_done": 0,
+      "workpiece_ready": 1
+    },
+    "boxWorld": [
+      0.42000054679094695,
+      0.16000713340446882,
+      0.7650130502152301
+    ],
+    "attachment": [
+      {
+        "object": "pick_box",
+        "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+      }
+    ],
+    "baseYaw": 0.687199955533311,
+    "diagnostics": [],
+    "playerTime": 6.6000000000000005
+  },
+  "carried": {
+    "tick": 86,
+    "timeSeconds": 8.6,
+    "status": "running",
+    "robotStatus": "moving",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 12.462946713513702,
+    "signals": {
+      "robot_done": 0,
+      "workpiece_ready": 1
+    },
+    "boxWorld": [
+      0.43921422915849984,
+      0.20157591464050517,
+      0.8718403020237903
+    ],
+    "attachment": [
+      {
+        "object": "pick_box",
+        "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+      }
+    ],
+    "baseYaw": 0.7550459737954679,
+    "diagnostics": [],
+    "playerTime": 7.8999999999999995
+  },
+  "finished": {
+    "tick": 134,
+    "timeSeconds": 13.4,
+    "status": "finished",
+    "robotStatus": "done",
+    "robotStart": 0.7000000000000001,
+    "robotDuration": 12.462946713513702,
+    "signals": {
+      "cycle_done": 1,
+      "robot_done": 1,
+      "workpiece_ready": 1
+    },
+    "boxWorld": [
+      0.8399172732116529,
+      -0.1599906841572614,
+      0.7850229146986595
+    ],
+    "attachment": [],
+    "baseYaw": -0.2544953814161005,
+    "diagnostics": [],
+    "playerTime": 12.462946713513702
+  },
+  "reset": {
+    "tick": 0,
+    "timeSeconds": 0,
+    "status": "running",
+    "robotStatus": "idle",
+    "robotStart": null,
+    "robotDuration": null,
+    "signals": {
+      "robot_done": 0
+    },
+    "boxWorld": [
+      0.2,
+      0.16,
+      0.765
+    ],
+    "attachment": [],
+    "baseYaw": 0,
+    "diagnostics": []
+  },
+  "pageErrors": []
+}

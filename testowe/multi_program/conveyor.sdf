@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<sdf version="1.10">
+  <world name="conveyor_classroom">
+    <model name="conveyor">
+      <static>true</static>
+      <pose>0.43 0.35 0.66 0 0 0</pose>
+      <link name="deck">
+        <visual name="deck_visual">
+          <geometry><box><size>0.76 0.22 0.08</size></box></geometry>
+          <material><diffuse>0.24 0.38 0.52 1</diffuse></material>
+        </visual>
+        <collision name="deck_collision">
+          <geometry><box><size>0.76 0.22 0.08</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+    <model name="tray">
+      <static>false</static>
+      <pose>0.20 0.35 0.73 0 0 0</pose>
+      <link name="body">
+        <visual name="tray_visual">
+          <geometry><box><size>0.10 0.14 0.055</size></box></geometry>
+          <material><diffuse>0.95 0.61 0.13 1</diffuse></material>
+        </visual>
+        <collision name="tray_collision">
+          <geometry><box><size>0.10 0.14 0.055</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+  </world>
+</sdf>

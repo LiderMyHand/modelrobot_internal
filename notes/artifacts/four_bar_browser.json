@@ -1,0 +1,182 @@
+{
+  "status": "passed",
+  "initial": {
+    "theta": 0.6,
+    "coupler": -0.19934845934160755,
+    "output": 1.3388431293146577,
+    "left": [
+      0.6235612320673777,
+      0.3114301609297491,
+      0
+    ],
+    "right": [
+      0.6235612320673777,
+      0.31143016092974907,
+      0
+    ],
+    "residual": 5.551115123125783e-17,
+    "time": 0,
+    "plan": false
+  },
+  "planned": {
+    "names": [
+      "input"
+    ],
+    "sampleCount": 251,
+    "first": {
+      "time": 0,
+      "q": [
+        0.6
+      ],
+      "velocity": [
+        0
+      ],
+      "acceleration": [
+        0
+      ]
+    },
+    "last": {
+      "time": 4.159996818444806,
+      "q": [
+        0.8
+      ],
+      "velocity": [
+        0
+      ],
+      "acceleration": [
+        0
+      ]
+    },
+    "duration": 4.159996818444806
+  },
+  "midpoint": {
+    "theta": 1.0999981180843965,
+    "coupler": -0.8394654393240288,
+    "output": 1.5283057060787768,
+    "left": [
+      0.5635929075418373,
+      0.31971117100370305,
+      0
+    ],
+    "right": [
+      0.5635929075418373,
+      0.31971117100370305,
+      0
+    ],
+    "residual": 0,
+    "time": 1.387329592469586,
+    "plan": true,
+    "isSample": false
+  },
+  "finished": {
+    "theta": 0.8,
+    "coupler": -0.4665797206239229,
+    "output": 1.3922201180760774,
+    "left": [
+      0.6068411533966606,
+      0.3149112307945484,
+      0
+    ],
+    "right": [
+      0.6068411533966606,
+      0.31491123079454836,
+      0
+    ],
+    "residual": 5.551115123125783e-17,
+    "time": 4.159996818444806,
+    "plan": true
+  },
+  "reset": {
+    "theta": 0.6,
+    "coupler": -0.19934845934160755,
+    "output": 1.3388431293146577,
+    "left": [
+      0.6235612320673777,
+      0.3114301609297491,
+      0
+    ],
+    "right": [
+      0.6235612320673777,
+      0.31143016092974907,
+      0
+    ],
+    "residual": 5.551115123125783e-17,
+    "time": 0,
+    "plan": true
+  },
+  "manual": {
+    "theta": 0.7,
+    "coupler": -0.33519506295631935,
+    "output": 1.3608892059887714,
+    "left": [
+      0.6166780992717255,
+      0.3129760870697791,
+      0
+    ],
+    "right": [
+      0.6166780992717253,
+      0.3129760870697791,
+      0
+    ],
+    "residual": 1.1102230246251565e-16,
+    "time": 0,
+    "plan": false
+  },
+  "passive": [
+    {
+      "name": "coupler",
+      "disabled": true,
+      "value": -0.33519506295631935
+    },
+    {
+      "name": "output",
+      "disabled": true,
+      "value": 1.3608892059887714
+    }
+  ],
+  "reopened": {
+    "theta": 0.7,
+    "coupler": -0.33519506295631935,
+    "output": 1.3608892059887714,
+    "left": [
+      0.6166780992717255,
+      0.3129760870697791,
+      0
+    ],
+    "right": [
+      0.6166780992717253,
+      0.3129760870697791,
+      0
+    ],
+    "residual": 1.1102230246251565e-16,
+    "time": 0,
+    "plan": false,
+    "branch": 1,
+    "savedNames": [
+      "input"
+    ],
+    "program": "# The state saved in robot-state.json is the closed θ=0.6 rad configuration.\n# Only input is commanded; coupler and output are solved passive joints.\nROBOT four_bar\nTOOL C_left\nJOINTS open input=1.1\nJOINTS close input=0.45\nJOINTS middle input=0.8\nMOVEJ open\nMOVEJ close\nMOVEJ middle\n"
+  },
+  "rejected": {
+    "theta": 0.7,
+    "coupler": -0.33519506295631935,
+    "output": 1.3608892059887714,
+    "left": [
+      0.6166780992717255,
+      0.3129760870697791,
+      0
+    ],
+    "right": [
+      0.6166780992717253,
+      0.3129760870697791,
+      0
+    ],
+    "residual": 1.1102230246251565e-16,
+    "time": 0,
+    "plan": false,
+    "status": "Left closure pin must be an XY translation.",
+    "branch": 1,
+    "program": "# The state saved in robot-state.json is the closed θ=0.6 rad configuration.\n# Only input is commanded; coupler and output are solved passive joints.\nROBOT four_bar\nTOOL C_left\nJOINTS open input=1.1\nJOINTS close input=0.45\nJOINTS middle input=0.8\nMOVEJ open\nMOVEJ close\nMOVEJ middle\n"
+  },
+  "errors": []
+}

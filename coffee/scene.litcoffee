@@ -285,9 +285,12 @@ Starting it all
                         App.localRobots.status('Load a local URDF and STL files, or open a robot saved in this browser.')
                     })
                 else
-                    $.get './testowe/pi_robot_urdf.xml?v=arm-collisions-20261106', (data) ->
-                        xml=if typeof data is 'string' then data else new XMLSerializer().serializeToString(data)
-                        App.localRobots.showURDF(xml)
+                    if window.location.protocol is 'file:' and App.defaultRobotXml?
+                        App.localRobots.showURDF(App.defaultRobotXml)
+                    else
+                        $.get './testowe/pi_robot_urdf.xml?v=arm-collisions-20261106', (data) ->
+                            xml=if typeof data is 'string' then data else new XMLSerializer().serializeToString(data)
+                            App.localRobots.showURDF(xml)
 
 
 

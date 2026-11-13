@@ -1,0 +1,30 @@
+{
+  "source": "ROBOT classroom_six_axis_arm\nTOOL tcp_link\nPOSE goal_pose world 0.921262583170767 0.18674917094735755 0.95 AA 0 0 1 0.2\nMOVEJ goal_pose\n",
+  "duration": 0.6328002360847887,
+  "end": [
+    0.1999993325244921,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "actualYaw": 0.1999993325244921,
+  "status": "Playback finished.",
+  "continuation": {
+    "firstYaw": 0.1999993325244921,
+    "lastYaw": 6.674694160437814e-7,
+    "status": "Planned 1 move(s) over 0.63 s; 47 timed samples. Blue line shows the TCP path."
+  },
+  "toolRelative": {
+    "source": "ROBOT classroom_six_axis_arm\nTOOL tcp_link\nPOSE goal_pose tool -0.01873741682923291 0.18674917094735755 0 AA 0 0 1 0.2\nMOVEJ goal_pose\n",
+    "firstYaw": 6.674694160437814e-7,
+    "endYaw": 0.19999999999390813,
+    "xyz": [
+      0.9212625831719048,
+      0.18674917094174534,
+      0.95
+    ]
+  },
+  "errors": []
+}

@@ -379,7 +379,12 @@ There can be only one such model on scene ###TODO this seems fundamentaly wrong
 Checks about validity of movement are made inside @joint, we just check whether it succeeded
 
                 changeval: (value,updateController=false) ->
+                        App.workcellUI?.manualControlStarted()
                         App.poseTool?.finish()
+                        if App.workcellUI?.applyManualJoint(@joint.get("name"),value)
+                                @dummy["val"]=@joint.theta
+                                @controller.updateDisplay()
+                                return @
                         #if (@joint.upper >= value >= @joint.lower)
 
                         if @joint.movejoint(value)
@@ -492,11 +497,13 @@ Functions connected to top form, where URDF is placed. TODO: it schouldn't reset
                     poses={}
                     unless opening
                         window.robotjointcollection.each (joint) -> poses[joint.name]=joint.theta unless joint.mimic?
+                    App.workcellUI?.invalidatePlan()
                     editorCursor=@myCodeMirror.getCursor()
                     editorScroll=@myCodeMirror.getScrollInfo()
                     App.animform.stop()
                     App.localRobots.messages=[]
                     App.collisions.clear()
+                    App.workcellUI?.beforeRobotReparse()
                     if window.robotlinkcollection?
                         window.clearall(window.scene,window.robot,window.robotjointcollection,window.robotlinkcollection)
 
@@ -524,6 +531,7 @@ Functions connected to top form, where URDF is placed. TODO: it schouldn't reset
                         @myCodeMirror.save()
                         $('#visible').prop('checked', @model.attributes.visible);
                         App.localRobots.loaded(@model.attributes.urdf)
+                        App.workcellUI?.onRobotLoaded(@model.attributes.urdf)
                         if App.workspace.animationStatus()
                             App.animform.prepareArraysfromCSV($('#robotcsv').val())
                     else

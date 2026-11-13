@@ -136,6 +136,7 @@ test('startup chooses a feasible nonzero driver pose through a mimic chain and r
   assert.ok(Math.abs(Number(await slider.getAttribute('aria-valuenow')) - .035) < 1e-12);
   const impossible = source.replace('multiplier="1" offset="0"', 'multiplier="1" offset="0.2"');
   await page.locator('#local-files').setInputFiles({ name: 'impossible.urdf', mimeType: 'application/xml', buffer: Buffer.from(impossible) });
+  await page.waitForFunction(() => document.getElementById('local-status').textContent.includes('no feasible pose'));
   assert.match(await page.locator('#local-status').innerText(), /no feasible pose/);
   assert.ok(await page.evaluate(() => App.currentrobot.get('urdf').includes('follower_joint')), 'Invalid URDF does not replace the working preview');
   await page.close();

@@ -315,11 +315,15 @@
         }
       });
     } else {
-      return $.get('./testowe/pi_robot_urdf.xml?v=arm-collisions-20261106', function(data) {
-        var xml;
-        xml = typeof data === 'string' ? data : new XMLSerializer().serializeToString(data);
-        return App.localRobots.showURDF(xml);
-      });
+      if (window.location.protocol === 'file:' && (App.defaultRobotXml != null)) {
+        return App.localRobots.showURDF(App.defaultRobotXml);
+      } else {
+        return $.get('./testowe/pi_robot_urdf.xml?v=arm-collisions-20261106', function(data) {
+          var xml;
+          xml = typeof data === 'string' ? data : new XMLSerializer().serializeToString(data);
+          return App.localRobots.showURDF(xml);
+        });
+      }
     }
   });
 

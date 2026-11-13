@@ -1,0 +1,68 @@
+{
+  "before": {
+    "robot": "classroom_six_axis_arm",
+    "xmlRobot": "classroom_six_axis_arm",
+    "baseHasCollision": true,
+    "programStatus": "Read current tcp_link pose in world coordinates.",
+    "programStatusRect": {
+      "x": 27,
+      "y": 203.796875,
+      "width": 579.59375,
+      "height": 18,
+      "top": 203.796875,
+      "right": 606.59375,
+      "bottom": 221.796875,
+      "left": 27
+    },
+    "pendantStatusRect": {
+      "x": 41,
+      "y": 878.796875,
+      "width": 551.59375,
+      "height": 18,
+      "top": 878.796875,
+      "right": 592.59375,
+      "bottom": 896.796875,
+      "left": 41
+    },
+    "panelRect": {
+      "x": 0,
+      "y": 107,
+      "width": 633.59375,
+      "height": 731.5,
+      "top": 107,
+      "right": 633.59375,
+      "bottom": 838.5,
+      "left": 0
+    }
+  },
+  "after": {
+    "pendantStatus": "World +Z jog applied. TCP twist residual: 9.9e-10 m/s, 8.7e-9 rad/s. Replan the movement program before playback.",
+    "planStatus": "Manual Cartesian jog changed the robot pose. Plan the program again.",
+    "activeRobot": "classroom_six_axis_arm",
+    "currentXmlName": "classroom_six_axis_arm"
+  },
+  "failure": {
+    "status": "1 program error(s).",
+    "context": "Robot: classroom_six_axis_arm · World: pick_place_classroom",
+    "rect": {
+      "x": 27,
+      "y": 135,
+      "width": 579.59375,
+      "height": 18,
+      "top": 135,
+      "right": 606.59375,
+      "bottom": 153,
+      "left": 27
+    },
+    "panel": {
+      "x": 0,
+      "y": 107,
+      "width": 633.59375,
+      "height": 731.5,
+      "top": 107,
+      "right": 633.59375,
+      "bottom": 838.5,
+      "left": 0
+    }
+  }
+}

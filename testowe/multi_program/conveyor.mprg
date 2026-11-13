@@ -1,0 +1,12 @@
+# Each PROGRAM has its own command counter. Signals commit at the end of a tick.
+PROGRAM feeder
+SET start 1
+WAIT_SET arrived TIMEOUT 12
+SET start 0
+END
+
+PROGRAM conveyor
+WAIT_SET start TIMEOUT 12
+MOVE_MODEL tray X 0.65 TICKS 4
+SET arrived 1
+END

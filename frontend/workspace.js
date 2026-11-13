@@ -1,4 +1,5 @@
 import { appendPose } from './csv-poses.js';
+import { readExampleText } from './example-text.js';
 
 export class Workspace {
   init(form) {
@@ -27,9 +28,7 @@ export class Workspace {
     form.myCodeMirror.on('change', () => this.draftStatus());
     document.querySelectorAll('.example-open').forEach(button => button.onclick = async () => {
       try {
-        const response = await fetch(button.dataset.url);
-        if (!response.ok) throw new Error('Could not open example.');
-        const xml = await response.text();
+        const xml = await readExampleText(button.dataset.url);
         if (!this.canReplaceDraft()) return;
         App.localRobots.startDocument();
         App.localRobots.showURDF(xml);
@@ -61,6 +60,7 @@ export class Workspace {
     this.resizeDivider();
     this.animationStatus();
     App.poseTool.init(canvas);
+    App.workcellUI.init();
   }
   select(name) {
     if (name === 'joints' && this.active !== 'joints') this.jointsReturnPanel = this.active;
@@ -137,7 +137,11 @@ export class Workspace {
       App.i18n.setAttr(document.getElementById('tab-joints'), 'title', 'Joint controls are detached');
       this.select(this.jointsReturnPanel || 'urdf'); constrain(); handle.focus({preventScroll:true});
     };
-    document.getElementById('joints-dock').onclick = dock;
+    const dockButton = document.getElementById('joints-dock');
+    dockButton.onclick = dock;
+    // Chromium may suppress a synthesized click while the panel is still
+    // coasting from a touch scroll. Finish the explicit touch on pointerup.
+    dockButton.onpointerup = event => { if (event.pointerType === 'touch') dock(); };
     document.getElementById('joints-dock-here').onclick = dock;
     document.getElementById('joints-show').onclick = () => handle.focus({preventScroll:true});
     let drag;

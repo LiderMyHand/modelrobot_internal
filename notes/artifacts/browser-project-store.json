@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "objects": [
+    "table",
+    "pick_box",
+    "obstacle",
+    "destination"
+  ],
+  "program": "ROBOT classroom_six_axis_arm\nTOOL tcp_link\n",
+  "robot": "classroom_six_axis_arm",
+  "attachments": [
+    {
+      "object": "pick_box",
+      "frame": "model/table"
+    }
+  ],
+  "selected": "75ecf9c8-56d2-424b-acdc-6be6e530ab83",
+  "afterRejectedImport": {
+    "world": "pick_place_classroom",
+    "robot": "classroom_six_axis_arm",
+    "attachments": [
+      {
+        "object": "pick_box",
+        "frame": "model/table"
+      }
+    ]
+  },
+  "errors": []
+}

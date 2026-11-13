@@ -1,8 +1,10 @@
 import * as THREE from 'three';
+import defaultRobotXml from '../testowe/pi_robot_urdf.xml';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 window.THREE = { ...THREE, OrbitControls };
 window.App = window.App || {};
+window.App.defaultRobotXml = defaultRobotXml;
 import { I18n } from './i18n.js';
 window.App.i18n = new I18n();
 window.App.stlLoader = new STLLoader();
@@ -14,6 +16,8 @@ window.App.mimicHomePositions = mimicHomePositions;
 window.App.localRobots = new LocalRobots(window.App.stlLoader);
 import { PoseTool } from './pose-tool.js';
 window.App.poseTool = new PoseTool(window.App);
+import { WorkcellUI } from './workcell-ui.js';
+window.App.workcellUI = new WorkcellUI(window.App);
 
 import { CollisionChecker } from './collisions.js';
 window.App.collisions = new CollisionChecker({

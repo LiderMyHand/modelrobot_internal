@@ -93,11 +93,16 @@ export class PoseTool {
     return hit ? { object: owners.get(hit.object), point: hit.point, owners } : null;
   }
   begin(hit) {
+    if (this.app.workcellUI?.closedLoopModel) {
+      this.report('The four-bar pose is constrained. Move its input joint or plan a pose target.');
+      return false;
+    }
     let chain;
     try {
       chain = limbChain(window.robotjointcollection.models, hit.object.name);
       if (!chain.length) throw new Error('This segment has no movable ancestors. Choose an arm or another movable segment.');
     } catch (error) { this.report(error.message); return false; }
+    this.app.workcellUI?.manualControlStarted();
     this.app.animform.pause();
     window.scene.updateMatrixWorld(true);
     const bounds = new Box3().setFromObject(window.robot);

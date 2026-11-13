@@ -1,0 +1,13 @@
+# Kinematic seam demonstration: the torch stays 0.025 m above the plate surface.
+# All poses use world metres and xyzw unit quaternions.
+ROBOT seam_cartesian
+TOOL tcp_link
+POSE seam_start world 0.15 0 0 Q 0 0 0 1
+POSE via world 0.35 0.14 0 Q 0 0 0 1
+POSE arc_end world 0.55 0 0 Q 0 0 0 1
+POSE seam_end world 0.65 0.12 0 Q 0 0 0 1
+MOVEJ seam_start
+WELD ON workpiece
+MOVEC via arc_end
+MOVEL seam_end
+WELD OFF

@@ -1,0 +1,12 @@
+
+> build
+> coffee --compile --output scripts coffee/modelrobot.litcoffee coffee/parserobot.litcoffee coffee/scene.litcoffee && esbuild frontend/runtime.js --bundle --minify --format=iife --outfile=scripts/runtime.bundle.js && esbuild frontend/planning/worker-entry.js --bundle --minify --format=iife --outfile=scripts/planning-worker.bundle.js
+
+
+  scripts/runtime.bundle.js  1001.8kb
+
+⚡ Done in 93ms
+
+  scripts/planning-worker.bundle.js  398.3kb
+
+⚡ Done in 72ms

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="rail_arm">
+  <!-- A serial external X rail carries a planar two-revolute arm. -->
+  <link name="rail_base">
+    <visual><origin xyz="0.4 0 -0.04"/><geometry><box size="1.0 0.08 0.08"/></geometry>
+      <material name="rail"><color rgba="0.2 0.3 0.45 1"/></material></visual>
+    <collision><origin xyz="0.4 0 -0.04"/><geometry><box size="1.0 0.08 0.08"/></geometry></collision>
+  </link>
+  <link name="carriage">
+    <visual><geometry><box size="0.13 0.15 0.06"/></geometry>
+      <material name="carriage"><color rgba="0.8 0.35 0.1 1"/></material></visual>
+    <collision><geometry><box size="0.13 0.15 0.06"/></geometry></collision>
+  </link>
+  <link name="arm_base">
+    <visual><origin xyz="0 0 0.05"/><geometry><cylinder radius="0.045" length="0.1"/></geometry>
+      <material name="pedestal"><color rgba="0.25 0.6 0.75 1"/></material></visual>
+    <collision><origin xyz="0 0 0.05"/><geometry><cylinder radius="0.045" length="0.1"/></geometry></collision>
+  </link>
+  <link name="upper_arm">
+    <visual><origin xyz="0.125 0 0"/><geometry><box size="0.25 0.035 0.035"/></geometry>
+      <material name="upper"><color rgba="0.9 0.65 0.18 1"/></material></visual>
+    <collision><origin xyz="0.125 0 0"/><geometry><box size="0.25 0.035 0.035"/></geometry></collision>
+  </link>
+  <link name="forearm">
+    <visual><origin xyz="0.125 0 0"/><geometry><box size="0.25 0.03 0.03"/></geometry>
+      <material name="forearm"><color rgba="0.95 0.78 0.3 1"/></material></visual>
+    <collision><origin xyz="0.125 0 0"/><geometry><box size="0.25 0.03 0.03"/></geometry></collision>
+  </link>
+  <link name="tcp_link">
+    <visual><geometry><sphere radius="0.015"/></geometry>
+      <material name="tcp"><color rgba="0.15 0.85 0.4 1"/></material></visual>
+    <collision><geometry><sphere radius="0.015"/></geometry></collision>
+  </link>
+  <joint name="rail_slide" type="prismatic">
+    <parent link="rail_base"/><child link="carriage"/><axis xyz="1 0 0"/>
+    <limit lower="0" upper="0.6" effort="100" velocity="0.25"/>
+  </joint>
+  <joint name="arm_mount" type="fixed">
+    <parent link="carriage"/><child link="arm_base"/><origin xyz="0 0 0.1"/>
+  </joint>
+  <joint name="shoulder" type="revolute">
+    <parent link="arm_base"/><child link="upper_arm"/><axis xyz="0 0 1"/>
+    <limit lower="-2.5" upper="2.5" effort="30" velocity="1.0"/>
+  </joint>
+  <joint name="elbow" type="revolute">
+    <parent link="upper_arm"/><child link="forearm"/><origin xyz="0.25 0 0"/><axis xyz="0 0 1"/>
+    <limit lower="-2.5" upper="2.5" effort="30" velocity="1.0"/>
+  </joint>
+  <joint name="tcp_mount" type="fixed">
+    <parent link="forearm"/><child link="tcp_link"/><origin xyz="0.25 0 0"/>
+  </joint>
+</robot>

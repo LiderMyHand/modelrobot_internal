@@ -1,0 +1,14 @@
+{
+  "format": "modelrobot-kinematic-constraints",
+  "version": 1,
+  "mechanisms": [{
+    "type": "planar-four-bar",
+    "robot": "four_bar",
+    "driverJoint": "input",
+    "couplerJoint": "coupler",
+    "outputJoint": "output",
+    "leftClosureLink": "C_left",
+    "rightClosureLink": "C_right",
+    "branch": 1
+  }]
+}

@@ -1,0 +1,13 @@
+# Bring the loose workpiece from x=0.20 m to the arm's pick point x=0.42 m.
+# The arm plans only after the conveyor reports delivery.
+PROGRAM conveyor
+MOVE_MODEL pick_box X 0.42 TICKS 4
+SET workpiece_ready 1
+END
+
+PROGRAM arm
+WAIT_SET workpiece_ready TIMEOUT 20
+RUN_ROBOT
+WAIT_SET robot_done TIMEOUT 500
+SET cycle_done 1
+END

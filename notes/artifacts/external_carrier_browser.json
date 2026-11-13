@@ -1,0 +1,321 @@
+{
+  "mounted": {
+    "rootId": 85,
+    "carrierX": 0,
+    "baseX": 0,
+    "tcp": [
+      0,
+      0,
+      0
+    ],
+    "q": [
+      0,
+      0,
+      0
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "midpoint": {
+    "rootId": 85,
+    "carrierX": 0.1,
+    "baseX": 0.1,
+    "tcp": [
+      0.1,
+      0,
+      0
+    ],
+    "q": [
+      0,
+      0,
+      0
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "tick": 2,
+    "status": "running",
+    "robotStatus": "idle",
+    "requestCount": 0,
+    "signal": {
+      "robot_done": 0
+    }
+  },
+  "requested": {
+    "rootId": 85,
+    "carrierX": 0.2,
+    "baseX": 0.2,
+    "tcp": [
+      0.2,
+      0,
+      0
+    ],
+    "q": [
+      0,
+      0,
+      0
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "tick": 7,
+    "status": "running",
+    "robotStatus": "moving",
+    "requestCount": 1,
+    "planBaseX": 0.2,
+    "signal": {
+      "carrier_ready": 1,
+      "robot_done": 0
+    }
+  },
+  "finished": {
+    "rootId": 85,
+    "carrierX": 0.2,
+    "baseX": 0.2,
+    "tcp": [
+      0.5999914285714285,
+      0.09999785714285715,
+      0
+    ],
+    "q": [
+      0.39999142857142855,
+      0.09999785714285715,
+      0.39986285714285713
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "tick": 25,
+    "status": "finished",
+    "robotStatus": "done",
+    "requestCount": 1,
+    "planBaseX": 0.2,
+    "signal": {
+      "carrier_ready": 1,
+      "cycle_done": 1,
+      "robot_done": 1
+    }
+  },
+  "archivedMount": {
+    "robot": "orientation_gantry",
+    "frame": "model/carrier/link/deck",
+    "localPose": {
+      "position": [
+        0,
+        0,
+        0.15
+      ],
+      "quaternion": [
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "originalReset": {
+    "rootId": 85,
+    "carrierX": 0,
+    "baseX": 0,
+    "tcp": [
+      0,
+      0,
+      0
+    ],
+    "q": [
+      0,
+      0,
+      0
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "tick": 0,
+    "status": "running",
+    "robotStatus": "idle",
+    "requestCount": 0,
+    "signal": {
+      "robot_done": 0
+    }
+  },
+  "reopened": {
+    "rootId": 111,
+    "carrierX": 0.2,
+    "baseX": 0.2,
+    "tcp": [
+      0.5999914285714285,
+      0.09999785714285715,
+      0
+    ],
+    "q": [
+      0.39999142857142855,
+      0.09999785714285715,
+      0.39986285714285713
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "reset": {
+    "rootId": 111,
+    "carrierX": 0.2,
+    "baseX": 0.2,
+    "tcp": [
+      0.5999914285714285,
+      0.09999785714285715,
+      0
+    ],
+    "q": [
+      0.39999142857142855,
+      0.09999785714285715,
+      0.39986285714285713
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    "tick": 0,
+    "status": "running",
+    "robotStatus": "idle",
+    "requestCount": 0,
+    "signal": {
+      "robot_done": 0
+    }
+  },
+  "reparsed": {
+    "rootId": 127,
+    "carrierX": 0.2,
+    "baseX": 0.2,
+    "tcp": [
+      0.2,
+      0,
+      0
+    ],
+    "q": [
+      0,
+      0,
+      0
+    ],
+    "mount": {
+      "robot": "orientation_gantry",
+      "frame": "model/carrier/link/deck",
+      "localPose": {
+        "position": [
+          0,
+          0,
+          0.15
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  },
+  "unmounted": {
+    "mount": null,
+    "baseX": 0.2,
+    "parentIsScene": true
+  },
+  "pageErrors": []
+}

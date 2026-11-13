@@ -1,0 +1,12 @@
+# Move the tray first. RUN_ROBOT plans the movement source from the changed scene.
+PROGRAM conveyor
+MOVE_MODEL tray X 0.65 TICKS 4
+SET tray_ready 1
+END
+
+PROGRAM arm
+WAIT_SET tray_ready TIMEOUT 20
+RUN_ROBOT
+WAIT_SET robot_done TIMEOUT 80
+SET cycle_done 1
+END

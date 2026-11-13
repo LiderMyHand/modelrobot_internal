@@ -1,0 +1,29 @@
+# Consecutive Cartesian ZONE review
+
+## Architecture before the extension
+
+`frontend/program-plan.js` recognizes one positive-ZONE LIN/CIRC pair, plans both commands atomically with `planCartesianZonePair`, emits one timed joint trajectory and a logical command boundary, then skips the second command. It rejects a third consecutive Cartesian command with `ZONE_RUN_UNSUPPORTED`. The pair planner in `frontend/planning/cartesian-zone.js` constructs a composite TCP path with exact original LIN/CIRC portions outside one local quintic position and SO(3) transition. `solveCartesianPath` samples that declared path, including required cuts and CIRC via poses; `timeParameterize` fits a joint spline and applies a single quintic global clock. It requires no internal stops and checks sampled Cartesian residuals, collisions, joint limits, and velocity/acceleration.
+
+The global clock reaches zero speed at both ends. Therefore independent two-move pairs cannot be concatenated to claim a continuous three-move flyby: the join between pair plans would stop, even if each corner record says its own boundary is moving. A longer run needs one geometric path and one timed trajectory, or an explicit timing construction that proves nonzero speed at *all* intended flybys.
+
+## Review criteria for a multi-corner implementation
+
+1. Determine every positive-ZONE boundary and apply the smaller active radius on either side. Reject a discontinuity such as `ZONE 0`, a non-Cartesian or scene command, and weld-active flybys according to the existing program semantics.
+2. On a middle LIN/CIRC segment, keep the previous corner's exit cut strictly before the next corner's entry cut. Keep its CIRC via pose outside both cuts and make it an exact required sample. If the geometry cannot fit, return a source-located `ZONE_INFEASIBLE`; do not silently insert a stop or erase the via.
+3. Preserve the original LIN/CIRC position and quaternion outside each transition. At every corner, position should be C2 and orientation C1 in the declared TCP path. A shortest-branch quaternion sign change must not introduce a discontinuity.
+4. Use one IK traversal with the previous solution as seed, one timed trajectory, and `allowInternalStops:false`. Verify strictly increasing sample times and a positive joint-speed fraction at *each* logical corner. Enforce the same sampled joint limits, collision checks, Cartesian residuals, and 1 rad/s default declared angular-speed cap as for one pair.
+5. Emit a separate `cartesianZoneBlends` record and `plans` boundary for each source command. Every `entryTime < boundaryTime < exitTime` should be inside the trajectory, and records should be ordered. The ROS-like trajectory and `ProgramPlayer` must show both flybys without a pause or backward seek.
+6. Test three LIN moves with two different radii, changing orientation, a middle CIRC with exact via (position and orientation), close corners that require coordinated trim or reject cleanly, and a blocked second corner with correct diagnostic line. Compare direct and Worker planning outputs.
+7. Chromium evidence should load a visible three-axis robot, compare `ZONE 0` to positive ZONE, inspect both boundary joint velocities and displayed robot poses, and archive a mid-run screenshot plus numeric trace under `notes/artifacts/`. Check browser errors and strict ROS timestamps.
+
+## Reviewed implementation and evidence
+
+No blocking issue found. `createCartesianZoneChainPath` maps each local pair transition into one global distance coordinate, rejects overlapping cuts, and keeps original paths between the cuts. The timed chain uses one IK traversal and one clock; both logical boundaries are exact mandatory samples with nonzero joint speed. Program metadata has one plan per command and one record per corner. A second-corner collision is mapped back to the later source command.
+
+The initial program prepass checked every nominal segment for collision. That would have rejected a feasible route around an occupied middle waypoint. The implementation now resolves only the nominal endpoint IK needed for a following non-world target frame, without collision validation; world-frame runs skip that preliminary IK. The final composite path receives the actual collision and edge checks. The new regression places a sphere at the nominal middle waypoint and accepts the collision-free flyby.
+
+I independently ran `node --test tests/planning-cartesian-zone.test.cjs tests/program-cartesian-zone.test.cjs`: **25/25 passed**. These tests include three and four move runs, changing sticky radii (`0.05` then `0.03` m), exact CIRC via samples, Worker parity, ordered samples, positive speed at every corner, `ZONE 0` as a break, and second-corner collision attribution. `git diff --check` passed.
+
+I inspected `notes/artifacts/multicorner_stopped.png` and `notes/artifacts/multicorner_blended.png` plus `notes/artifacts/multicorner_browser.json`. In Chromium, `ZONE 0` stopped at 1.44994 and 2.40046 s with all joint velocities zero. With `ZONE 0.06`, corner times were 2.83421 and 3.47289 s; joint-speed norms were about 0.48475 and 0.50288, each sampled waypoint deviation was 0.04500 m within the 0.06 m radius, and the declared angular-speed bound was 0.63802 rad/s below 1 rad/s. Rendered joint positions matched timed samples; ROS nanosecond stamps increased strictly; there were no page errors. The screenshot shows the top-view gantry and oriented wrist at the two sampled poses. The numeric trace is the stronger evidence of both flybys.
+
+The declared TCP path has C2 position and C1 orientation at its trims. Joint limits, collision, and realized FK residuals are sampled checks as described in the core note. The use of a global quintic clock makes the full run slower when a small orientation-speed cap applies; this is consistent with the one-pair behavior.

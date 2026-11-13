@@ -1,0 +1,215 @@
+{
+  "atBoundary": {
+    "tick": 7,
+    "clockTime": 7,
+    "visualTime": 7,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 0,
+    "expectedYaw": 0,
+    "yaw": 0,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    }
+  },
+  "paused": {
+    "tick": 7,
+    "clockTime": 7,
+    "visualTime": 7.088099999952316,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 0.08809999995231621,
+    "expectedYaw": -0.004825823831431247,
+    "yaw": -0.004825823831431247,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    }
+  },
+  "held": {
+    "tick": 7,
+    "clockTime": 7,
+    "visualTime": 7.088099999952316,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 0.08809999995231621,
+    "expectedYaw": -0.004825823831431247,
+    "yaw": -0.004825823831431247,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0,
+      "tray_ready": 1
+    }
+  },
+  "resumed": {
+    "tick": 8,
+    "clockTime": 8,
+    "visualTime": 8.045699999976158,
+    "status": "running",
+    "robot": "done",
+    "playing": false,
+    "playerTime": 0.5480219944491279,
+    "expectedYaw": -0.15,
+    "yaw": -0.15,
+    "attachments": [],
+    "signals": {
+      "robot_done": 1,
+      "tray_ready": 1
+    }
+  },
+  "reset": {
+    "tick": 0,
+    "clockTime": 0,
+    "visualTime": 0,
+    "status": "running",
+    "robot": "idle",
+    "playing": false,
+    "yaw": 0,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0
+    }
+  },
+  "timing": {
+    "grabGlobal": 7.24114114296513,
+    "tick": 72,
+    "clockTime": 7.2
+  },
+  "beforeGrab": {
+    "tick": 72,
+    "clockTime": 7.2,
+    "visualTime": 7.2,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 6.5,
+    "expectedYaw": 0.6871802506911953,
+    "yaw": 0.6871802506911953,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0,
+      "workpiece_ready": 1
+    }
+  },
+  "grabbed": {
+    "tick": 72,
+    "clockTime": 7.2,
+    "visualTime": 7.24314114296513,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 6.54314114296513,
+    "expectedYaw": 0.6871792925800837,
+    "yaw": 0.6871792925800837,
+    "attachments": [
+      {
+        "object": "pick_box",
+        "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+      }
+    ],
+    "signals": {
+      "robot_done": 0,
+      "workpiece_ready": 1
+    }
+  },
+  "afterGrabTick": {
+    "tick": 73,
+    "clockTime": 7.300000000000001,
+    "visualTime": 7.300000000000001,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 6.6000000000000005,
+    "expectedYaw": 0.687199955533311,
+    "yaw": 0.687199955533311,
+    "attachments": [
+      {
+        "object": "pick_box",
+        "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+      }
+    ],
+    "signals": {
+      "robot_done": 0,
+      "workpiece_ready": 1
+    }
+  },
+  "finalReset": {
+    "tick": 0,
+    "clockTime": 0,
+    "visualTime": 0,
+    "status": "running",
+    "robot": "idle",
+    "playing": false,
+    "yaw": 0,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0
+    }
+  },
+  "secondRunVisual": {
+    "tick": 9,
+    "clockTime": 9,
+    "visualTime": 9.050099999952316,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 0.050099999952315954,
+    "expectedYaw": 0.04912161287297312,
+    "yaw": 0.04912161287297312,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0
+    }
+  },
+  "secondRunHeld": {
+    "tick": 9,
+    "clockTime": 9,
+    "visualTime": 9.050099999952316,
+    "status": "running",
+    "robot": "moving",
+    "playing": false,
+    "playerTime": 0.050099999952315954,
+    "expectedYaw": 0.04912161287297312,
+    "yaw": 0.04912161287297312,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0
+    }
+  },
+  "secondFinished": {
+    "tick": 13,
+    "clockTime": 13,
+    "visualTime": 13,
+    "status": "finished",
+    "robot": "done",
+    "playing": false,
+    "playerTime": 1.2656025840681584,
+    "expectedYaw": 0.05,
+    "yaw": 0.05,
+    "attachments": [],
+    "signals": {
+      "cycle_done": 1,
+      "robot_done": 1
+    }
+  },
+  "secondReset": {
+    "tick": 0,
+    "clockTime": 0,
+    "visualTime": 0,
+    "status": "running",
+    "robot": "idle",
+    "playing": false,
+    "yaw": 0,
+    "attachments": [],
+    "signals": {
+      "robot_done": 0
+    }
+  },
+  "pageErrors": []
+}

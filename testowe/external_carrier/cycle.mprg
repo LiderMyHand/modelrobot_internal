@@ -1,0 +1,11 @@
+PROGRAM carrier_drive
+MOVE_MODEL carrier X 0.2 TICKS 4
+SET carrier_ready 1
+END
+
+PROGRAM arm
+WAIT_SET carrier_ready TIMEOUT 20
+RUN_ROBOT
+WAIT_SET robot_done TIMEOUT 100
+SET cycle_done 1
+END

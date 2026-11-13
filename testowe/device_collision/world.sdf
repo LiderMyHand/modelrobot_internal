@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<sdf version="1.10">
+  <world name="device_sweep">
+    <model name="tray">
+      <static>false</static><pose>0 1 0.2 0 0 0</pose>
+      <link name="body"><visual name="tray_visual"><geometry><box><size>0.12 0.16 0.08</size></box></geometry></visual>
+        <collision name="tray_collision"><geometry><box><size>0.12 0.16 0.08</size></box></geometry></collision></link>
+    </model>
+    <model name="wall">
+      <static>true</static><pose>0.5 1 0.2 0 0 0</pose>
+      <link name="body"><visual name="wall_visual"><geometry><box><size>0.10 0.24 0.24</size></box></geometry></visual>
+        <collision name="wall_collision"><geometry><box><size>0.10 0.24 0.24</size></box></geometry></collision></link>
+    </model>
+  </world>
+</sdf>

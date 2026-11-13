@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<sdf version="1.10">
+  <world name="carrier_classroom">
+    <model name="carrier">
+      <static>false</static><pose>0 0 -0.15 0 0 0</pose>
+      <link name="deck"><visual name="deck_visual"><geometry><box><size>0.30 0.30 0.10</size></box></geometry>
+        <material><diffuse>0.20 0.45 0.72 1</diffuse></material></visual>
+        <collision name="deck_collision"><geometry><box><size>0.30 0.30 0.10</size></box></geometry></collision>
+        <!-- The mount bracket intentionally overlaps only the URDF fixed base collision. -->
+        <collision name="mount_bracket_collision"><pose>-0.12 0 0.22 0 0 0</pose>
+          <geometry><box><size>0.08 0.12 0.06</size></box></geometry></collision></link>
+    </model>
+  </world>
+</sdf>

@@ -1,0 +1,52 @@
+# Teach pendant and inverse velocity IK review
+
+Date: 2026-11-13. Scope: `classroom_six_axis_arm` and other serial URDF chains in the browser workcell. This is a read-only design audit for the requested manual Cartesian jog. It does not approve continuous hardware motion or physical safety claims.
+
+## Existing paths
+
+- Joint sliders already live in **Joints**; `frontend/workcell-ui.js` invalidates a stale plan when manual control begins. `applyNamedJointState` commits named joint values and updates world matrices. A pendant should use this path to keep slider numbers, robot geometry, and attached objects in sync.
+- **Program → Drive TCP to a pose** now emits `POSE goal_pose world ...` for an absolute target or `POSE goal_pose tool ...` for a target relative to the current selected TCP. `planCurrentProgram({preserveCurrentState:true})` solves full position-and-orientation IK and creates a timed PTP or LIN plan. That is discrete endpoint IK, not inverse velocity kinematics.
+- `createRobotModel` gathers the active serial chain, base transform and tool transform. `forwardKinematics(model,q,{frames:true})` returns each active joint's world origin, world axis, and type. Those are sufficient for a geometric Jacobian at the TCP. `resolveMotionLimits` gives each active joint's positive velocity bound, using URDF velocity where supplied and documented simulation defaults otherwise.
+- `createPlanningCollisionScene` checks the actual URDF/SDF collision geometry and carried objects through `isStateValid(q)`, and must be disposed after use. There is no public joint-edge check method on that scene; a jog can check intermediate joint states itself with bounded increments.
+- The planar four-bar uses a separate one-input closure solver. A generic serial Jacobian jog must be disabled for that fixture unless it maps the independent coordinate and passive derivatives correctly.
+
+## Pendant contract
+
+Use one selected TCP link and six axes: `+/- X,Y,Z` in metres and `+/- Rx,Ry,Rz` in radians. A **World / Tool** selector specifies the coordinate axes of the commanded TCP velocity. Tool axes rotate by the *current* TCP quaternion on every jog increment; world axes stay fixed. Because both velocity vectors are specified at the TCP point, rotate their linear and angular parts without a translational adjoint term. Show the resulting actual TCP world pose and joint values after every accepted step. Distinguish `Read current TCP`, which resets the relative form, from a jog that changes the live robot.
+
+The safe minimal classroom control is a click step with configurable translation and rotation increments and a displayed velocity scale. For an optional hold-to-jog control, recompute from the current state each animation tick and stop on pointer/key release, pointer cancellation, tab blur, visibility loss, stale scene/robot, collision, joint limit, or solver failure. A hold mode should ramp commanded velocity under acceleration limits; merely repeating clicks at frame rate would not model acceleration. Avoid calling the full program Worker for every tick.
+
+At each increment, compute the world TCP twist, solve `J(q) qdot ≈ V` by damped least squares, and scale **all** joint velocities by one factor if any joint speed bound is reached, preserving the commanded direction. Report achieved twist `J qdot` and its residual. Near a singularity, damping permits a smaller feasible twist; report that reduction rather than claiming exact motion. Bound the integrated joint step, reject joint-limit crossing, check the start/end and samples along the short joint edge (for example at most 0.02 rad revolute or 0.005 m prismatic per sample), then commit. The resulting finite Cartesian step is approximate because velocity IK is differential. An optional seeded endpoint pose IK correction can improve a click step, but it should not silently change an intentionally constrained Cartesian path.
+
+Before a jog, stop CSV/pose tool and shared/triggered runs, abort pending planning, and invalidate any displayed plan with `restoreStart:false`. Otherwise `invalidatePlan()` may reset the robot to the old program start, and a pending Worker result could overwrite the jog state. A rejected increment must leave the robot and attached objects unchanged and show a concrete reason. Unknown collision geometry should fail closed, matching the existing planner.
+
+## Recommended browser evidence
+
+1. Load the six-axis classroom example, open the pendant, select `tcp_link`, and record the home world TCP pose and joint values.
+2. Apply one small world `+Y` jog and compare measured TCP displacement with the requested direction and the returned achieved twist. Use a non-singular configuration for this check.
+3. Rotate the arm, then apply tool `+X` and prove the world displacement follows the rotated TCP X axis rather than world X.
+4. Seek a planned trajectory to a non-start state, jog once, and prove the robot starts from that displayed state and the old plan becomes invalid.
+5. Command a limit or obstacle-blocked jog and prove no state change; inspect a screenshot of the pendant and arm. Repeat at least one click in direct `file://` mode if the pendant uses any Worker or fetched asset.
+
+The current static workcell already has a direct browser test in `tests/direct-pose.test.cjs` for world and tool **pose** commands. Velocity IK and live jog need separate tests: do not infer differential correctness from that endpoint test.
+
+## Final implementation review
+
+The implemented `frontend/planning/velocity-ik.js` builds the expected geometric Jacobian from `forwardKinematics(...,{frames:true})`, rotates a TCP-local twist into world axes, and returns bounded damped-least-squares rates with achieved twist and residual. `frontend/workcell-ui.js` applies only `status: 'solved'` steps, samples the short joint edge for collisions before committing, disposes the collision scene, rejects the four-bar serial jog, and invalidates a stale plan without restoring its old start. The visible Program-panel pendant has six signed axes, World/Current TCP frame selection, speed and step fields, actual TCP/joint readout, hold buttons, and editable pose/joint teaching. I inspected `notes/artifacts/teach_pendant.png`: the controls and arm are present and legible. I also inspected `notes/artifacts/four_bar_loaded_top.png` and `four_bar_loaded_iso.png`: the top-opening camera and visual-only hinge pins make the formerly detached-looking four-bar read as a closed linkage.
+
+Two material limits remain:
+
+1. A held button executes one `dt` integration step every fixed **120 ms** (`setInterval` in `WorkcellUI.init`). The UI labels the twist magnitude as m/s or rad/s, but wall-clock jogging speed is approximately requested speed × `dt / 0.12`. With the default `dt=0.1` this is about 0.83×; with the permitted maximum `dt=0.25` it is about 2.08×. The first step also occurs at pointer-down before the 320 ms repeat delay, and stopping is abrupt. To make the speed control physically meaningful, use measured elapsed time per held increment (with a cap for long frames) and an acceleration-limited ramp, or clearly label hold as repeated discrete steps rather than continuous velocity jogging.
+2. `notes/scripts/check_teach_pendant.cjs` proves one world jog, one tool jog, hold repetition, taught targets, and rejection of an invalid speed; its SDF world is deliberately empty. It does **not** prove collision-blocked state remains unchanged in the classroom workcell or that a preexisting plan is invalidated from a non-start display pose. Those are important regression checks for the promised scene-collision and manual-takeover behavior. The stored `teach_pendant.json` shows one world +Z step of about 3 mm and a tool +X step with small twist residuals, but it does not by itself prove a collision case.
+
+The browser screenshot and code support calling this an educational, sampled-collision pendant. They do not support describing hold speed as an accurate continuous controller or claiming physical acceleration limits.
+
+## Final unified-keypad review and resolution
+
+The later implementation adds one keypad with **Joint → World TCP → Tool TCP** modes through the `COORD` button and the mode selector. Joint mode maps the selected TCP chain's active joints onto `J1`–`J6`, uses an explicit percentage of each resolved velocity limit, rejects a position-limit crossing, and calls the same sampled collision edge check before applying. The panel can detach, drag, resize, remain available while another tab is open, and dock again. I inspected `notes/artifacts/teach_pendant_joint.png`, `teach_pendant_detached.png`, and the final `teach_pendant.png`; labels, signed buttons, scene, and panel placement are legible.
+
+The previous hold-rate concern is resolved for the **documented discrete-step behavior**: the repeat timer now uses the selected step duration (`dt × 1000` ms) rather than a fixed 120 ms. There is still a 320 ms initial repeat delay and no acceleration ramp, both disclosed as a kinematic teaching control rather than a continuous motor servo. This does not warrant a first-release blocker. As with any browser timer, a busy or backgrounded tab can run slower than the nominal interval; visibility loss stops the hold.
+
+The updated Chromium script now covers the missing safety and takeover cases. It seeks a planned trajectory to a midpoint, jogs from that displayed joint state, and asserts the old plan is invalidated without a reset. It then loads the classroom SDF, confirms a clear jog, adds a small collision sphere to that scene, and verifies the next jog is blocked at sample 1/2 with **all joints unchanged**. The trace `notes/artifacts/teach_pendant.json` records those states with no page errors. It also tests COORD cycling, joint mode, detached jog, drag, dock, world/tool modes, and taught targets. The final suite log `notes/artifacts/test_full_pendant_final.log` reports **220 passed, 0 failed**. The four-bar top and isometric screenshots still show a visually joined mechanism.
+
+No remaining material bug was found in the requested six-axis classroom path. The keypad exposes six joint rows, so a serial chain with more than six active joints needs a future paging or scrolling design; that does not affect the six-axis fixture. The latest `notes/2026-11-13_teach_pendant.md` and decision/task rows D-33/T-33 now describe the unified modes, detachable panel, user-provided keypad reference, and collision/takeover browser evidence consistently with the implementation.

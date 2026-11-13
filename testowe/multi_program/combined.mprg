@@ -1,0 +1,12 @@
+# The conveyor starts after the planned robot trajectory has finished.
+PROGRAM feeder
+WAIT_SET robot_done TIMEOUT 80
+SET start 1
+WAIT_SET arrived TIMEOUT 12
+END
+
+PROGRAM conveyor
+WAIT_SET start TIMEOUT 80
+MOVE_MODEL tray X 0.65 TICKS 4
+SET arrived 1
+END

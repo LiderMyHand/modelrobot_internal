@@ -1,0 +1,85 @@
+{
+  "stopped": {
+    "status": "planned",
+    "boundary": 1.5500639951125732,
+    "sample": {
+      "time": 1.5500639951125732,
+      "q": [
+        0.39999100000000004,
+        0,
+        0.49981999999999993
+      ],
+      "velocity": [
+        0,
+        0,
+        0
+      ],
+      "acceleration": [
+        0,
+        0,
+        0
+      ]
+    },
+    "actual": [
+      0.39999100000000004,
+      0,
+      0.49981999999999993
+    ],
+    "blends": [],
+    "duration": 2.66582861171863,
+    "sampleCount": 1107,
+    "strictStamps": true,
+    "label": "Planned 2 move(s) over 2.67 s; 1107 timed samples. Blue line shows the TCP path."
+  },
+  "blended": {
+    "status": "planned",
+    "boundary": 4.357026194637289,
+    "sample": {
+      "time": 4.357026194637289,
+      "q": [
+        0.3901558711488226,
+        0.009843380073935057,
+        0.522943210467402
+      ],
+      "velocity": [
+        0.0704709716404964,
+        0.07216063475973351,
+        0.30337525745542593
+      ],
+      "acceleration": [
+        -0.09865251039649069,
+        0.04705246730835604,
+        -0.7237515698283696
+      ]
+    },
+    "actual": [
+      0.3901558711488226,
+      0.009843380073935057,
+      0.522943210467402
+    ],
+    "blends": [
+      {
+        "afterLine": 8,
+        "beforeLine": 9,
+        "radius": 0.07,
+        "entryTime": 3.999799966437405,
+        "boundaryTime": 4.357026194637289,
+        "exitTime": 4.742846619762844,
+        "maxWaypointDistance": 0.05250065063272452,
+        "speedFraction": 0.2022501716369506,
+        "maxAngularSpeedBound": 0.45769433234938783,
+        "orientationTransitionAngle": 0.22312500000000007,
+        "requiredFractions": [
+          0.5791666666666666,
+          0.6666666666666666,
+          0.7541666666666665
+        ]
+      }
+    ],
+    "duration": 7.373916960421622,
+    "sampleCount": 8065,
+    "strictStamps": true,
+    "label": "Planned 2 move(s) over 7.37 s; 8065 timed samples; 1 Cartesian flyby corner(s). Blue line shows the TCP path."
+  },
+  "pageErrors": []
+}

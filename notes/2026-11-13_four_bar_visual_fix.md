@@ -1,0 +1,9 @@
+# Four-bar example presentation fix
+
+Date: 2026-11-13. A user screenshot showed four apparently detached bars immediately after **Load four-bar example**. The closure solver was correct: the cut-tip world positions coincided to floating-point precision in the browser trace. The example opened nearly edge-on and the bar collision/visual solids sit at four separate Z layers, so their intentionally separated faces looked like unrelated pieces.
+
+`loadFourBarExample()` now selects a top camera view before fitting the workcell. The fixture URDF also adds four **visual-only** vertical hinge pins: two at the grounded pivots, one at the input/coupler elbow, and one at the coincident cut tips. Their geometry bridges the Z layers in an isometric view; it does not add joints or collision geometry. The descriptor still joins the two distinct `C_left`/`C_right` cut-tree frames by solving the passive angles from the single input angle.
+
+`notes/artifacts/four_bar_loaded_top.png` and `four_bar_loaded_iso.png` were captured after clicking the actual example button in Chromium and inspected. Both show one visibly connected four-bar. `tests/four-bar-browser.test.cjs` now checks that the example button loads a constrained model, selects top view, and creates the pin visuals before continuing its original closure, fractional playback, slider, and ZIP checks. The example status and nearby copy explain that the input slider drives the passive coupler and output.
+
+The feedback panel added later exposed a transient robot-switch bug: it tried to read the previous robot's selected TCP while the four-bar was loading, which the generic constraint catch interpreted as closure failure. `refreshPendantFeedback()` now waits for the selected link frame to exist in the new robot. `loadFourBarExample()` also reports a failed constraint installation directly instead of masking it with a success status. The combined four-bar/pendant Chromium tests pass.

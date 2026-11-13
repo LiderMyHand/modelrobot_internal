@@ -1,0 +1,69 @@
+{
+  "url": "file:///media/duzy/robot_easy/modelrobot_internal/standalone.html",
+  "allowFile": false,
+  "loaded": true,
+  "planning": {
+    "status": "Ready at program start.",
+    "plan": {
+      "moves": [
+        "PTP",
+        "CIRC",
+        "LIN"
+      ],
+      "samples": 2317,
+      "interpolation": {
+        "index": 151,
+        "time": 2.7022092221700458,
+        "planned": 0.9538714681385786,
+        "linear": 0.9538070089412622,
+        "difference": 0.00006445919731634664,
+        "rendered": 0.9538714681385786
+      },
+      "playback": {
+        "start": [
+          0.42,
+          0.16,
+          0.765
+        ],
+        "carried": {
+          "attachments": [
+            {
+              "object": "pick_box",
+              "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+            }
+          ],
+          "position": [
+            0.750465201430029,
+            0.02307316433602297,
+            1.101152050137528
+          ]
+        },
+        "placed": {
+          "attachments": [],
+          "position": [
+            0.8399172732116529,
+            -0.1599906841572614,
+            0.7850229146986595
+          ]
+        },
+        "reset": {
+          "attachments": [],
+          "position": [
+            0.42,
+            0.16,
+            0.765
+          ]
+        }
+      }
+    }
+  },
+  "projectRoundTrip": {
+    "robot": "classroom_six_axis_arm",
+    "objects": 4,
+    "programHasCircle": true
+  },
+  "errors": [],
+  "consoleErrors": [],
+  "failed": [],
+  "externalRequests": []
+}

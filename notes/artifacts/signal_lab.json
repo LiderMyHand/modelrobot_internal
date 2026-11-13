@@ -1,0 +1,182 @@
+{
+  "finished": {
+    "state": {
+      "tick": 6,
+      "signals": {
+        "conv_done": 0,
+        "rob_out": 0
+      },
+      "devices": {},
+      "programs": [
+        {
+          "name": "conveyor",
+          "commands": [
+            {
+              "kind": "WAIT_SIGNAL_SET",
+              "signal": "rob_out",
+              "line": 9,
+              "timeoutTicks": 12
+            },
+            {
+              "kind": "SET_SIGNAL",
+              "signal": "rob_out",
+              "line": 10,
+              "value": 0
+            },
+            {
+              "kind": "SET_SIGNAL",
+              "signal": "conv_done",
+              "line": 11,
+              "value": 1
+            }
+          ],
+          "pc": 3,
+          "waitTicks": 0,
+          "status": "finished"
+        },
+        {
+          "name": "robot",
+          "commands": [
+            {
+              "kind": "SET_SIGNAL",
+              "signal": "rob_out",
+              "line": 3,
+              "value": 1
+            },
+            {
+              "kind": "WAIT_SIGNAL_SET",
+              "signal": "conv_done",
+              "line": 4,
+              "timeoutTicks": 12
+            },
+            {
+              "kind": "SET_SIGNAL",
+              "signal": "conv_done",
+              "line": 5,
+              "value": 0
+            }
+          ],
+          "pc": 3,
+          "waitTicks": 0,
+          "status": "finished"
+        }
+      ],
+      "status": "finished",
+      "diagnostics": []
+    },
+    "trace": [
+      {
+        "tick": 0,
+        "program": "conveyor",
+        "pc": 0,
+        "kind": "WAIT_SIGNAL_SET",
+        "signal": "rob_out",
+        "line": 9,
+        "outcome": "blocked",
+        "observed": 0,
+        "waitTicks": 1
+      },
+      {
+        "tick": 0,
+        "program": "robot",
+        "pc": 0,
+        "kind": "SET_SIGNAL",
+        "signal": "rob_out",
+        "line": 3,
+        "outcome": "set",
+        "value": 1
+      },
+      {
+        "tick": 1,
+        "program": "conveyor",
+        "pc": 0,
+        "kind": "WAIT_SIGNAL_SET",
+        "signal": "rob_out",
+        "line": 9,
+        "outcome": "satisfied",
+        "observed": 1
+      },
+      {
+        "tick": 1,
+        "program": "robot",
+        "pc": 1,
+        "kind": "WAIT_SIGNAL_SET",
+        "signal": "conv_done",
+        "line": 4,
+        "outcome": "blocked",
+        "observed": 0,
+        "waitTicks": 1
+      },
+      {
+        "tick": 2,
+        "program": "conveyor",
+        "pc": 1,
+        "kind": "SET_SIGNAL",
+        "signal": "rob_out",
+        "line": 10,
+        "outcome": "set",
+        "value": 0
+      },
+      {
+        "tick": 2,
+        "program": "robot",
+        "pc": 1,
+        "kind": "WAIT_SIGNAL_SET",
+        "signal": "conv_done",
+        "line": 4,
+        "outcome": "blocked",
+        "observed": 0,
+        "waitTicks": 2
+      },
+      {
+        "tick": 3,
+        "program": "conveyor",
+        "pc": 2,
+        "kind": "SET_SIGNAL",
+        "signal": "conv_done",
+        "line": 11,
+        "outcome": "set",
+        "value": 1
+      },
+      {
+        "tick": 3,
+        "program": "robot",
+        "pc": 1,
+        "kind": "WAIT_SIGNAL_SET",
+        "signal": "conv_done",
+        "line": 4,
+        "outcome": "blocked",
+        "observed": 0,
+        "waitTicks": 3
+      },
+      {
+        "tick": 4,
+        "program": "robot",
+        "pc": 1,
+        "kind": "WAIT_SIGNAL_SET",
+        "signal": "conv_done",
+        "line": 4,
+        "outcome": "satisfied",
+        "observed": 1
+      },
+      {
+        "tick": 5,
+        "program": "robot",
+        "pc": 2,
+        "kind": "SET_SIGNAL",
+        "signal": "conv_done",
+        "line": 5,
+        "outcome": "set",
+        "value": 0
+      }
+    ],
+    "status": "Tick 6 · finished · conv_done=0, rob_out=0"
+  },
+  "reopened": {
+    "source": "# Signal-only robot/conveyor handshake. A device and motion adapter are still pending.\nPROGRAM robot\nSET rob_out 1\nWAIT_SET conv_done TIMEOUT 12\nSET conv_done 0\nEND\n\nPROGRAM conveyor\nWAIT_SET rob_out TIMEOUT 12\nSET rob_out 0\nSET conv_done 1\nEND\n",
+    "state": null,
+    "robot": "classroom_six_axis_arm"
+  },
+  "pageErrors": [],
+  "timeoutStatus": "Tick 2 · timeout"
+}

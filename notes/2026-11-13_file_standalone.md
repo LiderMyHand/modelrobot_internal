@@ -1,0 +1,11 @@
+# Ordinary file launch and bundled examples
+
+Date: 2026-11-13. This resolves the literal no-server requirement in `AGENTS.md` for the first-release workcell.
+
+Ordinary Chromium treats `file://` pages as opaque origins. The earlier standalone page issued a startup XHR for `testowe/pi_robot_urdf.xml`, so it never initialized without a local static server. A sibling `file://` planning Worker also cannot be relied on under the default browser security policy. The runtime bundle now contains the default Pi URDF; `coffee/scene.litcoffee` uses that copy only for file-origin startup. The planning client performs the same snapshot/restoration/planner operation locally on the main thread under `file://` or when Worker is unavailable. HTTP use still starts a cancellable planning Worker. A long file-origin plan can briefly block UI input; this is a performance limit, not a planning-algorithm change.
+
+`frontend/example-text.js` embeds the advertised `testowe/` text examples in the bundle. `Workspace` and `WorkcellUI` read that allowlist under `file://`; under HTTP they fetch the served fixture so edits take effect without rebuilding. Unknown paths fail visibly. Local URDF/SDF/ZIP inputs continue to use browser file APIs, and project/trajectory exports use browser Blob downloads. The static bundle contains no server call for the default classroom flow.
+
+`tests/file-launch-browser.test.cjs` opens `standalone.html` through an ordinary `file://` URL with no special browser flags, clicks **Load pick-and-place example**, plans PTP→CIRC→LIN with 2317 samples, confirms a fractional displayed joint follows quintic replay, observes GRAB carry, RELEASE placement, and Reset, downloads and reopens the project ZIP, and checks robot, program, and four SDF objects. `notes/artifacts/file_launch_default.json` records no external HTTP requests, failed requests, page errors, or console errors. `notes/artifacts/file_launch_export.zip` is the resulting archive. `tests/example-text.test.cjs` verifies bundled path resolution and rejection of unlisted paths.
+
+This proves the advertised classroom workflow directly from disk. Hosted static HTTP remains the preferred mode for responsive Worker cancellation and fresh fixture loading. No ROS 2 or application backend is required in either mode.

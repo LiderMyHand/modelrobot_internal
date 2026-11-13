@@ -525,9 +525,17 @@
     // *changeval* is method to control joint from this object, if updateController is false it will just use movejoint method. Otherwise, it will also update the state of slider and state of itself - this is used when this method is accessed from the outside, not from onChange event.
     // Checks about validity of movement are made inside @joint, we just check whether it succeeded
     changeval(value, updateController = false) {
-      var ref3;
-      if ((ref3 = App.poseTool) != null) {
-        ref3.finish();
+      var ref3, ref4, ref5;
+      if ((ref3 = App.workcellUI) != null) {
+        ref3.manualControlStarted();
+      }
+      if ((ref4 = App.poseTool) != null) {
+        ref4.finish();
+      }
+      if ((ref5 = App.workcellUI) != null ? ref5.applyManualJoint(this.joint.get("name"), value) : void 0) {
+        this.dummy["val"] = this.joint.theta;
+        this.controller.updateDisplay();
+        return this;
       }
       //if (@joint.upper >= value >= @joint.lower)
       if (this.joint.movejoint(value)) {
@@ -660,7 +668,7 @@
       }
 
       newRobot() {
-        var collisionIssues, editorCursor, editorScroll, error, issue, j, len, opening, poses;
+        var collisionIssues, editorCursor, editorScroll, error, issue, j, len, opening, poses, ref4, ref5, ref6;
         try {
           App.localRobots.validate(this.model.attributes.urdf);
         } catch (error1) {
@@ -678,11 +686,17 @@
             }
           });
         }
+        if ((ref4 = App.workcellUI) != null) {
+          ref4.invalidatePlan();
+        }
         editorCursor = this.myCodeMirror.getCursor();
         editorScroll = this.myCodeMirror.getScrollInfo();
         App.animform.stop();
         App.localRobots.messages = [];
         App.collisions.clear();
+        if ((ref5 = App.workcellUI) != null) {
+          ref5.beforeRobotReparse();
+        }
         if (window.robotlinkcollection != null) {
           window.clearall(window.scene, window.robot, window.robotjointcollection, window.robotlinkcollection);
         }
@@ -720,6 +734,9 @@
           this.myCodeMirror.save();
           $('#visible').prop('checked', this.model.attributes.visible);
           App.localRobots.loaded(this.model.attributes.urdf);
+          if ((ref6 = App.workcellUI) != null) {
+            ref6.onRobotLoaded(this.model.attributes.urdf);
+          }
           if (App.workspace.animationStatus()) {
             return App.animform.prepareArraysfromCSV($('#robotcsv').val());
           }

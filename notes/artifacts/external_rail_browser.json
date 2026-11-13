@@ -1,0 +1,77 @@
+{
+  "result": {
+    "status": "planned",
+    "names": [
+      "rail_slide",
+      "shoulder",
+      "elbow"
+    ],
+    "initial": [
+      0,
+      0,
+      0
+    ],
+    "far": [
+      0.3499993771498348,
+      0,
+      0
+    ],
+    "final": [
+      0.45,
+      0.4,
+      -0.4
+    ],
+    "duration": 3.7735426374450753,
+    "middleRail": 0.29506811568915486,
+    "carriageX": 0.29506811568915486,
+    "finalJointValues": [
+      0.45,
+      0.4,
+      -0.4
+    ],
+    "tipPosition": [
+      0.9302652485007212,
+      0.09735458557716263,
+      0.1
+    ],
+    "rosNames": [
+      "rail_slide",
+      "shoulder",
+      "elbow"
+    ],
+    "limitDetails": [
+      {
+        "name": "rail_slide",
+        "velocity": 0.25,
+        "acceleration": 0.5,
+        "velocitySource": "URDF",
+        "accelerationSource": "simulation default"
+      },
+      {
+        "name": "shoulder",
+        "velocity": 1,
+        "acceleration": 2,
+        "velocitySource": "URDF",
+        "accelerationSource": "simulation default"
+      },
+      {
+        "name": "elbow",
+        "velocity": 1,
+        "acceleration": 2,
+        "velocitySource": "URDF",
+        "accelerationSource": "simulation default"
+      }
+    ],
+    "strictlyIncreasingTime": true,
+    "maxRailVelocity": 0.24509803921568626,
+    "maxRailAcceleration": 0.4803372937288811,
+    "label": "Playback finished."
+  },
+  "unreachable": {
+    "hasPlan": false,
+    "diagnostics": [
+      "Line 4: PTP: No joint configuration met the position and orientation tolerances.."
+    ]
+  },
+  "pageErrors": []
+}

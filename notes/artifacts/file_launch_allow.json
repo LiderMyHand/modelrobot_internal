@@ -1,0 +1,19 @@
+{
+  "url": "file:///media/duzy/robot_easy/modelrobot_internal/standalone.html",
+  "allowFile": true,
+  "loaded": true,
+  "planning": {
+    "status": "Planned 3 move(s) over 11.99 s; 2295 timed samples. Blue line shows the TCP path.",
+    "plan": {
+      "moves": [
+        "PTP",
+        "CIRC",
+        "LIN"
+      ],
+      "samples": 2295
+    }
+  },
+  "errors": [],
+  "consoleErrors": [],
+  "failed": []
+}

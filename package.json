@@ -2,11 +2,13 @@
   "name": "mymodelrobot",
   "private": true,
   "scripts": {
-    "build": "coffee --compile --output scripts coffee/modelrobot.litcoffee coffee/parserobot.litcoffee coffee/scene.litcoffee && esbuild frontend/runtime.js --bundle --minify --format=iife --outfile=scripts/runtime.bundle.js",
-    "test": "node --test tests/*.test.cjs"
+    "build": "coffee --compile --output scripts coffee/modelrobot.litcoffee coffee/parserobot.litcoffee coffee/scene.litcoffee && esbuild frontend/runtime.js --bundle --minify --format=iife --loader:.xml=text --loader:.urdf=text --loader:.sdf=text --loader:.robot=text --loader:.mprg=text --loader:.txt=text --outfile=scripts/runtime.bundle.js && esbuild frontend/planning/worker-entry.js --bundle --minify --format=iife --outfile=scripts/planning-worker.bundle.js",
+    "test": "node --test --test-concurrency=4 tests/*.test.cjs"
   },
   "dependencies": {
-    "three": "0.187.0"
+    "fflate": "^0.8.3",
+    "three": "0.187.0",
+    "three-mesh-bvh": "^0.9.18"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

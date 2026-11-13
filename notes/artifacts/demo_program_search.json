@@ -1,0 +1,91 @@
+{
+  "status": "Ready at program start.",
+  "planStatus": "Planned 3 move(s) over 31.39 s; 3281 timed samples. Blue line shows the TCP path.",
+  "workcellStatus": "Loaded 4 scene object(s); 1 issue(s): Dynamic physics is unsupported; model is kinematically placed.",
+  "plans": [
+    {
+      "line": 9,
+      "type": "PTP",
+      "duration": 6.54114114296513,
+      "internalStops": false
+    },
+    {
+      "line": 11,
+      "type": "CIRC",
+      "duration": 23.840469847161874,
+      "internalStops": false
+    },
+    {
+      "line": 12,
+      "type": "LIN",
+      "duration": 1.0102505424602963,
+      "internalStops": false
+    }
+  ],
+  "events": [
+    {
+      "time": 6.54114114296513,
+      "kind": "GRAB",
+      "object": "pick_box",
+      "frame": "robot/classroom_six_axis_arm/link/tcp_link",
+      "line": 10
+    },
+    {
+      "time": 31.3918615325873,
+      "kind": "RELEASE",
+      "object": "pick_box",
+      "frame": "robot/classroom_six_axis_arm/link/tcp_link",
+      "line": 13
+    }
+  ],
+  "duration": 31.3918615325873,
+  "sampleCount": 3281,
+  "playback": {
+    "initial": [
+      0.42,
+      0.16,
+      0.765
+    ],
+    "afterGrab": {
+      "box": [
+        0.42000000009540134,
+        0.1600000012422566,
+        0.7650000022727123
+      ],
+      "tcp": [
+        0.35499629410693223,
+        0.16000810022900933,
+        0.7800026492346464
+      ],
+      "graspSurfaceDistance": 0.025003705988469106,
+      "attachments": [
+        {
+          "object": "pick_box",
+          "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+        }
+      ]
+    },
+    "atEnd": {
+      "box": [
+        0.8399172732116529,
+        -0.1599906841572614,
+        0.7850229146986595
+      ],
+      "attachments": [],
+      "state": "finished"
+    },
+    "reset": [
+      0.42,
+      0.16,
+      0.765
+    ]
+  },
+  "diagnostics": [],
+  "pageErrors": [],
+  "proximityRejection": {
+    "status": "Line 9: GRAB pick_box is 0.516 m from the TCP; bring the TCP within 0.040 m of its collision surface.",
+    "diagnostics": [
+      "Line 9: GRAB pick_box is 0.516 m from the TCP; bring the TCP within 0.040 m of its collision surface."
+    ]
+  }
+}

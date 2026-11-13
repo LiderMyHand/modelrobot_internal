@@ -1,0 +1,20 @@
+# Sub-tick triggered playback review — 2026-11-13
+
+Read-only review of `frontend/workcell-ui.js`, `notes/2026-11-13_subtick_visual_design.md`, the Chromium probe, trace, and screenshots. I ran `node --test tests/subtick-playback-browser.test.cjs tests/triggered-clock.test.cjs tests/two-request-browser.test.cjs`: **16/16 passed**. Chromium reported no page errors. No implementation blocker found in the tested path.
+
+## Confirmed behavior
+
+- The triggered RAF owns visual time independently of `triggerClock.timeSeconds`. `renderTriggeredVisual()` clamps to the next logical boundary and seeks only forward in the active `ProgramPlayer`; it does not step signals or apply `MOVE_MODEL`. The callback commits at most one logical tick per frame and checks the captured generation both before and after awaiting a tick or Worker plan.
+- With a **1 s** tick in the RAF sampling phase, logical tick 7 remained at committed time **7.0 s** while visual time reached about **7.09 s**, player local time about **0.09 s**, and base yaw about **−0.006 rad**. Pause held that pose and time for 160 ms. Resume reached tick 8 at committed time **8.0 s**, with the robot already at its planned endpoint because that plan lasts about 0.548 s; Reset returned visual/committed time to zero and yaw to home.
+- The GRAB in the delivered-workpiece fixture occurs at global time **7.241141 s**. A display-only seek to **7.243141 s** attached `pick_box` to the TCP while the committed clock remained at tick 72 / **7.2 s**. The next Step advanced to tick 73 and retained the single attachment. Reset removed it. The two screenshots match the mid-robot and attached-object states; the numeric trace gives the precise timing evidence.
+- A Worker request freezes the triggered RAF because its callback awaits `advanceTriggeredTick()` and no new frame is scheduled meanwhile. Reset/source replacement invalidates the generation and aborts the Worker; an old callback checks generation after the await. For a later `RUN_ROBOT`, the existing controller replaces the player after planning and calculates local visual time from the new `robot.startTime`, so it does not rewind the old player.
+
+## Evidence limits and error semantics
+
+The dedicated sub-tick Chromium probe covers one robot request, Pause/Resume, Step, Reset, and a sub-tick GRAB. It does not itself exercise a second request through the RAF or a delayed Worker reset. Separate existing browser probes test two sequential requests and stale Worker rejection, but those use logical-tick stepping. A combined RAF probe would strengthen those interactions; code inspection found generation and player ownership checks in the relevant paths.
+
+If a tentative logical tick fails after the robot has been displayed partway through that interval, the UI leaves the already rendered pose in place, marks the clock error, and reports the later visual time (`max(clock.timeSeconds, triggerVisualTime)`). It deliberately does not rewind `ProgramPlayer`, which could restore an earlier scene snapshot and undo device motion. This behavior is described accurately in the design note. It is a visual-progress-before-error semantic, not an atomic rollback of the display.
+
+## Follow-up: second-run RAF playback
+
+The browser probe now loads the two-request fixture and observes run 2 through the RAF, also with a **1 s** tick. At tick 9, committed time remains **9.0 s** while visual time advances to about **9.09 s**, with the new player's local time about **0.09 s** and displayed yaw about **0.045 rad** matching `qAt(player.time)`. Pause holds that visual time and yaw; Resume reaches `finished` at tick 13 with `robot_done=1`, `cycle_done=1`, and yaw 0.05 rad. Reset returns tick and visual time to zero. I inspected `subtick_second_run.png` and reran `node --test tests/subtick-playback-browser.test.cjs` (**1/1 passed**). This closes the second-request-through-RAF evidence gap above. The delivered-workpiece GRAB phase still uses **0.1 s** ticks to establish event timing, and delayed Worker reset remains covered by the separate stale-result browser probe.

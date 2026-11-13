@@ -1,0 +1,1347 @@
+
+> test
+> node --test --test-concurrency=4 tests/*.test.cjs
+
+TAP version 13
+# Subtest: STL import, transforms, joints, trajectory, persistence, multiple robots, deletion and validation
+ok 1 - STL import, transforms, joints, trajectory, persistence, multiple robots, deletion and validation
+  ---
+  duration_ms: 3759.038964
+  type: 'test'
+  ...
+# Subtest: meter-scale robots fit the camera after file load and reopening
+ok 2 - meter-scale robots fit the camera after file load and reopening
+  ---
+  duration_ms: 1013.037939
+  type: 'test'
+  ...
+# Subtest: editing session, workspace tabs, keyboard Apply, save copy and camera gestures
+ok 3 - editing session, workspace tabs, keyboard Apply, save copy and camera gestures
+  ---
+  duration_ms: 2840.680908
+  type: 'test'
+  ...
+# Subtest: detached joints stay live alongside editing and animation, and can be moved, resized and docked
+ok 4 - detached joints stay live alongside editing and animation, and can be moved, resized and docked
+  ---
+  duration_ms: 2767.236043
+  type: 'test'
+  ...
+# Subtest: phone touch drags move docked and compact detached sliders without moving the camera
+ok 5 - phone touch drags move docked and compact detached sliders without moving the camera
+  ---
+  duration_ms: 3945.382353
+  type: 'test'
+  ...
+# Subtest: optional collision warnings, Pi demo poses, CSV motion and collision-only STL restoration
+ok 6 - optional collision warnings, Pi demo poses, CSV motion and collision-only STL restoration
+  ---
+  duration_ms: 6237.540487
+  type: 'test'
+  ...
+# Subtest: IK picks STL and primitive links, follows the cursor, changes depth, preserves branches and restores or commits poses
+ok 7 - IK picks STL and primitive links, follows the cursor, changes depth, preserves branches and restores or commits poses
+  ---
+  duration_ms: 1574.898169
+  type: 'test'
+  ...
+# Subtest: IK handles fixed picks, animation, manual controls, rebuilds and resizing without stale targets
+ok 8 - IK handles fixed picks, animation, manual controls, rebuilds and resizing without stale targets
+  ---
+  duration_ms: 1238.167588
+  type: 'test'
+  ...
+# Subtest: touch IK drags a segment and commits on release while keeping the camera steady
+ok 9 - touch IK drags a segment and commits on release while keeping the camera steady
+  ---
+  duration_ms: 930.289476
+  type: 'test'
+  ...
+# Subtest: moving a Pi elbow preserves forearm and hand configuration without spinning the elbow casing
+ok 10 - moving a Pi elbow preserves forearm and hand configuration without spinning the elbow casing
+  ---
+  duration_ms: 747.229927
+  type: 'test'
+  ...
+# Subtest: English/Polish switching translates UI and help while preserving drafts, CSV, pose, camera and saved names
+ok 11 - English/Polish switching translates UI and help while preserving drafts, CSV, pose, camera and saved names
+  ---
+  duration_ms: 1632.25858
+  type: 'test'
+  ...
+# Subtest: Polish dynamic messages cover IK, collisions, validation and saved preference after reload
+ok 12 - Polish dynamic messages cover IK, collisions, validation and saved preference after reload
+  ---
+  duration_ms: 1894.19731
+  type: 'test'
+  ...
+# Subtest: Polish controls fit phone and landscape viewports and language storage can be unavailable
+ok 13 - Polish controls fit phone and landscape viewports and language storage can be unavailable
+  ---
+  duration_ms: 1257.363147
+  type: 'test'
+  ...
+# Subtest: CSV pose capture preserves the header and first row, appends current columns and saves the result
+ok 14 - CSV pose capture preserves the header and first row, appends current columns and saves the result
+  ---
+  duration_ms: 2089.289912
+  type: 'test'
+  ...
+# Subtest: IK torso handle shows actual centre, requested position and an axial-rotation hint
+ok 15 - IK torso handle shows actual centre, requested position and an axial-rotation hint
+  ---
+  duration_ms: 1280.963243
+  type: 'test'
+  ...
+# Subtest: Help opens the bilingual CCD lesson with working step-by-step, constrained and touch-friendly exercises
+ok 16 - Help opens the bilingual CCD lesson with working step-by-step, constrained and touch-friendly exercises
+  ---
+  duration_ms: 7011.430318
+  type: 'test'
+  ...
+# Subtest: CCD lesson target can be dragged with touch on a phone
+ok 17 - CCD lesson target can be dragged with touch on a phone
+  ---
+  duration_ms: 2038.821849
+  type: 'test'
+  ...
+# Subtest: Chromium shows a bounded LIN-LIN ZONE flyby while ZONE 0 stops
+ok 18 - Chromium shows a bounded LIN-LIN ZONE flyby while ZONE 0 stops
+  ---
+  duration_ms: 3909.595736
+  type: 'test'
+  ...
+# Subtest: rotated boxes reject an AABB false positive; contact and containment are detected
+ok 19 - rotated boxes reject an AABB false positive; contact and containment are detected
+  ---
+  duration_ms: 38.985216
+  type: 'test'
+  ...
+# Subtest: primitive bounds, offsets, rotations and mirrored nonuniform mesh scales are respected
+ok 20 - primitive bounds, offsets, rotations and mirrored nonuniform mesh scales are respected
+  ---
+  duration_ms: 1.584682
+  type: 'test'
+  ...
+# Subtest: fixed assemblies, adjacent assemblies and shapes on the same link are excluded
+ok 21 - fixed assemblies, adjacent assemblies and shapes on the same link are excluded
+  ---
+  duration_ms: 1.462642
+  type: 'test'
+  ...
+# Subtest: highlighting isolates shared materials and child links, and restores and disposes overrides
+ok 22 - highlighting isolates shared materials and child links, and restores and disposes overrides
+  ---
+  duration_ms: 0.95131
+  type: 'test'
+  ...
+# Subtest: empty CSV starts a table; subsequent captures append without replacing header or first pose
+ok 23 - empty CSV starts a table; subsequent captures append without replacing header or first pose
+  ---
+  duration_ms: 4.741963
+  type: 'test'
+  ...
+# Subtest: current headers control column subset/order, timed and untimed rows, header-only CSV and line endings
+ok 24 - current headers control column subset/order, timed and untimed rows, header-only CSV and line endings
+  ---
+  duration_ms: 0.313851
+  type: 'test'
+  ...
+# Subtest: quoted headers are kept or escaped and invalid CSV is rejected
+ok 25 - quoted headers are kept or escaped and invalid CSV is rejected
+  ---
+  duration_ms: 0.493599
+  type: 'test'
+  ...
+# {"status":"passed","workerBoxX":0.42,"grabbedAt":7.300000000000001,"carriedBox":[0.43921422915849984,0.20157591464050517,0.8718403020237903],"placedBox":[0.8399172732116529,-0.1599906841572614,0.7850229146986595],"resetBox":[0.2,0.16,0.765],"pageErrors":[]}
+# Subtest: device delivers an SDF workpiece before Worker planning and robot pick/place in Chromium
+ok 26 - device delivers an SDF workpiece before Worker planning and robot pick/place in Chromium
+  ---
+  duration_ms: 5488.353467
+  type: 'test'
+  ...
+# {"status":"passed","x":{"initial":0.2,"middle":0.3125,"final":0.65,"reset":0.2,"reopened":0.65},"pageErrors":[]}
+# Subtest: concurrent program moves a scene device in Chromium and preserves its pose in ZIP
+ok 27 - concurrent program moves a scene device in Chromium and preserves its pose in ZIP
+  ---
+  duration_ms: 3229.370917
+  type: 'test'
+  ...
+# Subtest: scheduler world-axis model motion materializes in a transformed scene without rotating the model
+ok 28 - scheduler world-axis model motion materializes in a transformed scene without rotating the model
+  ---
+  duration_ms: 63.297472
+  type: 'test'
+  ...
+# Subtest: static and attached models are not movable; failed apply changes no model
+ok 29 - static and attached models are not movable; failed apply changes no model
+  ---
+  duration_ms: 1.916426
+  type: 'test'
+  ...
+# {"status":"passed","signal":"error","shared":"error","triggered":"error","trayX":0,"pageErrors":[]}
+# Subtest: Chromium rejects a scene device crossing a wall in all three run modes
+ok 30 - Chromium rejects a scene device crossing a wall in all three run modes
+  ---
+  duration_ms: 2734.013711
+  type: 'test'
+  ...
+# Subtest: sweep detects an obstacle between clear endpoint poses without mutating the scene
+ok 31 - sweep detects an obstacle between clear endpoint poses without mutating the scene
+  ---
+  duration_ms: 104.667255
+  type: 'test'
+  ...
+# Subtest: opposing same-tick model moves are evaluated at synchronized fractions
+ok 32 - opposing same-tick model moves are evaluated at synchronized fractions
+  ---
+  duration_ms: 4.328385
+  type: 'test'
+  ...
+# Subtest: a joined model descendant sweeps with its detached moving parent
+ok 33 - a joined model descendant sweeps with its detached moving parent
+  ---
+  duration_ms: 3.181296
+  type: 'test'
+  ...
+# Subtest: a mounted robot shape sweeps with its SDF carrier while joints stay fixed
+ok 34 - a mounted robot shape sweeps with its SDF carrier while joints stay fixed
+  ---
+  duration_ms: 2.759241
+  type: 'test'
+  ...
+# Subtest: a moving SDF model cannot sweep through a stationary robot link
+ok 35 - a moving SDF model cannot sweep through a stationary robot link
+  ---
+  duration_ms: 2.740717
+  type: 'test'
+  ...
+# Subtest: sample budget and stale origins fail before any viewer change
+ok 36 - sample budget and stale origins fail before any viewer change
+  ---
+  duration_ms: 1.095531
+  type: 'test'
+  ...
+# Subtest: unchanged former device may be attached after GRAB while another device moves
+ok 37 - unchanged former device may be attached after GRAB while another device moves
+  ---
+  duration_ms: 1.140145
+  type: 'test'
+  ...
+# Subtest: an unchanged tool-held object still blocks a different device sweep
+ok 38 - an unchanged tool-held object still blocks a different device sweep
+  ---
+  duration_ms: 2.073863
+  type: 'test'
+  ...
+# Subtest: world-frame angle-axis TCP control plans and drives a six-dimensional pose in Chromium
+ok 39 - world-frame angle-axis TCP control plans and drives a six-dimensional pose in Chromium
+  ---
+  duration_ms: 2910.389604
+  type: 'test'
+  ...
+# Subtest: every advertised Workcell and Workspace example resolves directly from the browser bundle
+ok 40 - every advertised Workcell and Workspace example resolves directly from the browser bundle
+  ---
+  duration_ms: 33.148112
+  type: 'test'
+  ...
+# Subtest: HTTP requests use the served text, while unknown or traversing paths fail before I/O
+ok 41 - HTTP requests use the served text, while unknown or traversing paths fail before I/O
+  ---
+  duration_ms: 0.815434
+  type: 'test'
+  ...
+# {"status":"passed","midpointBaseX":0.1,"plannedBaseX":0.2,"finalJointX":0.39999142857142855,"pageErrors":[]}
+# Subtest: Chromium carries a robot on a separately programmed SDF model and replans from the moved base
+ok 42 - Chromium carries a robot on a separately programmed SDF model and replans from the moved base
+  ---
+  duration_ms: 3908.75278
+  type: 'test'
+  ...
+# Subtest: a URDF external rail participates in browser IK, planning, trajectory and rendering
+ok 43 - a URDF external rail participates in browser IK, planning, trajectory and rendering
+  ---
+  duration_ms: 2750.578289
+  type: 'test'
+  ...
+# Subtest: standalone file launch plans and replays smooth motion without a server or browser flags
+ok 44 - standalone file launch plans and replays smooth motion without a server or browser flags
+  ---
+  duration_ms: 3453.866575
+  type: 'test'
+  ...
+# Subtest: four-bar project stays closed through browser plan, fractional playback, manual input and ZIP reopen
+ok 45 - four-bar project stays closed through browser plan, fractional playback, manual input and ZIP reopen
+  ---
+  duration_ms: 3717.163771
+  type: 'test'
+  ...
+# Subtest: worker and direct four-bar plans keep only the driver trajectory and close every sample
+ok 46 - worker and direct four-bar plans keep only the driver trajectory and close every sample
+  ---
+  duration_ms: 401.89731
+  type: 'test'
+  ...
+# Subtest: four-bar project descriptor validates cut-tree geometry and driver-only home before scene replacement
+ok 47 - four-bar project descriptor validates cut-tree geometry and driver-only home before scene replacement
+  ---
+  duration_ms: 824.661344
+  type: 'test'
+  ...
+# Subtest: four-bar validates cut tree and derives geometry from URDF origins
+ok 48 - four-bar validates cut tree and derives geometry from URDF origins
+  ---
+  duration_ms: 50.650836
+  type: 'test'
+  ...
+# Subtest: both branches close and expanded values are relative URDF angles
+ok 49 - both branches close and expanded values are relative URDF angles
+  ---
+  duration_ms: 2.846345
+  type: 'test'
+  ...
+# Subtest: passive rates and acceleration match centered differences
+ok 50 - passive rates and acceleration match centered differences
+  ---
+  duration_ms: 0.738079
+  type: 'test'
+  ...
+# Subtest: joint limits, impossible geometry, and toggle report typed failures
+ok 51 - joint limits, impossible geometry, and toggle report typed failures
+  ---
+  duration_ms: 0.534896
+  type: 'test'
+  ...
+# Subtest: full-pose IK recovers a reachable TCP and rejects an off-manifold target
+ok 52 - full-pose IK recovers a reachable TCP and rejects an off-manifold target
+  ---
+  duration_ms: 42.645273
+  type: 'test'
+  ...
+# Subtest: CCD reaches a target using only the picked limb and respects fixed-assembly branching
+ok 53 - CCD reaches a target using only the picked limb and respects fixed-assembly branching
+  ---
+  duration_ms: 70.492701
+  type: 'test'
+  ...
+# Subtest: transformed joint axes, off-origin picked points, and prismatic limits work
+ok 54 - transformed joint axes, off-origin picked points, and prismatic limits work
+  ---
+  duration_ms: 6.434788
+  type: 'test'
+  ...
+# Subtest: singular straight chains escape deterministically; unreachable targets remain bounded
+ok 55 - singular straight chains escape deterministically; unreachable targets remain bounded
+  ---
+  duration_ms: 11.398808
+  type: 'test'
+  ...
+# Subtest: continuous joints choose equivalent angles and unsupported chains fail clearly
+ok 56 - continuous joints choose equivalent angles and unsupported chains fail clearly
+  ---
+  duration_ms: 0.870428
+  type: 'test'
+  ...
+# Subtest: moving a middle link keeps its axial rotation and the distal bend configuration
+ok 57 - moving a middle link keeps its axial rotation and the distal bend configuration
+  ---
+  duration_ms: 4.961235
+  type: 'test'
+  ...
+# Subtest: a prismatic joint through a middle-link handle still translates and preserves downstream joints
+ok 58 - a prismatic joint through a middle-link handle still translates and preserves downstream joints
+  ---
+  duration_ms: 0.503367
+  type: 'test'
+  ...
+# Subtest: manual joint control clears playback and browser planning stays offline
+ok 59 - manual joint control clears playback and browser planning stays offline
+  ---
+  duration_ms: 2152.973099
+  type: 'test'
+  ...
+# Subtest: URDF mimic gripper follows its driver through controls, CSV and pose tool
+ok 60 - URDF mimic gripper follows its driver through controls, CSV and pose tool
+  ---
+  duration_ms: 2259.363707
+  type: 'test'
+  ...
+# Subtest: invalid mimic references, factors and dependency cycles are rejected before loading
+ok 61 - invalid mimic references, factors and dependency cycles are rejected before loading
+  ---
+  duration_ms: 408.55117
+  type: 'test'
+  ...
+# Subtest: mimic multiplier, offset and chained dependencies follow the driver
+ok 62 - mimic multiplier, offset and chained dependencies follow the driver
+  ---
+  duration_ms: 704.696565
+  type: 'test'
+  ...
+# Subtest: startup chooses a feasible nonzero driver pose through a mimic chain and rejects impossible limits
+ok 63 - startup chooses a feasible nonzero driver pose through a mimic chain and rejects impossible limits
+  ---
+  duration_ms: 807.357816
+  type: 'test'
+  ...
+# Subtest: URDF velocities and clearly labeled simulation defaults resolve in joint order
+ok 64 - URDF velocities and clearly labeled simulation defaults resolve in joint order
+  ---
+  duration_ms: 6.525889
+  type: 'test'
+  ...
+# Subtest: project settings override per joint and invalid limits fail
+ok 65 - project settings override per joint and invalid limits fail
+  ---
+  duration_ms: 0.576656
+  type: 'test'
+  ...
+# Subtest: compiles all signal commands with source lines and logical-tick timeouts
+ok 66 - compiles all signal commands with source lines and logical-tick timeouts
+  ---
+  duration_ms: 8.908082
+  type: 'test'
+  ...
+# Subtest: bundled robot/conveyor fixture completes reproducible signal handshake
+ok 67 - bundled robot/conveyor fixture completes reproducible signal handshake
+  ---
+  duration_ms: 1.582819
+  type: 'test'
+  ...
+# Subtest: rejects malformed blocks and duplicate program names with source locations
+ok 68 - rejects malformed blocks and duplicate program names with source locations
+  ---
+  duration_ms: 0.20769
+  type: 'test'
+  ...
+# Subtest: rejects expressions, unsafe numeric values, timeout units, and unknown commands
+ok 69 - rejects expressions, unsafe numeric values, timeout units, and unknown commands
+  ---
+  duration_ms: 0.298642
+  type: 'test'
+  ...
+# Subtest: rejects malformed headers and non-text input
+ok 70 - rejects malformed headers and non-text input
+  ---
+  duration_ms: 0.237427
+  type: 'test'
+  ...
+# Subtest: runtime signal failures retain source lines from compiled programs
+ok 71 - runtime signal failures retain source lines from compiled programs
+  ---
+  duration_ms: 1.090783
+  type: 'test'
+  ...
+# Subtest: compiles typed world-axis model moves and rejects malformed motion expressions
+ok 72 - compiles typed world-axis model moves and rejects malformed motion expressions
+  ---
+  duration_ms: 0.258877
+  type: 'test'
+  ...
+# Subtest: RUN_ROBOT compiles to a typed request and rejects arguments
+ok 73 - RUN_ROBOT compiles to a typed request and rejects arguments
+  ---
+  duration_ms: 0.337044
+  type: 'test'
+  ...
+# Subtest: two programs handshake through shared numeric signals and independent program counters
+ok 74 - two programs handshake through shared numeric signals and independent program counters
+  ---
+  duration_ms: 7.852365
+  type: 'test'
+  ...
+# Subtest: waits read the tick-start snapshot; writes become visible next tick
+ok 75 - waits read the tick-start snapshot; writes become visible next tick
+  ---
+  duration_ms: 0.455006
+  type: 'test'
+  ...
+# Subtest: conflicting same-tick writers fail atomically in stable name order
+ok 76 - conflicting same-tick writers fail atomically in stable name order
+  ---
+  duration_ms: 0.245682
+  type: 'test'
+  ...
+# Subtest: untimed blocked programs deadlock; a timed wait expires in logical ticks
+ok 77 - untimed blocked programs deadlock; a timed wait expires in logical ticks
+  ---
+  duration_ms: 0.428957
+  type: 'test'
+  ...
+# Subtest: set/unset threshold and numeric comparison use finite shared values
+ok 78 - set/unset threshold and numeric comparison use finite shared values
+  ---
+  duration_ms: 0.880106
+  type: 'test'
+  ...
+# Subtest: invalid definitions fail early and bounded runs report a limit
+ok 79 - invalid definitions fail early and bounded runs report a limit
+  ---
+  duration_ms: 0.49991
+  type: 'test'
+  ...
+# Subtest: model translation advances per tick, keeps other axes, and exposes line-located commands
+ok 80 - model translation advances per tick, keeps other axes, and exposes line-located commands
+  ---
+  duration_ms: 0.455116
+  type: 'test'
+  ...
+# Subtest: simultaneous model drivers fail atomically with both source lines
+ok 81 - simultaneous model drivers fail atomically with both source lines
+  ---
+  duration_ms: 0.380526
+  type: 'test'
+  ...
+# Subtest: model targets must be available and motion definitions finite
+ok 82 - model targets must be available and motion definitions finite
+  ---
+  duration_ms: 0.57384
+  type: 'test'
+  ...
+# Subtest: RUN_ROBOT requests an external plan exactly once and waits for robot_done
+ok 83 - RUN_ROBOT requests an external plan exactly once and waits for robot_done
+  ---
+  duration_ms: 0.415692
+  type: 'test'
+  ...
+# Subtest: RUN_ROBOT requires the timed runtime in standalone signal runs
+ok 84 - RUN_ROBOT requires the timed runtime in standalone signal runs
+  ---
+  duration_ms: 0.205777
+  type: 'test'
+  ...
+# Subtest: same-tick RUN_ROBOT requests conflict atomically with both source lines
+ok 85 - same-tick RUN_ROBOT requests conflict atomically with both source lines
+  ---
+  duration_ms: 0.209183
+  type: 'test'
+  ...
+# {"status":"passed","stoppedTimes":[1.449940962763884,2.4004623681594737],"blendedTimes":[2.8342136610629196,3.47288832702964],"boundarySpeeds":[0.48474899260383253,0.5028771317479648],"pageErrors":[]}
+# Subtest: Chromium renders two consecutive Cartesian ZONE flybys
+ok 86 - Chromium renders two consecutive Cartesian ZONE flybys
+  ---
+  duration_ms: 4319.145546
+  type: 'test'
+  ...
+# Subtest: Chromium plans a Cartesian flyby with changing TCP yaw
+ok 87 - Chromium plans a Cartesian flyby with changing TCP yaw
+  ---
+  duration_ms: 6992.208299
+  type: 'test'
+  ...
+# Subtest: LIN-LIN composite keeps exact original prefixes and a bounded C2 corner
+ok 88 - LIN-LIN composite keeps exact original prefixes and a bounded C2 corner
+  ---
+  duration_ms: 84.271297
+  type: 'test'
+  ...
+# Subtest: CIRC via remains a required exact sample outside a LIN-CIRC zone
+ok 89 - CIRC via remains a required exact sample outside a LIN-CIRC zone
+  ---
+  duration_ms: 1.075033
+  type: 'test'
+  ...
+# Subtest: CIRC-LIN, CIRC-CIRC, and long-arc CIRC retain via points and bounded transition geometry
+ok 90 - CIRC-LIN, CIRC-CIRC, and long-arc CIRC retain via points and bounded transition geometry
+  ---
+  duration_ms: 1.13181
+  type: 'test'
+  ...
+# Subtest: three-move Cartesian chain has disjoint trims and two timed non-stopping corners
+ok 91 - three-move Cartesian chain has disjoint trims and two timed non-stopping corners
+  ---
+  duration_ms: 874.046378
+  type: 'test'
+  ...
+# Subtest: Cartesian chain collision at its second corner identifies that corner
+ok 92 - Cartesian chain collision at its second corner identifies that corner
+  ---
+  duration_ms: 57.490877
+  type: 'test'
+  ...
+# Subtest: composite LIN-LIN plan has a non-stopping timed boundary and FK follows declared curve
+ok 93 - composite LIN-LIN plan has a non-stopping timed boundary and FK follows declared curve
+  ---
+  duration_ms: 299.728086
+  type: 'test'
+  ...
+# Subtest: Cartesian ZONE refuses a blocked flyby without substituting a stop
+ok 94 - Cartesian ZONE refuses a blocked flyby without substituting a stop
+  ---
+  duration_ms: 28.697197
+  type: 'test'
+  ...
+# Subtest: SO(3) splice preserves original orientations and angular tangents at both cuts
+ok 95 - SO(3) splice preserves original orientations and angular tangents at both cuts
+  ---
+  duration_ms: 0.767594
+  type: 'test'
+  ...
+# Subtest: SO(3) transition matches noncommuting body rates and chooses shortest endpoint branch
+ok 96 - SO(3) transition matches noncommuting body rates and chooses shortest endpoint branch
+  ---
+  duration_ms: 1.077227
+  type: 'test'
+  ...
+# Subtest: angular cap considers both CIRC SLERP segments even with a near-end via
+ok 97 - angular cap considers both CIRC SLERP segments even with a near-end via
+  ---
+  duration_ms: 0.336593
+  type: 'test'
+  ...
+# Subtest: orientation-changing LIN-LIN pair obeys angular and joint limits with exact timed cuts
+ok 98 - orientation-changing LIN-LIN pair obeys angular and joint limits with exact timed cuts
+  ---
+  duration_ms: 549.544938
+  type: 'test'
+  ...
+# Subtest: orientation-changing LIN/CIRC pairs keep exact via orientations in timed samples
+ok 99 - orientation-changing LIN/CIRC pairs keep exact via orientations in timed samples
+  ---
+  duration_ms: 1171.324976
+  type: 'test'
+  ...
+# Subtest: planner collision query uses detached URDF and SDF transforms at each q
+ok 100 - planner collision query uses detached URDF and SDF transforms at each q
+  ---
+  duration_ms: 131.225978
+  type: 'test'
+  ...
+# Subtest: grabbed object follows tool, collides with scene, and release freezes its world pose
+ok 101 - grabbed object follows tool, collides with scene, and release freezes its world pose
+  ---
+  duration_ms: 3.011937
+  type: 'test'
+  ...
+# Subtest: grasp distance uses object collision geometry and rejects objects without it
+ok 102 - grasp distance uses object collision geometry and rejects objects without it
+  ---
+  duration_ms: 2.764411
+  type: 'test'
+  ...
+# Subtest: nested model join preserves world pose, follows a carried parent, and checks outside obstacles
+ok 103 - nested model join preserves world pose, follows a carried parent, and checks outside obstacles
+  ---
+  duration_ms: 3.526265
+  type: 'test'
+  ...
+# Subtest: attached object may start at exact support contact but penetration is blocked
+ok 104 - attached object may start at exact support contact but penetration is blocked
+  ---
+  duration_ms: 1.149483
+  type: 'test'
+  ...
+# Subtest: same or adjacent robot links are excluded; contained sphere still intersects box
+ok 105 - same or adjacent robot links are excluded; contained sphere still intersects box
+  ---
+  duration_ms: 12.597002
+  type: 'test'
+  ...
+# Subtest: declared carrier contact exempts only the fixed robot base assembly
+ok 106 - declared carrier contact exempts only the fixed robot base assembly
+  ---
+  duration_ms: 3.728005
+  type: 'test'
+  ...
+# Subtest: planner rejects attachment cycles through a mounted robot base
+ok 107 - planner rejects attachment cycles through a mounted robot base
+  ---
+  duration_ms: 2.400828
+  type: 'test'
+  ...
+# Subtest: STL-like mesh uses BVH narrow phase; missing mesh fails explicitly
+ok 108 - STL-like mesh uses BVH narrow phase; missing mesh fails explicitly
+  ---
+  duration_ms: 4.499737
+  type: 'test'
+  ...
+# Subtest: finite SDF ground plane permits exact support contact and blocks downward penetration
+ok 109 - finite SDF ground plane permits exact support contact and blocks downward penetration
+  ---
+  duration_ms: 5.299171
+  type: 'test'
+  ...
+# Subtest: serialized worker scene plans the same program without mutating live robot state
+ok 110 - serialized worker scene plans the same program without mutating live robot state
+  ---
+  duration_ms: 229.600463
+  type: 'test'
+  ...
+# Subtest: positive ZONE crosses a PTP corner without stopping and stays within TCP, velocity, and acceleration bounds
+ok 111 - positive ZONE crosses a PTP corner without stopping and stays within TCP, velocity, and acceleration bounds
+  ---
+  duration_ms: 105.206881
+  type: 'test'
+  ...
+# Subtest: ZONE rejects a corner whose interior is blocked instead of silently stopping
+ok 112 - ZONE rejects a corner whose interior is blocked instead of silently stopping
+  ---
+  duration_ms: 9.404665
+  type: 'test'
+  ...
+# Subtest: 6D IK reaches both TCP position and orientation with a transformed robot base
+ok 113 - 6D IK reaches both TCP position and orientation with a transformed robot base
+  ---
+  duration_ms: 88.35481
+  type: 'test'
+  ...
+# Subtest: equivalent Q and AA pose targets yield the same IK branch from the same seed
+ok 114 - equivalent Q and AA pose targets yield the same IK branch from the same seed
+  ---
+  duration_ms: 8.159443
+  type: 'test'
+  ...
+# Subtest: 6D IK rejects unreachable poses, bad options and directly actuated mimic joints
+ok 115 - 6D IK rejects unreachable poses, bad options and directly actuated mimic joints
+  ---
+  duration_ms: 11.563308
+  type: 'test'
+  ...
+# Subtest: LIN preserves endpoint poses and CIRC passes its via pose on a long arc
+ok 116 - LIN preserves endpoint poses and CIRC passes its via pose on a long arc
+  ---
+  duration_ms: 1.401698
+  type: 'test'
+  ...
+# Subtest: equivalent AA endpoints use the same shortest LIN orientation path
+ok 117 - equivalent AA endpoints use the same shortest LIN orientation path
+  ---
+  duration_ms: 0.591864
+  type: 'test'
+  ...
+# Subtest: opposite exact half-turn quaternion signs have the same endpoint but opposite LIN midpoints
+ok 118 - opposite exact half-turn quaternion signs have the same endpoint but opposite LIN midpoints
+  ---
+  duration_ms: 0.56873
+  type: 'test'
+  ...
+# Subtest: Cartesian solver includes CIRC via sample and reports blocked geometry without detouring
+ok 119 - Cartesian solver includes CIRC via sample and reports blocked geometry without detouring
+  ---
+  duration_ms: 7.012385
+  type: 'test'
+  ...
+# Subtest: PTP plans directly, checks interior states, then routes around a joint-space obstacle
+ok 120 - PTP plans directly, checks interior states, then routes around a joint-space obstacle
+  ---
+  duration_ms: 3.719338
+  type: 'test'
+  ...
+# Subtest: timing produces bounded velocity and acceleration and zero endpoint derivatives
+ok 121 - timing produces bounded velocity and acceleration and zero endpoint derivatives
+  ---
+  duration_ms: 12.537902
+  type: 'test'
+  ...
+# Subtest: timing retains a narrow interior knot and falls back to a real stop at an unsafe rounded corner
+ok 122 - timing retains a narrow interior knot and falls back to a real stop at an unsafe rounded corner
+  ---
+  duration_ms: 21.994866
+  type: 'test'
+  ...
+# Subtest: top-level planner returns a timed CIRC and ROS-shaped trajectory fields
+ok 123 - top-level planner returns a timed CIRC and ROS-shaped trajectory fields
+  ---
+  duration_ms: 105.478942
+  type: 'test'
+  ...
+# Subtest: near-coincident circular via and uniform fractions retain via without extreme retiming
+ok 124 - near-coincident circular via and uniform fractions retain via without extreme retiming
+  ---
+  duration_ms: 44.291379
+  type: 'test'
+  ...
+# Subtest: program LIN-LIN ZONE bypasses the waypoint; default and PAUSE retain exact stops
+ok 125 - program LIN-LIN ZONE bypasses the waypoint; default and PAUSE retain exact stops
+  ---
+  duration_ms: 1068.882247
+  type: 'test'
+  ...
+# Subtest: Cartesian ZONE reports unreachable orientation and plans consecutive flybys
+ok 126 - Cartesian ZONE reports unreachable orientation and plans consecutive flybys
+  ---
+  duration_ms: 1130.217667
+  type: 'test'
+  ...
+# Subtest: Cartesian ZONE chain preserves a middle CIRC via and stops at an explicit ZONE 0
+ok 127 - Cartesian ZONE chain preserves a middle CIRC via and stops at an explicit ZONE 0
+  ---
+  duration_ms: 455.561536
+  type: 'test'
+  ...
+# Subtest: multi-corner flyby may bypass a colliding nominal middle waypoint
+ok 128 - multi-corner flyby may bypass a colliding nominal middle waypoint
+  ---
+  duration_ms: 549.109979
+  type: 'test'
+  ...
+# Subtest: four Cartesian moves form three flybys under one sticky ZONE
+ok 129 - four Cartesian moves form three flybys under one sticky ZONE
+  ---
+  duration_ms: 296.331645
+  type: 'test'
+  ...
+# Subtest: ZONE changes inside a Cartesian run set each corner radius
+ok 130 - ZONE changes inside a Cartesian run set each corner radius
+  ---
+  duration_ms: 1177.81093
+  type: 'test'
+  ...
+# Subtest: program and Worker agree on orientation-changing Cartesian ZONE with an orientable robot
+ok 131 - program and Worker agree on orientation-changing Cartesian ZONE with an orientable robot
+  ---
+  duration_ms: 1034.876831
+  type: 'test'
+  ...
+# Subtest: invalid second CIRC geometry reports the second command line
+ok 132 - invalid second CIRC geometry reports the second command line
+  ---
+  duration_ms: 52.316781
+  type: 'test'
+  ...
+# Subtest: program LIN-CIRC zone retains the circular via pose in its timed playback
+ok 133 - program LIN-CIRC zone retains the circular via pose in its timed playback
+  ---
+  duration_ms: 151.226712
+  type: 'test'
+  ...
+# Subtest: program CIRC-LIN zone retains inbound via and rejects a weld-active flyby
+ok 134 - program CIRC-LIN zone retains inbound via and rejects a weld-active flyby
+  ---
+  duration_ms: 178.904311
+  type: 'test'
+  ...
+# Subtest: program CIRC-CIRC zone preserves both via poses in the timed trajectory
+ok 135 - program CIRC-CIRC zone preserves both via poses in the timed trajectory
+  ---
+  duration_ms: 405.6437
+  type: 'test'
+  ...
+# Subtest: Cartesian ZONE collision diagnostic points to the active source line
+ok 136 - Cartesian ZONE collision diagnostic points to the active source line
+  ---
+  duration_ms: 168.737541
+  type: 'test'
+  ...
+# Subtest: Cartesian blend validates before a later GRAB changes the collision snapshot
+ok 137 - Cartesian blend validates before a later GRAB changes the collision snapshot
+  ---
+  duration_ms: 661.993124
+  type: 'test'
+  ...
+# Subtest: seeking, attachment events and reset reproduce the same state
+ok 138 - seeking, attachment events and reset reproduce the same state
+  ---
+  duration_ms: 10.056323
+  type: 'test'
+  ...
+# Subtest: invalid timelines are rejected before playback
+ok 139 - invalid timelines are rejected before playback
+  ---
+  duration_ms: 0.630616
+  type: 'test'
+  ...
+# Subtest: events at zero and a previous playback state are restored before a new load
+ok 140 - events at zero and a previous playback state are restored before a new load
+  ---
+  duration_ms: 0.558831
+  type: 'test'
+  ...
+# Subtest: weld join and subsequent parent grab carry the child; reset restores unjoined poses
+ok 141 - weld join and subsequent parent grab carry the child; reset restores unjoined poses
+  ---
+  duration_ms: 50.33977
+  type: 'test'
+  ...
+# Subtest: pick-and-place Program shows active robot, planning status, and a working World jog
+ok 142 - pick-and-place Program shows active robot, planning status, and a working World jog
+  ---
+  duration_ms: 2888.107919
+  type: 'test'
+  ...
+# Subtest: ZONE parser accepts metre radii and rejects negative, excessive, or malformed values
+ok 143 - ZONE parser accepts metre radii and rejects negative, excessive, or malformed values
+  ---
+  duration_ms: 113.644136
+  type: 'test'
+  ...
+# Subtest: program ZONE blends only compatible PTP neighbors; ZONE 0 and PAUSE retain exact stops
+ok 144 - program ZONE blends only compatible PTP neighbors; ZONE 0 and PAUSE retain exact stops
+  ---
+  duration_ms: 131.532345
+  type: 'test'
+  ...
+# Subtest: ZONE checks the scene state at its boundary before a later GRAB changes attachments
+ok 145 - ZONE checks the scene state at its boundary before a later GRAB changes attachments
+  ---
+  duration_ms: 65.767049
+  type: 'test'
+  ...
+# Subtest: program reports source-line ZONE failure when its tolerance cannot contain a sampled blend
+ok 146 - program reports source-line ZONE failure when its tolerance cannot contain a sampled blend
+  ---
+  duration_ms: 17.902596
+  type: 'test'
+  ...
+# Subtest: pick-and-place source compiles into named six-dimensional poses and typed steps
+ok 147 - pick-and-place source compiles into named six-dimensional poses and typed steps
+  ---
+  duration_ms: 8.122244
+  type: 'test'
+  ...
+# Subtest: parser rejects malformed syntax, unknown targets, duplicate definitions, and unsafe text with line diagnostics
+ok 148 - parser rejects malformed syntax, unknown targets, duplicate definitions, and unsafe text with line diagnostics
+  ---
+  duration_ms: 0.382019
+  type: 'test'
+  ...
+# Subtest: forward references, comments, frame names, and finite numeric checks are deterministic
+ok 149 - forward references, comments, frame names, and finite numeric checks are deterministic
+  ---
+  duration_ms: 0.238278
+  type: 'test'
+  ...
+# Subtest: axis-angle and quaternion targets represent the same rotation
+ok 150 - axis-angle and quaternion targets represent the same rotation
+  ---
+  duration_ms: 0.511543
+  type: 'test'
+  ...
+# Subtest: axis-angle conversion preserves rotations at identity and 180 degrees
+ok 151 - axis-angle conversion preserves rotations at identity and 180 degrees
+  ---
+  duration_ms: 0.389603
+  type: 'test'
+  ...
+# Subtest: weld process commands compile and require bounded linear or circular motion
+ok 152 - weld process commands compile and require bounded linear or circular motion
+  ---
+  duration_ms: 0.480384
+  type: 'test'
+  ...
+# Subtest: WELD JOIN requires a finished seam involving the child or parent
+ok 153 - WELD JOIN requires a finished seam involving the child or parent
+  ---
+  duration_ms: 0.431933
+  type: 'test'
+  ...
+# Subtest: workcell ZIP round trips SDF, URDF, program, limits and binary STL
+ok 154 - workcell ZIP round trips SDF, URDF, program, limits and binary STL
+  ---
+  duration_ms: 70.633175
+  type: 'test'
+  ...
+# Subtest: project rejects path traversal and invalid archives
+ok 155 - project rejects path traversal and invalid archives
+  ---
+  duration_ms: 0.785739
+  type: 'test'
+  ...
+# Subtest: older ZIP without robot-state.json loads with no saved joint state
+ok 156 - older ZIP without robot-state.json loads with no saved joint state
+  ---
+  duration_ms: 3.559779
+  type: 'test'
+  ...
+# Subtest: malformed joint-state entry is rejected during ZIP unpack
+ok 157 - malformed joint-state entry is rejected during ZIP unpack
+  ---
+  duration_ms: 10.721053
+  type: 'test'
+  ...
+# Subtest: four-bar constraints, branch, and driver-only state survive project ZIP
+ok 158 - four-bar constraints, branch, and driver-only state survive project ZIP
+  ---
+  duration_ms: 9.729607
+  type: 'test'
+  ...
+# Subtest: constraint extension validates version, names, robot reference and file path
+ok 159 - constraint extension validates version, names, robot reference and file path
+  ---
+  duration_ms: 6.180149
+  type: 'test'
+  ...
+# Subtest: saved joint state validates URDF names, direct limits, mimic limits, and legacy absence
+ok 160 - saved joint state validates URDF names, direct limits, mimic limits, and legacy absence
+  ---
+  duration_ms: 134.163897
+  type: 'test'
+  ...
+# Subtest: browser project saves nested attachments and rejects cyclic ZIP without replacing the current scene
+ok 161 - browser project saves nested attachments and rejects cyclic ZIP without replacing the current scene
+  ---
+  duration_ms: 1889.186222
+  type: 'test'
+  ...
+# Subtest: mount preserves world pose, carries robot with model, and can unmount
+ok 162 - mount preserves world pose, carries robot with model, and can unmount
+  ---
+  duration_ms: 74.947423
+  type: 'test'
+  ...
+# Subtest: replacement SDF remounts robot with its local offset and invalid replacement is atomic
+ok 163 - replacement SDF remounts robot with its local offset and invalid replacement is atomic
+  ---
+  duration_ms: 3.382865
+  type: 'test'
+  ...
+# Subtest: mount rejects unknown frame, nonrigid orientation, and scene graph cycles
+ok 164 - mount rejects unknown frame, nonrigid orientation, and scene graph cycles
+  ---
+  duration_ms: 1.434239
+  type: 'test'
+  ...
+# Subtest: project ZIP round trips optional base mount and rejects malformed mount metadata
+ok 165 - project ZIP round trips optional base mount and rejects malformed mount metadata
+  ---
+  duration_ms: 15.202155
+  type: 'test'
+  ...
+# Subtest: environment is a separate scene layer and preserves world pose through attach/release
+ok 166 - environment is a separate scene layer and preserves world pose through attach/release
+  ---
+  duration_ms: 49.139652
+  type: 'test'
+  ...
+# Subtest: missing local mesh and attachment cycle receive explicit errors
+ok 167 - missing local mesh and attachment cycle receive explicit errors
+  ---
+  duration_ms: 0.944097
+  type: 'test'
+  ...
+# Subtest: robot removal releases carried objects and scene replacement disposes owned visuals
+ok 168 - robot removal releases carried objects and scene replacement disposes owned visuals
+  ---
+  duration_ms: 1.224685
+  type: 'test'
+  ...
+# Subtest: SDF world subset loads bundled includes and round trips without a server resolver
+ok 169 - SDF world subset loads bundled includes and round trips without a server resolver
+  ---
+  duration_ms: 127.007301
+  type: 'test'
+  ...
+# Subtest: unsupported frames, geometry, remote URIs and absent assets are diagnosed
+ok 170 - unsupported frames, geometry, remote URIs and absent assets are diagnosed
+  ---
+  duration_ms: 57.304145
+  type: 'test'
+  ...
+# Subtest: bundled workcell fixture has visual and collision geometry for each object
+ok 171 - bundled workcell fixture has visual and collision geometry for each object
+  ---
+  duration_ms: 55.421562
+  type: 'test'
+  ...
+# Subtest: bundled teaching arm is a serial six-axis URDF with a collidable named TCP
+ok 172 - bundled teaching arm is a serial six-axis URDF with a collidable named TCP
+  ---
+  duration_ms: 50.040768
+  type: 'test'
+  ...
+# {"status":"passed","time":{"robotMiddle":0.30000000000000004,"deviceMiddle":1,"final":1.5},"tray":{"initial":0.2,"middle":0.3125,"final":0.65},"pageErrors":[]}
+# Subtest: planned robot and signal-driven conveyor share a browser clock
+ok 173 - planned robot and signal-driven conveyor share a browser clock
+  ---
+  duration_ms: 7235.973574
+  type: 'test'
+  ...
+# Subtest: robot_done releases a waiting device after the exact plan-end boundary
+ok 174 - robot_done releases a waiting device after the exact plan-end boundary
+  ---
+  duration_ms: 8.372474
+  type: 'test'
+  ...
+# Subtest: fractional seek interpolates q without prematurely advancing a signal tick
+ok 175 - fractional seek interpolates q without prematurely advancing a signal tick
+  ---
+  duration_ms: 0.420412
+  type: 'test'
+  ...
+# Subtest: early-finished programs keep the clock alive until robot_done reaches a tick boundary
+ok 176 - early-finished programs keep the clock alive until robot_done reaches a tick boundary
+  ---
+  duration_ms: 0.381227
+  type: 'test'
+  ...
+# Subtest: early device motion fails before commit and leaves prior clock untouched
+ok 177 - early device motion fails before commit and leaves prior clock untouched
+  ---
+  duration_ms: 0.355809
+  type: 'test'
+  ...
+# Subtest: robot_done is read-only and robot-carried models cannot also be driven
+ok 178 - robot_done is read-only and robot-carried models cannot also be driven
+  ---
+  duration_ms: 1.386719
+  type: 'test'
+  ...
+# Subtest: stationary zero-duration robot plan releases robot_done on the first device tick
+ok 179 - stationary zero-duration robot plan releases robot_done on the first device tick
+  ---
+  duration_ms: 0.424128
+  type: 'test'
+  ...
+# Subtest: invalid clock setup and backwards target fail visibly
+ok 180 - invalid clock setup and backwards target fail visibly
+  ---
+  duration_ms: 0.430621
+  type: 'test'
+  ...
+# Subtest: Chromium runs and archives two signal programs through the workcell UI
+ok 181 - Chromium runs and archives two signal programs through the workcell UI
+  ---
+  duration_ms: 2811.279727
+  type: 'test'
+  ...
+# Subtest: Chromium renders robot motion and GRAB between concurrent program ticks
+ok 182 - Chromium renders robot motion and GRAB between concurrent program ticks
+  ---
+  duration_ms: 12635.069453
+  type: 'test'
+  ...
+# Subtest: Chromium pendant jogs a six-axis arm in world and tool frames and teaches targets
+ok 183 - Chromium pendant jogs a six-axis arm in world and tool frames and teaches targets
+  ---
+  duration_ms: 5768.594787
+  type: 'test'
+  ...
+# Subtest: quintic timed playback matches position, velocity and acceleration at every knot
+ok 184 - quintic timed playback matches position, velocity and acceleration at every knot
+  ---
+  duration_ms: 10.962708
+  type: 'test'
+  ...
+# Subtest: ProgramPlayer uses the planned quintic state at fractional display times
+ok 185 - ProgramPlayer uses the planned quintic state at fractional display times
+  ---
+  duration_ms: 4.414997
+  type: 'test'
+  ...
+# Subtest: shared and triggered clocks report the same derivative-aware robot state
+ok 186 - shared and triggered clocks report the same derivative-aware robot state
+  ---
+  duration_ms: 8.528057
+  type: 'test'
+  ...
+# Subtest: device-first sequence freezes at RUN_ROBOT, then exposes completion to a later WAIT tick
+ok 187 - device-first sequence freezes at RUN_ROBOT, then exposes completion to a later WAIT tick
+  ---
+  duration_ms: 17.73422
+  type: 'test'
+  ...
+# Subtest: a model change and robot request in the same tick are committed before planning
+ok 188 - a model change and robot request in the same tick are committed before planning
+  ---
+  duration_ms: 0.656205
+  type: 'test'
+  ...
+# Subtest: device move during robot motion fails atomically with source location
+ok 189 - device move during robot motion fails atomically with source location
+  ---
+  duration_ms: 0.753868
+  type: 'test'
+  ...
+# Subtest: failed Worker plan is terminal at the frozen request boundary
+ok 190 - failed Worker plan is terminal at the frozen request boundary
+  ---
+  duration_ms: 0.342475
+  type: 'test'
+  ...
+# Subtest: robot completion reaches a tick boundary after scheduler finishes on RUN_ROBOT
+ok 191 - robot completion reaches a tick boundary after scheduler finishes on RUN_ROBOT
+  ---
+  duration_ms: 0.471046
+  type: 'test'
+  ...
+# Subtest: zero-duration plan finishes immediately and rejects mismatched starting joints
+ok 192 - zero-duration plan finishes immediately and rejects mismatched starting joints
+  ---
+  duration_ms: 0.641447
+  type: 'test'
+  ...
+# Subtest: device delivery before a robot GRAB is allowed; a later device move needs a fresh pose sync
+ok 193 - device delivery before a robot GRAB is allowed; a later device move needs a fresh pose sync
+  ---
+  duration_ms: 0.820864
+  type: 'test'
+  ...
+# Subtest: a touched model is blocked at the first completed boundary even if phase still says moving
+ok 194 - a touched model is blocked at the first completed boundary even if phase still says moving
+  ---
+  duration_ms: 0.542801
+  type: 'test'
+  ...
+# Subtest: the command-time setup reserves robot_done and requires a request
+ok 195 - the command-time setup reserves robot_done and requires a request
+  ---
+  duration_ms: 0.66959
+  type: 'test'
+  ...
+# Subtest: two sequential robot requests replan from the first endpoint with a device move between them
+ok 196 - two sequential robot requests replan from the first endpoint with a device move between them
+  ---
+  duration_ms: 0.785709
+  type: 'test'
+  ...
+# Subtest: a second request during an active robot trajectory fails atomically with its line
+ok 197 - a second request during an active robot trajectory fails atomically with its line
+  ---
+  duration_ms: 0.528745
+  type: 'test'
+  ...
+# Subtest: same-tick robot requests fail atomically before the first Worker request
+ok 198 - same-tick robot requests fail atomically before the first Worker request
+  ---
+  duration_ms: 0.248017
+  type: 'test'
+  ...
+# Subtest: planning failure is terminal, while a fresh reset state can request again
+ok 199 - planning failure is terminal, while a fresh reset state can request again
+  ---
+  duration_ms: 0.291478
+  type: 'test'
+  ...
+# Subtest: device origins can be synchronized after robot completion without mutating old state
+ok 200 - device origins can be synchronized after robot completion without mutating old state
+  ---
+  duration_ms: 0.284135
+  type: 'test'
+  ...
+# {"status":"passed","workerSnapshotTrayX":0.65,"robotStart":0.7000000000000001,"robotDuration":0.5480219944491279,"finalBaseYaw":-0.15,"finalTrayX":0.65,"pageErrors":[]}
+# Subtest: device-first RUN_ROBOT plans from moved scene and executes in Chromium
+ok 201 - device-first RUN_ROBOT plans from moved scene and executes in Chromium
+  ---
+  duration_ms: 13410.301891
+  type: 'test'
+  ...
+# Subtest: Chromium replans a second robot run after an intervening device move
+ok 202 - Chromium replans a second robot run after an intervening device move
+  ---
+  duration_ms: 5998.492528
+  type: 'test'
+  ...
+# Subtest: geometric Jacobian maps a pivot rate to TCP tangent speed and yaw rate
+ok 203 - geometric Jacobian maps a pivot rate to TCP tangent speed and yaw rate
+  ---
+  duration_ms: 66.519024
+  type: 'test'
+  ...
+# Subtest: tool-frame TCP twist rotates with the current tool orientation
+ok 204 - tool-frame TCP twist rotates with the current tool orientation
+  ---
+  duration_ms: 1.002215
+  type: 'test'
+  ...
+# Subtest: unreachable instantaneous direction reports a singular Jacobian residual
+ok 205 - unreachable instantaneous direction reports a singular Jacobian residual
+  ---
+  duration_ms: 0.509468
+  type: 'test'
+  ...
+# Subtest: rate and near-bound position limits report best bounded rate without hiding the shortfall
+ok 206 - rate and near-bound position limits report best bounded rate without hiding the shortfall
+  ---
+  duration_ms: 0.819883
+  type: 'test'
+  ...
+# Subtest: six-axis DLS realizes a feasible twist on a rotated robot base
+ok 207 - six-axis DLS realizes a feasible twist on a rotated robot base
+  ---
+  duration_ms: 1.313481
+  type: 'test'
+  ...
+# Subtest: velocity IK validates frame, dimension and limit inputs
+ok 208 - velocity IK validates frame, dimension and limit inputs
+  ---
+  duration_ms: 0.311807
+  type: 'test'
+  ...
+# Subtest: bundled weld robot and SDF workpiece plan CIRC and LIN seams in Chromium Worker
+ok 209 - bundled weld robot and SDF workpiece plan CIRC and LIN seams in Chromium Worker
+  ---
+  duration_ms: 4050.089753
+  type: 'test'
+  ...
+# Subtest: browser weld join carries an attached child with its parent and reset separates them
+ok 210 - browser weld join carries an attached child with its parent and reset separates them
+  ---
+  duration_ms: 4272.354443
+  type: 'test'
+  ...
+# Subtest: Worker weld plan records world-frame timed TCP seam and process transitions
+ok 211 - Worker weld plan records world-frame timed TCP seam and process transitions
+  ---
+  duration_ms: 445.669483
+  type: 'test'
+  ...
+# Subtest: compiler rejects welding through joint motion or scene attachment
+ok 212 - compiler rejects welding through joint motion or scene attachment
+  ---
+  duration_ms: 1.593048
+  type: 'test'
+  ...
+# Subtest: one weld interval spans both a circular and a linear timed seam segment
+ok 213 - one weld interval spans both a circular and a linear timed seam segment
+  ---
+  duration_ms: 131.679281
+  type: 'test'
+  ...
+# Subtest: weld preflight rejects an absent object, a distant start, and seam departure
+ok 214 - weld preflight rejects an absent object, a distant start, and seam departure
+  ---
+  duration_ms: 141.766682
+  type: 'test'
+  ...
+# Subtest: post-seam join is a timed playback event and parent can be grabbed with child attached
+ok 215 - post-seam join is a timed playback event and parent can be grabbed with child attached
+  ---
+  duration_ms: 141.325913
+  type: 'test'
+  ...
+# Subtest: post-weld join rejects a remote child with a line-specific distance diagnostic
+ok 216 - post-weld join rejects a remote child with a line-specific distance diagnostic
+  ---
+  duration_ms: 65.759665
+  type: 'test'
+  ...
+# Subtest: join rejects a child already joined to another model without replacing its bond
+ok 217 - join rejects a child already joined to another model without replacing its bond
+  ---
+  duration_ms: 104.057778
+  type: 'test'
+  ...
+# Subtest: GRAB and RELEASE cannot break a joined child from its parent
+ok 218 - GRAB and RELEASE cannot break a joined child from its parent
+  ---
+  duration_ms: 146.371706
+  type: 'test'
+  ...
+# Subtest: Chromium completes circular pick/place and exports ROS trajectory and project ZIP
+ok 219 - Chromium completes circular pick/place and exports ROS trajectory and project ZIP
+  ---
+  duration_ms: 4715.770335
+  type: 'test'
+  ...
+# Subtest: bundled six-axis workcell plans and plays a pick, CIRC transfer, LIN place and release in Chromium
+ok 220 - bundled six-axis workcell plans and plays a pick, CIRC transfer, LIN place and release in Chromium
+  ---
+  duration_ms: 3547.355816
+  type: 'test'
+  ...
+# Subtest: Chromium replays a bounded PTP ZONE flyby while ZONE 0 stops at the waypoint
+ok 221 - Chromium replays a bounded PTP ZONE flyby while ZONE 0 stops at the waypoint
+  ---
+  duration_ms: 2923.112474
+  type: 'test'
+  ...
+1..221
+# tests 221
+# suites 0
+# pass 221
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 47520.361096

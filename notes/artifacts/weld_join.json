@@ -1,0 +1,463 @@
+{
+  "planStatus": "Ready at program start.",
+  "workcellStatus": "Loaded 2 scene object(s).",
+  "diagnostics": [],
+  "robotCollisionIssues": [],
+  "plans": [
+    {
+      "type": "PTP",
+      "line": 10,
+      "duration": 0.9491677593135187
+    },
+    {
+      "type": "CIRC",
+      "line": 12,
+      "duration": 2.1582446550774628
+    },
+    {
+      "type": "LIN",
+      "line": 13,
+      "duration": 0.8501425026084909
+    },
+    {
+      "type": "LIN",
+      "line": 18,
+      "duration": 1.449940896540612
+    }
+  ],
+  "duration": 5.607495813540084,
+  "samples": 2061,
+  "events": [
+    {
+      "time": 3.9575549169994724,
+      "kind": "WELD_JOIN",
+      "object": "extension_plate",
+      "child": "extension_plate",
+      "parent": "workpiece",
+      "frame": "model/workpiece",
+      "line": 15
+    },
+    {
+      "time": 4.157554916999472,
+      "kind": "GRAB",
+      "object": "workpiece",
+      "frame": "robot/seam_cartesian/link/tcp_link",
+      "line": 17
+    },
+    {
+      "time": 5.607495813540084,
+      "kind": "RELEASE",
+      "object": "workpiece",
+      "frame": "robot/seam_cartesian/link/tcp_link",
+      "line": 19
+    }
+  ],
+  "processEvents": [
+    {
+      "time": 0.9491677593135187,
+      "kind": "WELD_ON",
+      "line": 11,
+      "object": "workpiece",
+      "frame": "robot/seam_cartesian/link/tcp_link",
+      "pose": {
+        "position": [
+          0.14998919783424,
+          0,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "time": 3.9575549169994724,
+      "kind": "WELD_OFF",
+      "line": 14,
+      "object": "workpiece",
+      "frame": "robot/seam_cartesian/link/tcp_link",
+      "pose": {
+        "position": [
+          0.6499943748155818,
+          0.11999325047141164,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "time": 3.9575549169994724,
+      "kind": "WELD_JOIN",
+      "line": 15,
+      "object": "extension_plate",
+      "child": "extension_plate",
+      "parent": "workpiece",
+      "frame": "model/workpiece",
+      "pose": {
+        "position": [
+          0.6499943748155818,
+          0.11999325047141164,
+          0
+        ],
+        "quaternion": [
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    }
+  ],
+  "playback": {
+    "initial": {
+      "parent": [
+        0.35,
+        0.05,
+        -0.075
+      ],
+      "child": [
+        0.75,
+        0.05,
+        -0.075
+      ],
+      "attachments": [],
+      "jointState": [
+        {
+          "name": "slide_x",
+          "value": 0
+        },
+        {
+          "name": "slide_y",
+          "value": 0
+        }
+      ],
+      "objectList": [
+        "workpiece",
+        "extension_plate"
+      ],
+      "weldPreviewAttached": true
+    },
+    "afterJoin": {
+      "parent": [
+        0.35,
+        0.05,
+        -0.075
+      ],
+      "child": [
+        0.75,
+        0.05,
+        -0.075
+      ],
+      "attachments": [
+        {
+          "object": "extension_plate",
+          "frame": "model/workpiece"
+        }
+      ],
+      "jointState": [
+        {
+          "name": "slide_x",
+          "value": 0.6499943748155818
+        },
+        {
+          "name": "slide_y",
+          "value": 0.11999325047141164
+        }
+      ],
+      "objectList": [
+        "workpiece",
+        "extension_plate → model/workpiece"
+      ],
+      "weldPreviewAttached": true
+    },
+    "afterGrab": {
+      "parent": [
+        0.35,
+        0.05,
+        -0.075
+      ],
+      "child": [
+        0.75,
+        0.05,
+        -0.075
+      ],
+      "attachments": [
+        {
+          "object": "extension_plate",
+          "frame": "model/workpiece"
+        },
+        {
+          "object": "workpiece",
+          "frame": "robot/seam_cartesian/link/tcp_link"
+        }
+      ],
+      "jointState": [
+        {
+          "name": "slide_x",
+          "value": 0.6499943748155818
+        },
+        {
+          "name": "slide_y",
+          "value": 0.11999325047141164
+        }
+      ],
+      "objectList": [
+        "workpiece → robot/seam_cartesian/link/tcp_link",
+        "extension_plate → model/workpiece"
+      ],
+      "weldPreviewAttached": true
+    },
+    "atEnd": {
+      "parent": [
+        0.000012950648077159066,
+        -0.18998822735686688,
+        -0.075
+      ],
+      "child": [
+        0.4000129506480772,
+        -0.18998822735686688,
+        -0.075
+      ],
+      "attachments": [
+        {
+          "object": "extension_plate",
+          "frame": "model/workpiece"
+        }
+      ],
+      "jointState": [
+        {
+          "name": "slide_x",
+          "value": 0.30000732546365894
+        },
+        {
+          "name": "slide_y",
+          "value": -0.11999497688545523
+        }
+      ],
+      "objectList": [
+        "workpiece",
+        "extension_plate → model/workpiece"
+      ],
+      "weldPreviewAttached": true
+    },
+    "reset": {
+      "parent": [
+        0.35,
+        0.05,
+        -0.075
+      ],
+      "child": [
+        0.75,
+        0.05,
+        -0.075
+      ],
+      "attachments": [],
+      "jointState": [
+        {
+          "name": "slide_x",
+          "value": 0
+        },
+        {
+          "name": "slide_y",
+          "value": 0
+        }
+      ],
+      "objectList": [
+        "workpiece",
+        "extension_plate"
+      ],
+      "weldPreviewAttached": true
+    }
+  },
+  "pageErrors": [],
+  "carriedBeforeZip": {
+    "parent": [
+      0.17501013805586801,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "child": [
+      0.5750101380558681,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "attachments": [
+      {
+        "object": "extension_plate",
+        "frame": "model/workpiece"
+      },
+      {
+        "object": "workpiece",
+        "frame": "robot/seam_cartesian/link/tcp_link"
+      }
+    ],
+    "jointState": [
+      {
+        "name": "slide_x",
+        "value": 0.4750045128714498
+      },
+      {
+        "name": "slide_y",
+        "value": 0.0000016483502505525422
+      }
+    ],
+    "objectList": [
+      "workpiece → robot/seam_cartesian/link/tcp_link",
+      "extension_plate → model/workpiece"
+    ],
+    "program": "# Draw a kinematic seam on workpiece, join its touching extension, then carry both.\n# JOIN is a scene-parenting event; it does not simulate melting or bond strength.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE seam_start world 0.15 0 0 Q 0 0 0 1\nPOSE via world 0.35 0.14 0 Q 0 0 0 1\nPOSE arc_end world 0.55 0 0 Q 0 0 0 1\nPOSE seam_end world 0.65 0.12 0 Q 0 0 0 1\nPOSE carry_end world 0.30 -0.12 0 Q 0 0 0 1\nMOVEJ seam_start\nWELD ON workpiece\nMOVEC via arc_end\nMOVEL seam_end\nWELD OFF\nWELD JOIN extension_plate workpiece\nPAUSE 0.2\nGRAB workpiece\nMOVEL carry_end\nRELEASE workpiece\n"
+  },
+  "reopened": {
+    "parent": [
+      0.000012950648077159066,
+      -0.18998822735686688,
+      -0.075
+    ],
+    "child": [
+      0.4000129506480772,
+      -0.18998822735686688,
+      -0.075
+    ],
+    "attachments": [
+      {
+        "object": "extension_plate",
+        "frame": "model/workpiece"
+      }
+    ],
+    "jointState": [
+      {
+        "name": "slide_x",
+        "value": 0.30000732546365894
+      },
+      {
+        "name": "slide_y",
+        "value": -0.11999497688545523
+      }
+    ],
+    "objectList": [
+      "workpiece",
+      "extension_plate → model/workpiece"
+    ],
+    "program": "# Draw a kinematic seam on workpiece, join its touching extension, then carry both.\n# JOIN is a scene-parenting event; it does not simulate melting or bond strength.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE seam_start world 0.15 0 0 Q 0 0 0 1\nPOSE via world 0.35 0.14 0 Q 0 0 0 1\nPOSE arc_end world 0.55 0 0 Q 0 0 0 1\nPOSE seam_end world 0.65 0.12 0 Q 0 0 0 1\nPOSE carry_end world 0.30 -0.12 0 Q 0 0 0 1\nMOVEJ seam_start\nWELD ON workpiece\nMOVEC via arc_end\nMOVEL seam_end\nWELD OFF\nWELD JOIN extension_plate workpiece\nPAUSE 0.2\nGRAB workpiece\nMOVEL carry_end\nRELEASE workpiece\n"
+  },
+  "reopenedCarried": {
+    "parent": [
+      0.17501013805586801,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "child": [
+      0.5750101380558681,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "attachments": [
+      {
+        "object": "extension_plate",
+        "frame": "model/workpiece"
+      },
+      {
+        "object": "workpiece",
+        "frame": "robot/seam_cartesian/link/tcp_link"
+      }
+    ],
+    "jointState": [
+      {
+        "name": "slide_x",
+        "value": 0.4750045128714498
+      },
+      {
+        "name": "slide_y",
+        "value": 0.0000016483502505525422
+      }
+    ],
+    "objectList": [
+      "workpiece → robot/seam_cartesian/link/tcp_link",
+      "extension_plate → model/workpiece"
+    ],
+    "program": "# Draw a kinematic seam on workpiece, join its touching extension, then carry both.\n# JOIN is a scene-parenting event; it does not simulate melting or bond strength.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE seam_start world 0.15 0 0 Q 0 0 0 1\nPOSE via world 0.35 0.14 0 Q 0 0 0 1\nPOSE arc_end world 0.55 0 0 Q 0 0 0 1\nPOSE seam_end world 0.65 0.12 0 Q 0 0 0 1\nPOSE carry_end world 0.30 -0.12 0 Q 0 0 0 1\nMOVEJ seam_start\nWELD ON workpiece\nMOVEC via arc_end\nMOVEL seam_end\nWELD OFF\nWELD JOIN extension_plate workpiece\nPAUSE 0.2\nGRAB workpiece\nMOVEL carry_end\nRELEASE workpiece\n"
+  },
+  "invalidImportStatus": "Project robot state for slide_x is outside [0, 0.8].",
+  "afterInvalid": {
+    "parent": [
+      0.17501013805586801,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "child": [
+      0.5750101380558681,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "attachments": [
+      {
+        "object": "extension_plate",
+        "frame": "model/workpiece"
+      },
+      {
+        "object": "workpiece",
+        "frame": "robot/seam_cartesian/link/tcp_link"
+      }
+    ],
+    "jointState": [
+      {
+        "name": "slide_x",
+        "value": 0.4750045128714498
+      },
+      {
+        "name": "slide_y",
+        "value": 0.0000016483502505525422
+      }
+    ],
+    "objectList": [
+      "workpiece → robot/seam_cartesian/link/tcp_link",
+      "extension_plate → model/workpiece"
+    ],
+    "program": "# Draw a kinematic seam on workpiece, join its touching extension, then carry both.\n# JOIN is a scene-parenting event; it does not simulate melting or bond strength.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE seam_start world 0.15 0 0 Q 0 0 0 1\nPOSE via world 0.35 0.14 0 Q 0 0 0 1\nPOSE arc_end world 0.55 0 0 Q 0 0 0 1\nPOSE seam_end world 0.65 0.12 0 Q 0 0 0 1\nPOSE carry_end world 0.30 -0.12 0 Q 0 0 0 1\nMOVEJ seam_start\nWELD ON workpiece\nMOVEC via arc_end\nMOVEL seam_end\nWELD OFF\nWELD JOIN extension_plate workpiece\nPAUSE 0.2\nGRAB workpiece\nMOVEL carry_end\nRELEASE workpiece\n"
+  },
+  "reopenedLegacy": {
+    "parent": [
+      0.17501013805586801,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "child": [
+      0.5750101380558681,
+      -0.06999160212116108,
+      -0.075
+    ],
+    "attachments": [
+      {
+        "object": "extension_plate",
+        "frame": "model/workpiece"
+      },
+      {
+        "object": "workpiece",
+        "frame": "robot/seam_cartesian/link/tcp_link"
+      }
+    ],
+    "jointState": [
+      {
+        "name": "slide_x",
+        "value": 0
+      },
+      {
+        "name": "slide_y",
+        "value": 0
+      }
+    ],
+    "objectList": [
+      "workpiece → robot/seam_cartesian/link/tcp_link",
+      "extension_plate → model/workpiece"
+    ],
+    "program": "# Draw a kinematic seam on workpiece, join its touching extension, then carry both.\n# JOIN is a scene-parenting event; it does not simulate melting or bond strength.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE seam_start world 0.15 0 0 Q 0 0 0 1\nPOSE via world 0.35 0.14 0 Q 0 0 0 1\nPOSE arc_end world 0.55 0 0 Q 0 0 0 1\nPOSE seam_end world 0.65 0.12 0 Q 0 0 0 1\nPOSE carry_end world 0.30 -0.12 0 Q 0 0 0 1\nMOVEJ seam_start\nWELD ON workpiece\nMOVEC via arc_end\nMOVEL seam_end\nWELD OFF\nWELD JOIN extension_plate workpiece\nPAUSE 0.2\nGRAB workpiece\nMOVEL carry_end\nRELEASE workpiece\n"
+  }
+}

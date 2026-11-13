@@ -1,0 +1,54 @@
+{
+  "signal": {
+    "status": "error",
+    "diagnostic": {
+      "code": "DEVICE_COLLISION",
+      "line": 2,
+      "program": "conveyor",
+      "model": "tray",
+      "message": "conveyor line 2: MOVE_MODEL tray collides with model/wall/link/body at 40% of this tick's motion."
+    }
+  },
+  "afterSignal": {
+    "x": 0,
+    "signalStatus": "error",
+    "signalTick": 0,
+    "signalDiagnostic": "conveyor line 2: MOVE_MODEL tray collides with model/wall/link/body at 40% of this tick's motion."
+  },
+  "shared": {
+    "status": "error",
+    "diagnostic": {
+      "code": "DEVICE_COLLISION",
+      "line": 3,
+      "program": "conveyor",
+      "message": "conveyor line 3: MOVE_MODEL tray collides with model/wall/link/body at 40% of this tick's motion."
+    },
+    "duration": 0.5480219944491279
+  },
+  "afterShared": {
+    "x": 0,
+    "signalStatus": "running",
+    "signalTick": 7,
+    "sharedStatus": "error",
+    "sharedTick": 7,
+    "sharedDiagnostic": "conveyor line 3: MOVE_MODEL tray collides with model/wall/link/body at 40% of this tick's motion."
+  },
+  "triggered": {
+    "status": "error",
+    "diagnostic": {
+      "code": "DEVICE_COLLISION",
+      "line": 2,
+      "program": "conveyor",
+      "message": "conveyor line 2: MOVE_MODEL tray collides with model/wall/link/body at 40% of this tick's motion."
+    }
+  },
+  "afterTriggered": {
+    "x": 0,
+    "signalStatus": "running",
+    "signalTick": 0,
+    "triggerStatus": "error",
+    "triggerTick": 0,
+    "triggerDiagnostic": "conveyor line 2: MOVE_MODEL tray collides with model/wall/link/body at 40% of this tick's motion."
+  },
+  "pageErrors": []
+}

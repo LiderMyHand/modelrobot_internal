@@ -1,0 +1,10 @@
+# The tray moves between two separately planned robot executions.
+PROGRAM cycle
+MOVE_MODEL tray X 0.50 TICKS 2
+RUN_ROBOT
+WAIT_SET robot_done TIMEOUT 100
+MOVE_MODEL tray X 0.65 TICKS 2
+RUN_ROBOT
+WAIT_SET robot_done TIMEOUT 100
+SET cycle_done 1
+END

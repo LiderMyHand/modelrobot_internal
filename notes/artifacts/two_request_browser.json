@@ -1,0 +1,147 @@
+{
+  "initial": {
+    "tick": 0,
+    "time": 0,
+    "status": "running",
+    "robot": "idle",
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 0,
+    "trayX": 0.2,
+    "yaw": 0,
+    "diagnostics": [],
+    "snapshots": 0
+  },
+  "firstPlan": {
+    "tick": 3,
+    "time": 0.30000000000000004,
+    "status": "running",
+    "robot": "moving",
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 0,
+    "trayX": 0.5,
+    "yaw": 0,
+    "diagnostics": [],
+    "snapshots": 1
+  },
+  "between": {
+    "tick": 17,
+    "time": 1.7000000000000002,
+    "status": "running",
+    "robot": "done",
+    "q": [
+      0.05,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 1,
+    "trayX": 0.575,
+    "yaw": 0.05,
+    "diagnostics": [],
+    "snapshots": 1
+  },
+  "secondPlan": {
+    "tick": 19,
+    "time": 1.9000000000000001,
+    "status": "running",
+    "robot": "moving",
+    "q": [
+      0.05,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 0,
+    "trayX": 0.65,
+    "yaw": 0.05,
+    "diagnostics": [],
+    "snapshots": 2
+  },
+  "secondMid": {
+    "tick": 22,
+    "time": 2.2,
+    "status": "running",
+    "robot": "moving",
+    "q": [
+      -0.040298321765001234,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 0,
+    "trayX": 0.65,
+    "yaw": -0.040298321765001234,
+    "diagnostics": [],
+    "snapshots": 2
+  },
+  "finished": {
+    "tick": 34,
+    "time": 3.4000000000000004,
+    "status": "finished",
+    "robot": "done",
+    "q": [
+      0.05,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 1,
+    "cycleDone": 1,
+    "trayX": 0.65,
+    "yaw": 0.05,
+    "diagnostics": [],
+    "snapshots": 2
+  },
+  "snapshots": [
+    {
+      "trayX": 0.5,
+      "yaw": 0
+    },
+    {
+      "trayX": 0.65,
+      "yaw": 0.05
+    }
+  ],
+  "reset": {
+    "tick": 0,
+    "time": 0,
+    "status": "running",
+    "robot": "idle",
+    "q": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "done": 0,
+    "trayX": 0.2,
+    "yaw": 0,
+    "diagnostics": [],
+    "snapshots": 2
+  },
+  "pageErrors": []
+}

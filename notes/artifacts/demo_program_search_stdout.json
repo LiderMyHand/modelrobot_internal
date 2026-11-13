@@ -1,0 +1,78 @@
+{
+  "status": "Playback finished.",
+  "workcellStatus": "Loaded 4 scene object(s); 1 warning(s): Dynamic physics is unsupported; model is kinematically placed.",
+  "plans": [
+    {
+      "line": 9,
+      "type": "PTP",
+      "duration": 6.54114114296513,
+      "internalStops": false
+    },
+    {
+      "line": 11,
+      "type": "CIRC",
+      "duration": 23.840469847161874,
+      "internalStops": false
+    },
+    {
+      "line": 12,
+      "type": "LIN",
+      "duration": 1.0102505424602963,
+      "internalStops": false
+    }
+  ],
+  "events": [
+    {
+      "time": 6.54114114296513,
+      "kind": "GRAB",
+      "object": "pick_box",
+      "frame": "robot/classroom_six_axis_arm/link/tcp_link",
+      "line": 10
+    },
+    {
+      "time": 31.3918615325873,
+      "kind": "RELEASE",
+      "object": "pick_box",
+      "frame": "robot/classroom_six_axis_arm/link/tcp_link",
+      "line": 13
+    }
+  ],
+  "duration": 31.3918615325873,
+  "sampleCount": 3281,
+  "playback": {
+    "initial": [
+      0.42,
+      0.16,
+      0.765
+    ],
+    "afterGrab": {
+      "box": [
+        0.42000000009540134,
+        0.1600000012422566,
+        0.7650000022727123
+      ],
+      "attachments": [
+        {
+          "object": "pick_box",
+          "frame": "robot/classroom_six_axis_arm/link/tcp_link"
+        }
+      ]
+    },
+    "atEnd": {
+      "box": [
+        0.8399172732116529,
+        -0.1599906841572614,
+        0.7850229146986595
+      ],
+      "attachments": [],
+      "state": "finished"
+    },
+    "reset": [
+      0.42,
+      0.16,
+      0.765
+    ]
+  },
+  "diagnostics": [],
+  "pageErrors": []
+}

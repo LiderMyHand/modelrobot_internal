@@ -1,0 +1,163 @@
+{
+  "solved": 852,
+  "worst": {
+    "q": [
+      -1.2987105299718678,
+      -1.0839110992848873,
+      0.3384531469084322,
+      -1.2146519178524613,
+      0.5774269557557999,
+      0.26451974697411057
+    ],
+    "axis": 2,
+    "dt": 0.25,
+    "twist": [
+      0,
+      0,
+      0.2,
+      0,
+      0,
+      0
+    ],
+    "qdot": [
+      0.1011842484177472,
+      1.1673801305521745,
+      -1.9431610469489802,
+      1.007619570688,
+      0.3401688600924526,
+      -1.284511736615802
+    ],
+    "localTranslationResidual": 5.038583395212295e-7,
+    "localAngularResidual": 5.971380620937864e-7,
+    "positionError": 0.028481486889876045,
+    "rotationError": 0.03144685222050312,
+    "actualDisplacement": [
+      -0.0037735242200071517,
+      0.014222822068578611,
+      0.02561420612682963
+    ],
+    "health": {
+      "status": "regular",
+      "rank": 6,
+      "expectedRank": 6,
+      "activeJoints": 6,
+      "taskLimited": false,
+      "relativeMinimum": 0.04249801911862385,
+      "conditionNumber": 23.530508497554216,
+      "singularValues": [
+        5.02878439477517,
+        2.906744954368774,
+        1.347256207748943,
+        0.7460039676316813,
+        0.48872481064727175,
+        0.21371337535259244
+      ],
+      "characteristicLength": 0.25,
+      "nearSingularRatio": 0.02,
+      "rankTolerance": 1e-7
+    }
+  },
+  "nearBound": {
+    "status": "limited",
+    "qdot": [
+      0.0009999999999998899
+    ],
+    "achieved": [
+      0.0009999999999998899,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "residual": [
+      0.02900000000000011,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "translationError": 0.02900000000000011,
+    "rotationError": 0,
+    "rank": 1,
+    "health": {
+      "status": "regular",
+      "rank": 1,
+      "expectedRank": 1,
+      "activeJoints": 1,
+      "taskLimited": true,
+      "relativeMinimum": 1,
+      "conditionNumber": 1,
+      "singularValues": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "characteristicLength": 0.25,
+      "nearSingularRatio": 0.02,
+      "rankTolerance": 1e-7
+    },
+    "limitedJoints": [
+      "j1"
+    ],
+    "nextQ": [
+      1
+    ],
+    "reason": "Joint velocity or position limit prevents the requested TCP twist (j1)."
+  },
+  "outside": {
+    "status": "solved",
+    "qdot": [
+      -0.000009999999999177334
+    ],
+    "achieved": [
+      -0.000009999999999177334,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "residual": [
+      0.000009999999999177334,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "translationError": 0.000009999999999177334,
+    "rotationError": 0,
+    "rank": 1,
+    "health": {
+      "status": "regular",
+      "rank": 1,
+      "expectedRank": 1,
+      "activeJoints": 1,
+      "taskLimited": true,
+      "relativeMinimum": 1,
+      "conditionNumber": 1,
+      "singularValues": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "characteristicLength": 0.25,
+      "nearSingularRatio": 0.02,
+      "rankTolerance": 1e-7
+    },
+    "limitedJoints": [
+      "j1"
+    ],
+    "nextQ": [
+      1
+    ]
+  }
+}

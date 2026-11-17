@@ -1,0 +1,37 @@
+[
+  {
+    "file": "base.stl",
+    "triangles": 235,
+    "zero_facet_normals": 0
+  },
+  {
+    "file": "forearm.stl",
+    "triangles": 1050,
+    "zero_facet_normals": 1050
+  },
+  {
+    "file": "shoulder.stl",
+    "triangles": 674,
+    "zero_facet_normals": 674
+  },
+  {
+    "file": "upperarm.stl",
+    "triangles": 1176,
+    "zero_facet_normals": 1176
+  },
+  {
+    "file": "wrist1.stl",
+    "triangles": 702,
+    "zero_facet_normals": 702
+  },
+  {
+    "file": "wrist2.stl",
+    "triangles": 702,
+    "zero_facet_normals": 702
+  },
+  {
+    "file": "wrist3.stl",
+    "triangles": 446,
+    "zero_facet_normals": 446
+  }
+]

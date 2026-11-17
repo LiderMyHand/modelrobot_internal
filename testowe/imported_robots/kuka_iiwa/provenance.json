@@ -1,0 +1,52 @@
+{
+  "repository": "https://github.com/bulletphysics/bullet3",
+  "revision": "d3afe76132fc76b0f9b2359cbaef47a3766e7fbb",
+  "source_url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/model.urdf",
+  "license": "BSD-2-Clause (full notice embedded in source.urdf)",
+  "source_sha256": "5c13c5b4bb88b5265223e0ec9a7706cbf81e9bb21cc0e18534273755a041788c",
+  "original_license_url": "https://raw.githubusercontent.com/rtkg/lbr_iiwa/master/license.dat",
+  "files": [
+    {
+      "path": "meshes/link_0.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_0.stl",
+      "sha256": "541e131185c398ba4562f94ddf988ec349cf50b78c07ddef0bce22b55f0292d3"
+    },
+    {
+      "path": "meshes/link_1.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_1.stl",
+      "sha256": "9539f9491e1abf7c01e8abae5eaba878771e4a3ada41e76ebeb39cce922d2818"
+    },
+    {
+      "path": "meshes/link_2.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_2.stl",
+      "sha256": "75d61826aa89de769935eafca2da207d51f5b0e72dbd52758e46ba6835e9206e"
+    },
+    {
+      "path": "meshes/link_3.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_3.stl",
+      "sha256": "88aa914d0396e8ec0b744c98f71264062e5a3d8c5eedcd0f6c124c7c5ce2545b"
+    },
+    {
+      "path": "meshes/link_4.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_4.stl",
+      "sha256": "505815a8ee3175103e748566ad3257e77abd9823055898147493d4d20946faf8"
+    },
+    {
+      "path": "meshes/link_5.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_5.stl",
+      "sha256": "e26c3cbefa46e24ed02cc0dfe86bc7c89e53675623f8fee007d7860a48d2fa80"
+    },
+    {
+      "path": "meshes/link_6.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_6.stl",
+      "sha256": "f29869219bdf92a0bac2004aaab5ec22e645fedfb0fc5d4776b663fab1b22f37"
+    },
+    {
+      "path": "meshes/link_7.stl",
+      "url": "https://raw.githubusercontent.com/bulletphysics/bullet3/d3afe76132fc76b0f9b2359cbaef47a3766e7fbb/examples/pybullet/gym/pybullet_data/kuka_iiwa/meshes/link_7.stl",
+      "sha256": "13a2c25ba8a1ae6b6d5d1c13b6f58bb8ce76ce5b61403698ddc9281edc139645"
+    }
+  ],
+  "browser_sha256": "6c87156bb41d7b6df7c1d9537b6590d466382840e3af392833cf13307ce74ac7",
+  "browser_adaptation": "Visual OBJ filenames changed to matching upstream collision STL filenames only."
+}

@@ -123,6 +123,9 @@ test('Cartesian solver includes CIRC via sample and reports blocked geometry wit
   const slideStart=modelApi.forwardKinematics(slide,[0]), slideEnd=modelApi.forwardKinematics(slide,[.3]);
   const blocked=pathApi.solveCartesianPath(slide,pathApi.linearPath(slideStart,slideEnd),{start:[0],translationStep:.05,isStateValid:q=>q[0]<.15});
   assert.equal(blocked.status,'collision');
+  assert.match(blocked.reason,/collision\/state validation/i);
+  assert.equal(blocked.result.status,'collision');
+  assert.ok(blocked.result.positionError<=1e-4,'The geometric IK target is reached; the state validator rejects it.');
 });
 
 test('PTP plans directly, checks interior states, then routes around a joint-space obstacle', () => {

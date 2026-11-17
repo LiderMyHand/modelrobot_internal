@@ -1,0 +1,29 @@
+# Numerical and manual-control state review
+
+Reviewed 2026-11-13 at the user's request. Scope: inverse velocity kinematics, jog feedback, collision state, planning invalidation and playback ownership. Application UI edits belong to the root agent; the numerical diagnostic repair below was delegated to this reviewer.
+
+## Findings and repairs
+
+1. **High: an infeasible requested twist was automatically called singular.** In `frontend/planning/velocity-ik.js`, any residual above tolerance with no activated joint bound returned `singular`. A regular one-joint pivot commanded radially is simply unable to make that motion: its Jacobian has full column rank. A damped full-rank solve can also retain a residual. Repaired: `unreachable_twist` distinguishes that case. `singular` remains for a failed twist with Jacobian rank below `min(6,n)`. The return includes configuration health independent of the command. The one-joint regression now proves it is task limited, not singular.
+
+2. **High: no near-singularity indication before failure.** Numerical rank alone is too binary, and the UI did not even show that rank. Added pure `frontend/planning/jacobian-health.js` and `jacobianHealth(model,q,options)` from `velocity-ik.js`. It computes singular values of a normalized task Jacobian via a deterministic symmetric Jacobi eigensolver. Translation is divided by an explicit characteristic length (default 0.25 m); prismatic inputs are scaled by the same length. `relativeMinimum` is smallest relevant singular value divided by largest; rank tolerance is 1e-7 and near-singular warning threshold 0.02. These thresholds are educational choices, not universal robot limits. Root can show regular / near singular / reduced independent motion, plus rank and recovery.
+
+3. **High: the failed solver result is thrown away before feedback storage.** `WorkcellUI.jogPendant` calls `solveVelocity` and throws on non-solved status before storing `pendantLastJog`. Students cannot see requested versus achieved velocity, residual, limited joints, or rank for the failure. Preserve a structured failed attempt and explain that no joint state was applied. Show details only when requested. A feasible low-residual command at a near-singular posture can still succeed, so configuration warning and last-action outcome must be separate.
+
+4. **High: source edits silently rewind a preview.** `programSource` input invokes `invalidatePlan()` with `restoreStart=true`. That may reset the robot, scene and attachments as the student starts editing, without explaining the state transition. A source edit should mark the plan stale while preserving the displayed robot/scene; explicit Reset should restore the run baseline. This is distinct from deciding whether a later replan starts at the current pose or a declared lesson start.
+
+5. **Medium: last-message state is contradictory and easy to overwrite.** `programStatus`, `pendantStatus` and the player callback are independent text setters. Selecting another jog mode overwrites the local error with generic instructions while the top banner still shows the old failure. `invalidatePlan` disables playback without always explaining why. Present persistent fields for control mode, plan readiness, configuration health and last action; clear only the category that actually changed. The `playing` callback currently supplies no explicit visible playing status.
+
+6. **Medium: collision toggle has the wrong apparent scope.** The viewer checkbox enables only legacy advisory URDF self-collision warnings, whereas pendant and planner always use their separate blocking geometry query. Students can interpret unchecked Collisions as disabled checks or a red link as the reason for a planning block, although these checks differ. Label it “Show self-collision warnings” and explain that planned/jogged motions are checked separately. Jog errors currently report only a sample index; naming the colliding owners and suggesting a recovery direction would be more useful.
+
+## Correctness boundaries
+
+The geometric Jacobian uses TCP-origin linear velocity and world-expressed angular velocity consistently. Tool-frame requests rotate both vectors at the same TCP origin, so no translation term is required. Joint rate and one-step position bounds are enforced, and failed pendant commands do not apply the approximate solution. Successful steps check the sampled joint edge before committing. Manual jogging is discrete Euler kinematics, not an acceleration-limited servo or a collision escape controller. These are valid assumptions if the interface states them clearly.
+
+Rank below `min(6,n)` is a rank deficit relative to an upper bound, not proof of an isolated singular posture: a structurally planar chain with six joints may be deficient everywhere. Conversely a full-column-rank chain with fewer than six active joints is `regular` with `taskLimited=true`. The UI should show rank and task limitation, rather than diagnose every reduced-rank model as a broken robot. Generic manipulator rank estimation remains future work.
+
+The one-way active-set clamp in velocity IK is a bounded damped solution heuristic; it never releases an activated bound. It therefore should not be described as a globally optimal bounded least-squares solver for arbitrary redundant chains. This does not invalidate the current six-axis bounded-step teaching use, where unsuccessful commands are blocked.
+
+## Verification
+
+`node --test tests/jacobian-health.test.cjs tests/velocity-ik.test.cjs` passes 10/10. Tests cover regular, near-singular and deficient six-axis matrices, world-coordinate rotation invariance, declared prismatic/translation scaling, a regular one-DOF chain, and a real six-axis serial model at a full-rank bent configuration and a deficient straight configuration. The diagnostic API is deterministic and returns `conditionNumber=null` at deficiency rather than JSON-incompatible infinity.

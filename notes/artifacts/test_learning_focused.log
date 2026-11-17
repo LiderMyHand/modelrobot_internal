@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: normalized six-axis health distinguishes a regular, near singular and deficient Jacobian
+ok 1 - normalized six-axis health distinguishes a regular, near singular and deficient Jacobian
+  ---
+  duration_ms: 23.120416
+  type: 'test'
+  ...
+# Subtest: a low-DOF chain is task limited rather than automatically singular
+ok 2 - a low-DOF chain is task limited rather than automatically singular
+  ---
+  duration_ms: 0.802861
+  type: 'test'
+  ...
+# Subtest: declared length normalizes metre translation and prismatic input consistently
+ok 3 - declared length normalizes metre translation and prismatic input consistently
+  ---
+  duration_ms: 1.428607
+  type: 'test'
+  ...
+# Subtest: task-coordinate rotation leaves singular values and status invariant
+ok 4 - task-coordinate rotation leaves singular values and status invariant
+  ---
+  duration_ms: 0.709935
+  type: 'test'
+  ...
+# Subtest: student teaches two poses, plans from an explicit start, and recovers from blocked Cartesian motion
+ok 5 - student teaches two poses, plans from an explicit start, and recovers from blocked Cartesian motion
+  ---
+  duration_ms: 15903.282557
+  type: 'test'
+  ...
+# Subtest: Chromium pendant jogs a six-axis arm in world and tool frames and teaches targets
+ok 6 - Chromium pendant jogs a six-axis arm in world and tool frames and teaches targets
+  ---
+  duration_ms: 19716.849208
+  type: 'test'
+  ...
+# Subtest: geometric Jacobian maps a pivot rate to TCP tangent speed and yaw rate
+ok 7 - geometric Jacobian maps a pivot rate to TCP tangent speed and yaw rate
+  ---
+  duration_ms: 147.003282
+  type: 'test'
+  ...
+# Subtest: tool-frame TCP twist rotates with the current tool orientation
+ok 8 - tool-frame TCP twist rotates with the current tool orientation
+  ---
+  duration_ms: 4.294988
+  type: 'test'
+  ...
+# Subtest: unreachable direction of a regular one-joint chain is not a singularity
+ok 9 - unreachable direction of a regular one-joint chain is not a singularity
+  ---
+  duration_ms: 5.137463
+  type: 'test'
+  ...
+# Subtest: rate and near-bound position limits report best bounded rate without hiding the shortfall
+ok 10 - rate and near-bound position limits report best bounded rate without hiding the shortfall
+  ---
+  duration_ms: 5.711443
+  type: 'test'
+  ...
+# Subtest: six-axis DLS realizes a feasible twist on a rotated robot base
+ok 11 - six-axis DLS realizes a feasible twist on a rotated robot base
+  ---
+  duration_ms: 4.854871
+  type: 'test'
+  ...
+# Subtest: velocity IK validates frame, dimension and limit inputs
+ok 12 - velocity IK validates frame, dimension and limit inputs
+  ---
+  duration_ms: 0.658759
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19914.194797

@@ -358,10 +358,14 @@ export function createPlanningCollisionScene({ robotName, robotModel, allJoints,
     const parent = parentObject(object);
     return parent ? attachedLink(parent) : null;
   };
+  let lastCollision = null;
   const isStateValid = q => {
+    lastCollision = null;
     update(q);
     for (let i = 0; i < robotShapes.length; i++) for (let j = i + 1; j < robotShapes.length; j++) {
-      if (!excluded(robotShapes[i].link, robotShapes[j].link) && intersects(robotShapes[i], robotShapes[j])) return false;
+      if (!excluded(robotShapes[i].link, robotShapes[j].link) && intersects(robotShapes[i], robotShapes[j])) {
+        lastCollision = [robotShapes[i].link, robotShapes[j].link]; return false;
+      }
     }
     for (const robot of robotShapes) for (const object of objects.values()) for (const scene of object.shapes) {
       // The fixed robot base and its declared SDF carrier form one rigid
@@ -369,14 +373,14 @@ export function createPlanningCollisionScene({ robotName, robotModel, allJoints,
       if (object.name === mountedCarrier && fixedBaseLinks.has(robot.link)) continue;
       const carrier = attachedLink(object);
       if (carrier && excludes(robot.link, carrier)) continue;
-      if (intersects(robot, scene)) return false;
+      if (intersects(robot, scene)) { lastCollision = [robot.link, object.name]; return false; }
     }
     for (let i = 0; i < sceneShapes.length; i++) for (let j = i + 1; j < sceneShapes.length; j++) {
       const a = objects.get(sceneShapes[i].source.model), b = objects.get(sceneShapes[j].source.model);
       // The loaded world may contain static objects in contact. Only a carried
       // object can change their separation during this robot's motion.
       if ((a.attachment || b.attachment) && a !== b && assemblyRoot(a) !== assemblyRoot(b)
-        && intersects(sceneShapes[i], sceneShapes[j])) return false;
+        && intersects(sceneShapes[i], sceneShapes[j])) { lastCollision = [a.name, b.name]; return false; }
     }
     return true;
   };
@@ -425,7 +429,7 @@ export function createPlanningCollisionScene({ robotName, robotModel, allJoints,
     return Math.min(...object.shapes.map(record => distanceToShape(record, point, surface)));
   };
   for (const [name, frame] of sceneModel.attached) if (objects.has(name)) attach(name, frame, robotModel.initial);
-  return { isStateValid, attach, release,
+  return { isStateValid, attach, release, get lastCollision() { return lastCollision ? [...lastCollision] : null; },
     distanceToObject: (name, point, q) => objectDistance(name, point, q, false),
     distanceToObjectSurface: (name, point, q) => objectDistance(name, point, q, true),
     linkTransforms, getFrameWorld,

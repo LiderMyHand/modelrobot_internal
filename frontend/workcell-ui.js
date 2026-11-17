@@ -11,7 +11,8 @@ import { ProjectStore } from './project-store.js';
 import { validateRobotStateForURDF } from './project-robot-state.js';
 import { normalizeKinematicConstraints, validateFourBarProjectState } from './kinematic-constraints.js';
 import { createFourBarModel, expandFourBar, fourBarPose } from './planning/four-bar.js';
-import { solveVelocity } from './planning/velocity-ik.js';
+import { jacobianHealth } from './planning/velocity-ik.js';
+import { integrateJogVelocity } from './planning/jog-integration.js';
 import { resolveMotionLimits } from './motion-limits.js';
 import { readExampleText } from './example-text.js';
 import { compileMultiProgram } from './multi-program-language.js';
@@ -28,8 +29,28 @@ export class WorkcellUI {
   init() {
     this.sceneModel = new SceneModel({ scene: window.scene, meshGeometry: uri => this.app.localRobots.meshGeometry(uri) });
     const byId = id => document.getElementById(id);
+    const collisionLabel = byId('collision-enabled').closest('label');
+    collisionLabel.lastChild.textContent = ' Show collision warnings';
+    collisionLabel.title = 'Displays approximate URDF self-collision warnings. Path planning and pendant jogging always check robot and scene collision geometry.';
     this.sdfSource = byId('sdf-source'); this.sdfSource.value = emptyWorld;
     this.programSource = byId('program-source');
+    byId('lesson-return').textContent = 'Reset to teaching start';
+    byId('lesson-steps').lastElementChild.querySelector('b').textContent = 'Reset to teaching start';
+    byId('lesson-return').title = 'Instantly restores the lesson joint pose; this is a reset, not a planned robot move.';
+    const startButton = document.createElement('button'); startButton.type = 'button'; startButton.id = 'start-programming'; startButton.textContent = 'Start programming';
+    byId('open-files').after(startButton);
+    startButton.onclick = () => { this.app.workspace.select('program'); byId('program-learning').open = true; byId('program-learning').scrollIntoView({ block: 'start' }); };
+    byId('lesson-teach').onclick = () => this.loadTeachingLesson().catch(error => this.programStatus(error.message, true));
+    byId('lesson-demo').onclick = async () => { try { if (!await this.loadDemo()) return; this.app.workspace.select('program'); byId('program-learning').open = false; this.programStatus('Example ready. Plan path, then Play. Inspect MOVEJ, MOVEC, MOVEL and GRAB/RELEASE in the source.'); } catch (error) { this.programStatus(error.message, true); } };
+    byId('lesson-return').onclick = () => { if (!this.teachingStart) return; this.invalidatePlan({ restoreStart: false }); this.applyNamedJointState(this.teachingStart.names, this.teachingStart.q); this.programStatus('Returned to the teaching start. Plan path to preview A → B from this displayed pose.'); };
+    byId('lesson-singularity').onclick = () => {
+      if (!this.teachingStart) return;
+      this.invalidatePlan({ restoreStart: false });
+      this.applyNamedJointState(this.teachingStart.names, [0,0,0,0,0,0]);
+      byId('pendant-frame').value = 'world'; this.updatePendantMode();
+      this.programStatus('Straight-posture exercise: try World +X and observe the blocked direction. Joint mode can bend the arm; Reset to teaching start restores the lesson pose.');
+    };
+    byId('pendant-recover-joint').onclick = () => { byId('pendant-frame').value = 'joint'; this.updatePendantMode(); };
     this.signalProgramSource = byId('signal-program-source');
     this.signalProgramSource.addEventListener('input', () => { this.stopSharedRun('Concurrent source changed. Prepare a new shared run.'); this.stopTriggeredRun('Concurrent source changed. Prepare a new triggered run.'); this.signalState = null; this.signalInitialDevices = null; this.signalEvents = []; this.signalCompileDiagnostics = []; this.renderSignalRun('Program source changed. Check or run to begin from the current scene.'); });
     byId('signal-example').onclick = async () => {
@@ -101,6 +122,8 @@ export class WorkcellUI {
       return byId('pendant-frame').value === 'joint' ? this.jogPendantJoint(sign, axis) : this.jogPendant(axis, sign);
     });
     byId('pendant-frame').onchange = () => this.updatePendantMode();
+    byId('pendant-axis-prev').onclick = () => { this.pendantAxisOffset = Math.max(0, (this.pendantAxisOffset || 0) - 6); this.updatePendantMode(); };
+    byId('pendant-axis-next').onclick = () => { this.pendantAxisOffset = (this.pendantAxisOffset || 0) + 6; this.updatePendantMode(); };
     byId('pendant-coord').onclick = () => {
       const modes = ['joint', 'world', 'tool'], select = byId('pendant-frame');
       select.value = modes[(modes.indexOf(select.value) + 1) % modes.length];
@@ -111,6 +134,12 @@ export class WorkcellUI {
     document.addEventListener('visibilitychange', () => { if (document.hidden) stopPendant(); });
     byId('pendant-teach-pose').onclick = () => { try { this.teachPendantTarget('pose'); } catch (error) { this.pendantStatus(error.message, true); } };
     byId('pendant-teach-joints').onclick = () => { try { this.teachPendantTarget('joints'); } catch (error) { this.pendantStatus(error.message, true); } };
+    const teachRow = byId('pendant-teach-joints').closest('.button-row');
+    teachRow.prepend(byId('pendant-teach-joints'));
+    byId('pendant-frame').parentElement.previousElementSibling.before(teachRow);
+    byId('teach-pendant').querySelector('p').textContent = 'Click for one step; hold to repeat. Joint limits and scene collisions are checked.';
+    byId('teach-pendant').querySelector(':scope > small').textContent = 'Teach adds a MOVEJ target to the source. Replan after manual movement.';
+    byId('pendant-status').after(byId('pendant-condition'));
     this.poseOrientationKind = byId('pose-target-orientation').value;
     byId('pose-target-orientation').onchange = event => {
       const next = event.target.value;
@@ -140,8 +169,9 @@ export class WorkcellUI {
         else if (state === 'finished') this.programStatus('Playback finished.');
         else if (state === 'paused') this.programStatus(`Paused at ${this.player.time.toFixed(2)} s.`);
         else if (state === 'ready' && this.plan) this.programStatus('Ready at program start.');
+        this.refreshLifecycle();
       } });
-    this.programSource.addEventListener('input', () => this.invalidatePlan());
+    this.programSource.addEventListener('input', () => { this.invalidatePlan({ restoreStart: false }); this.programStatus('Source changed. Displayed robot and scene preserved; plan again before playback.'); });
     document.addEventListener('pointerdown', event => {
       if (event.target.closest('#joint-controls, #robotcsv, #loadcsv, #playbutton, #nextbutton, #prevbutton, #pose-toggle')) this.player.pause();
     }, true);
@@ -211,18 +241,29 @@ export class WorkcellUI {
     if (!element) return;
     const robot = this.activeRobotName || 'none';
     const world = this.sceneModel?.world?.name || 'none';
-    element.textContent = `Robot: ${robot} · World: ${world}`;
+    const tool = this.programSource?.value.match(/^\s*TOOL\s+(\S+)/m)?.[1] || 'not set';
+    element.textContent = `Robot: ${robot} · World: ${world} · Program TCP: ${tool}`;
   }
   programStatus(message, error = false) {
     const element = document.getElementById('program-status');
     element.textContent = message; element.classList.toggle('text-danger', error);
     this.refreshProgramContext();
+    this.refreshLifecycle();
+  }
+  refreshLifecycle() {
+    const element = document.getElementById('program-lifecycle');
+    if (!element) return;
+    const state = this.planningController ? 'Planning path…' : this.plan ?
+      ({ playing: 'Playing planned path', paused: 'Paused — plan available', finished: 'Finished — Reset returns to start', ready: 'Ready to play' }[this.player?.state] || 'Planned path available') : 'No planned path — teach or edit, then Plan path';
+    element.textContent = state;
+    element.dataset.state = this.planningController ? 'planning' : this.plan ? this.player?.state || 'ready' : 'empty';
   }
   pendantStatus(message, error = false) {
     const element = document.getElementById('pendant-status');
     if (!element) return;
     element.textContent = message; element.classList.toggle('text-danger', error);
-    if (error) this.programStatus(`Jog: ${message}`, true);
+    this.programStatus(`${error ? 'Jog blocked: ' : ''}${message}`, error);
+    document.getElementById('pendant-recover-joint').hidden = !error || document.getElementById('pendant-frame').value === 'joint';
   }
   stopPendantHold() {
     clearTimeout(this.pendantHoldTimer); clearInterval(this.pendantHoldInterval);
@@ -234,9 +275,14 @@ export class WorkcellUI {
     document.getElementById('pendant-joint-controls').hidden = mode !== 'joint';
     document.getElementById('pendant-cartesian-controls').hidden = mode === 'joint';
     const labels = ['X', 'Y', 'Z', 'Rx', 'Ry', 'Rz'];
+    const offset = this.pendantAxisOffset || 0, count = this.pendantJointNames?.length || 0;
+    document.getElementById('pendant-axis-page').hidden = mode !== 'joint' || count <= 6;
+    document.getElementById('pendant-axis-range').textContent = ` J${offset + 1}–J${Math.min(offset + 6, count)} of ${count} `;
+    document.getElementById('pendant-axis-prev').disabled = offset === 0;
+    document.getElementById('pendant-axis-next').disabled = offset + 6 >= count;
     for (let axis = 0; axis < 6; axis++) {
       const row = document.querySelector(`[data-pendant-row="${axis}"]`);
-      const joint = this.pendantJointNames?.[axis], label = mode === 'joint' ? `J${axis + 1}` : labels[axis];
+      const joint = this.pendantJointNames?.[axis + offset], label = mode === 'joint' ? `J${axis + offset + 1}` : labels[axis];
       row.querySelector('strong').textContent = mode === 'joint' ? `${label}${joint ? ` · ${joint}` : ' · unavailable'}` : label;
       for (const button of row.querySelectorAll('button')) {
         button.textContent = `${Number(button.dataset.pendantSign) < 0 ? '−' : '+'} ${label}`;
@@ -260,7 +306,7 @@ export class WorkcellUI {
         catch { names = []; }
       }
     }
-    this.pendantJointNames = names;
+    this.pendantJointNames = names; this.pendantAxisOffset = 0;
     this.updatePendantMode();
   }
   initPendantPanel() {
@@ -339,6 +385,29 @@ export class WorkcellUI {
     element.textContent = `TCP ${name} world XYZ: ${xyz.map(value => value.toFixed(4)).join('  ')} m\n` +
       `TCP Q xyzw: ${xyzw.map(value => value.toFixed(4)).join('  ')}\n` +
       `Joints: ${joints.join('  ')}`;
+    const condition = document.getElementById('pendant-condition');
+    if (this.closedLoopModel) {
+      condition.textContent = 'Constrained mechanism: use its independent input joint.'; condition.dataset.level = 'info';
+      document.getElementById('program-condition').textContent = condition.textContent;
+      document.getElementById('program-condition').dataset.level = 'info'; this.currentJacobianHealth = null; return;
+    }
+    try {
+      const model = createRobotModel({ joints: window.robotjointcollection.models, tipLink: name, worldFromBase: window.robot.matrixWorld });
+      const health = jacobianHealth(model, model.initial);
+      this.currentJacobianHealth = health;
+      condition.dataset.level = health.status === 'regular' ? 'info' : 'warning';
+      condition.textContent = health.status === 'rank_deficient' ? `Cartesian motion restricted (rank ${health.rank}/${health.expectedRank}). Use Joint mode to change posture.` :
+        health.status === 'near_singular' ? 'Near singular configuration: Cartesian jogging may need large joint rates. Reduce speed or change posture in Joint mode.' :
+          health.taskLimited ? `${health.activeJoints} controlled axes: only compatible TCP directions are possible.` : 'Cartesian motion available at this pose.';
+      const summary = document.getElementById('program-condition');
+      summary.textContent = health.status === 'regular' ? (health.taskLimited ? `Jog TCP: ${health.activeJoints} controlled axes; limited task directions.` : 'Cartesian directions available; joint limits and collisions are checked per jog.') :
+        health.status === 'near_singular' ? 'Near singular posture — reduce speed or change posture in Joint mode.' : 'Cartesian motion restricted at this posture — use Joint mode to change posture.';
+      summary.dataset.level = condition.dataset.level;
+    } catch (error) {
+      condition.textContent = `TCP motion assessment unavailable: ${error.message}`; condition.dataset.level = 'warning';
+      document.getElementById('program-condition').textContent = condition.textContent;
+      document.getElementById('program-condition').dataset.level = 'warning'; this.currentJacobianHealth = null;
+    }
   }
   sharedStatus(message, error = false) {
     const element = document.getElementById('shared-status');
@@ -386,9 +455,12 @@ export class WorkcellUI {
     this.player?.pause();
     if (this.player) { this.player.samples = null; this.player.events = []; this.player.state = 'empty'; this.player.model = null; }
     this.plan = null;
+    document.getElementById('program-diagnostics').replaceChildren();
+    document.getElementById('program-time').textContent = 'Time — no planned path';
     if (this.preview) { this.preview.parent?.remove(this.preview); this.preview.geometry.dispose(); this.preview.material.dispose(); this.preview = null; }
     this.disposeWeldPreviews();
     for (const id of ['program-play', 'program-pause', 'program-step', 'program-reset', 'trajectory-export', 'process-export']) document.getElementById(id).disabled = true;
+    this.refreshLifecycle();
   }
   manualControlStarted() {
     this.stopTriggeredRun('Manual robot control changed the start state. Prepare a new triggered run.');
@@ -455,6 +527,11 @@ export class WorkcellUI {
   onRobotLoaded(urdf) {
     if (!this.sceneModel || !window.robot || !window.robotlinkcollection) return;
     this.invalidatePlan();
+    this.teachingStart = null; this.pendantLastAttempt = null;
+    document.getElementById('lesson-return').hidden = true;
+    document.getElementById('lesson-singularity-exercise').hidden = true;
+    document.getElementById('lesson-steps').hidden = true;
+    document.getElementById('pendant-result').textContent = '';
     if (this.activeRobotName) this.sceneModel.removeRobot(this.activeRobotName);
     const name = new DOMParser().parseFromString(urdf, 'application/xml').documentElement.getAttribute('name') || 'robot';
     const links = new Map(window.robotlinkcollection.map(link => [link.get('name'), link.get('link')]));
@@ -537,17 +614,21 @@ export class WorkcellUI {
     this.programSource.value = `ROBOT ${this.activeRobotName}\nTOOL ${link}\nPOSE goal_pose ${targetFrame} ${positions.map(Number).join(' ')} ${kind} ${values.join(' ')}\n${move} goal_pose\n`;
     return this.planCurrentProgram({ preserveCurrentState: true });
   }
-  checkPendantEdge(model, joints, q, nextQ) {
-    const steps = Math.max(1, ...q.map((value, index) => Math.ceil(Math.abs(nextQ[index] - value) /
-      (model.joints[model.active[index]].type === 'prismatic' ? 0.005 : 0.02))));
-    if (steps > 100) throw new Error('Jog step needs too many collision samples; reduce its speed or duration.');
+  checkPendantEdge(model, joints, q, nextQ, waypoints = [q, nextQ]) {
+    const edges = waypoints.slice(1).map((end, i) => ({ start: waypoints[i], end,
+      steps: Math.max(1, ...end.map((value, index) => Math.ceil(Math.abs(value - waypoints[i][index]) /
+        (model.joints[model.active[index]].type === 'prismatic' ? 0.005 : 0.02)))) }));
+    const steps = edges.reduce((sum, edge) => sum + edge.steps, 0);
+    if (steps > 2000 || edges.some(edge => edge.steps > 100)) throw new Error('Jog step needs too many collision samples; reduce its speed or duration.');
     const scene = createPlanningCollisionScene({ robotName: this.activeRobotName, robotModel: model,
       allJoints: joints, robotCollisionShapes: parseURDFCollisionShapes(this.app.localRobots.currentXml),
       sceneModel: this.sceneModel, meshGeometry: uri => this.app.localRobots.meshGeometry(uri) });
     try {
-      for (let sample = 0; sample <= steps; sample++) {
-        const at = q.map((value, index) => value + (nextQ[index] - value) * sample / steps);
-        if (!scene.isStateValid(at)) throw new Error(`Jog blocked by a robot or scene collision at sample ${sample}/${steps}.`);
+      let checked = 0;
+      for (const edge of edges) for (let sample = 0; sample <= edge.steps; sample++) {
+        const at = edge.start.map((value, index) => value + (edge.end[index] - value) * sample / edge.steps);
+        if (!scene.isStateValid(at)) throw new Error(`Jog blocked by a robot or scene collision at sample ${checked}/${steps}${scene.lastCollision ? ` (${scene.lastCollision.join(' ↔ ')})` : ''}.`);
+        if (sample < edge.steps) checked++;
       }
     } finally { scene.dispose(); }
     return steps + 1;
@@ -574,23 +655,39 @@ export class WorkcellUI {
       const model = createRobotModel({ joints, tipLink: link, worldFromBase: window.robot.matrixWorld });
       const q = [...model.initial], limits = resolveMotionLimits(model, joints, this.motionLimits);
       const twist = Array(6).fill(0); twist[axis] = sign * (axis < 3 ? linear : angular);
-      const result = solveVelocity(model, q, twist, { frame, velocityLimits: limits.velocity, dt });
-      if (result.status !== 'solved') throw new Error(result.reason || `Velocity IK could not produce the requested jog (${result.status}).`);
-      const collisionSamples = this.checkPendantEdge(model, joints, q, result.nextQ);
+      const result = integrateJogVelocity(model, q, twist, { frame, velocityLimits: limits.velocity, dt });
+      this.pendantLastAttempt = { axis, sign, frame, requested: twist, ...result };
+      document.getElementById('pendant-result').textContent = `Last ${frame} velocity request: ${result.status}\n` +
+        `Requested [m/s, rad/s]: ${twist.map(value => value.toFixed(4)).join(' ')}\n` +
+        `Speed scale: minimum ${Math.round((result.speedScale ?? 1) * 100)}%, mean ${Math.round((result.averageSpeedScale ?? result.speedScale ?? 1) * 100)}%\n` +
+        `Achieved: ${(result.achieved || []).map(value => value.toFixed(4)).join(' ')}\n` +
+        `Residual: ${result.translationError?.toExponential(2) ?? 'unknown'} m/s, ${result.rotationError?.toExponential(2) ?? 'unknown'} rad/s\n` +
+        (result.limitedJoints?.length ? `Limited joints: ${result.limitedJoints.join(', ')}\n` : '') +
+        (result.status === 'solved' ? 'Velocity solution found; collision checks follow.' : 'Robot unchanged. Switch to Joint mode to change posture; reduce speed if a joint rate limit was reached.');
+      if (result.status !== 'solved') throw new Error(`${result.reason || `Velocity IK could not produce the requested jog (${result.status}).`} Robot unchanged.`);
+      const collisionSamples = this.checkPendantEdge(model, joints, q, result.nextQ, result.samples);
       this.invalidatePlan({ restoreStart: false });
       try { this.applyNamedJointState(model.jointNames, result.nextQ); }
       catch (error) { this.applyNamedJointState(model.jointNames, q); throw error; }
       const pose = forwardKinematics(model, result.nextQ);
       this.pendantLastJog = { axis, sign, frame, requested: twist, qdot: result.qdot,
-        achieved: result.achieved, residual: result.residual, q: result.nextQ, pose, collisionSamples };
+        achieved: result.achieved, residual: result.residual, q: result.nextQ, pose, collisionSamples,
+        speedScale: result.speedScale, averageSpeedScale: result.averageSpeedScale,
+        integrationSteps: result.samples.length - 1, maximumPositionError: result.maximumPositionError,
+        maximumOrientationError: result.maximumOrientationError };
       this.pendantJogCount = (this.pendantJogCount || 0) + 1;
       const direction = ['X', 'Y', 'Z', 'Rx', 'Ry', 'Rz'][axis];
       this.pendantStatus(`${frame === 'world' ? 'World' : 'Tool'} ${sign > 0 ? '+' : '−'}${direction} jog applied. ` +
-        `TCP twist residual: ${result.translationError.toExponential(1)} m/s, ${result.rotationError.toExponential(1)} rad/s. ` +
+        (result.speedScale < 1 ? `Automatically slowed as low as ${Math.round(result.speedScale * 100)}% to respect joint limits${result.limitedJoints?.length ? ` (${result.limitedJoints.join(', ')})` : ''}. ` : '') +
         'Replan the movement program before playback.');
       this.programStatus('Manual Cartesian jog changed the robot pose. Plan the program again.');
       return true;
-    } catch (error) { this.pendantStatus(error.message, true); return false; }
+    } catch (error) {
+      const message = `${error.message}${/unchanged/i.test(error.message) ? '' : ' Robot unchanged.'}`;
+      if (this.pendantLastAttempt) document.getElementById('pendant-result').textContent += `\nJog not applied: ${message}`;
+      this.pendantStatus(message + (/collision/i.test(message) ? ` Inspect the scene before retrying.${this.teachingStart ? ' Return to teaching start restores the lesson posture.' : ''}` : ''), true);
+      return false;
+    }
   }
   jogPendantJoint(sign, axis) {
     try {
@@ -600,7 +697,7 @@ export class WorkcellUI {
       if (this.sharedClock || this.triggerClock || this.planningController) throw new Error('Stop the shared run or current planning request before jogging.');
       if (this.sceneIntegrityIssues.length || this.app.collisions.issues.length) throw new Error('Complete collision geometry is required before jogging.');
       const link = document.getElementById('pose-target-link').value;
-      const selected = this.pendantJointNames?.[axis];
+      const selected = this.pendantJointNames?.[axis + (this.pendantAxisOffset || 0)];
       const fraction = Number(document.getElementById('pendant-joint-speed').value) / 100;
       const dt = Number(document.getElementById('pendant-step-seconds').value);
       if (!(fraction >= 0.01 && fraction <= 1 && dt >= 0.02 && dt <= 0.25))
@@ -613,18 +710,19 @@ export class WorkcellUI {
       if (index < 0) throw new Error('Choose a movable joint in the selected TCP chain.');
       const q = [...model.initial], limits = resolveMotionLimits(model, joints, this.motionLimits);
       const joint = model.joints[model.active[index]], nextQ = [...q];
-      nextQ[index] += sign * limits.velocity[index] * fraction * dt;
-      if (joint.type !== 'continuous' && (nextQ[index] < joint.lower - 1e-10 || nextQ[index] > joint.upper + 1e-10))
-        throw new Error(`Joint ${selected} would cross its position limit.`);
+      const rate = Math.min(limits.velocity[index] * fraction, joint.type === 'prismatic' ? 0.05 : 0.3);
+      nextQ[index] += sign * rate * dt;
+      if (joint.type !== 'continuous') nextQ[index] = Math.max(joint.lower, Math.min(joint.upper, nextQ[index]));
+      if (Math.abs(nextQ[index] - q[index]) < 1e-12) throw new Error(`Joint ${selected} is at its ${sign > 0 ? 'upper' : 'lower'} position limit. Jog the opposite direction.`);
       const collisionSamples = this.checkPendantEdge(model, joints, q, nextQ);
       this.invalidatePlan({ restoreStart: false });
       try { this.applyNamedJointState(model.jointNames, nextQ); }
       catch (error) { this.applyNamedJointState(model.jointNames, q); throw error; }
       this.pendantLastJog = { mode: 'joint', joint: selected, sign, q: nextQ,
-        qdot: q.map((_, i) => i === index ? sign * limits.velocity[index] * fraction : 0),
+        qdot: q.map((_, i) => i === index ? (nextQ[index] - q[index]) / dt : 0),
         pose: forwardKinematics(model, nextQ), collisionSamples };
       this.pendantJogCount = (this.pendantJogCount || 0) + 1;
-      this.pendantStatus(`Joint ${selected} ${sign > 0 ? '+' : '−'} jog applied at ${Math.round(fraction * 100)}% of its velocity limit. Replan before playback.`);
+      this.pendantStatus(`Joint ${selected} ${sign > 0 ? '+' : '−'} jog applied: ${rate.toFixed(3)} ${joint.type === 'prismatic' ? 'm/s' : 'rad/s'}, step ${Math.abs(nextQ[index] - q[index]).toFixed(4)} ${joint.type === 'prismatic' ? 'm' : 'rad'}. Replan before playback.`);
       this.programStatus('Manual joint jog changed the robot pose. Plan the program again.');
       return true;
     } catch (error) { this.pendantStatus(error.message, true); return false; }
@@ -702,7 +800,7 @@ export class WorkcellUI {
     catch (error) { this.programStatus(error.message, true); }
     return true;
   }
-  async planCurrentProgram({ preserveCurrentState = false } = {}) {
+  async planCurrentProgram({ preserveCurrentState = true } = {}) {
     this.invalidatePlan({ restoreStart: !preserveCurrentState });
     const compiled = this.checkProgram();
     if (!compiled.ok) return;
@@ -1311,7 +1409,7 @@ export class WorkcellUI {
     this.status('Closed four-bar loaded in top view: one input angle drives the coupler and output. Move the input slider, or plan its example program.');
   }
   async loadDemo(folder = 'workcell', robotFile = 'arm.urdf', loadedMessage = 'Pick-and-place example loaded. Open Program, then choose Plan path.', programFile = 'program.txt') {
-    if (!this.app.workspace.canReplaceDraft()) return;
+    if (!this.app.workspace.canReplaceDraft()) return false;
     const files = await Promise.all([robotFile, 'world.sdf', programFile]
       .map(name => readExampleText(`testowe/${folder}/${name}`)));
     this.projectId = null; this.includeFiles.clear(); this.motionLimits = {}; this.kinematicConstraints = null; this.closedLoopModel = null;
@@ -1320,9 +1418,44 @@ export class WorkcellUI {
     this.app.localRobots.showURDF(files[0]);
     this.sdfSource.value = files[1]; this.programSource.value = files[2];
     this.signalProgramSource.value = ''; this.signalState = null; this.signalInitialDevices = null; this.signalEvents = []; this.signalCompileDiagnostics = []; this.renderSignalRun();
-    this.applySDF(); this.fitWorkcell();
+    this.applySDF();
+    if (folder === 'workcell') this.applyNamedJointState(
+      ['base_yaw', 'shoulder_pitch', 'elbow_pitch', 'wrist_roll', 'wrist_pitch', 'wrist_final'], [0, -0.3, 0.6, 0.2, -0.3, 0.2]);
+    this.fitWorkcell();
     this.app.workspace.select('workcell');
     this.status(loadedMessage);
+    return true;
+  }
+  async loadTeachingLesson() {
+    if (!this.app.workspace.canReplaceDraft()) return;
+    const urdf = await readExampleText('testowe/workcell/arm.urdf');
+    this.stopSharedRun(); this.stopTriggeredRun(); this.projectId = null;
+    this.includeFiles.clear(); this.motionLimits = {}; this.motionLimitsSource.value = '{}';
+    this.kinematicConstraints = null; this.closedLoopModel = null;
+    this.app.localRobots.startDocument(); this.app.localRobots.clearAssets(); this.app.localRobots.showURDF(urdf);
+    this.sdfSource.value = '<sdf version="1.10"><world name="two_pose_lesson"/></sdf>'; this.applySDF();
+    const names = ['base_yaw', 'shoulder_pitch', 'elbow_pitch', 'wrist_roll', 'wrist_pitch', 'wrist_final'];
+    const q = [0.2, -0.5, 0.8, 0.3, -0.4, 0.2];
+    this.applyNamedJointState(names, q); this.teachingStart = { names, q };
+    this.programSource.value = 'ROBOT classroom_six_axis_arm\nTOOL tcp_link\n';
+    this.signalProgramSource.value = ''; this.signalState = null; this.signalEvents = []; this.renderSignalRun();
+    document.getElementById('lesson-steps').hidden = false;
+    document.getElementById('lesson-return').hidden = false;
+    document.getElementById('lesson-singularity-exercise').hidden = false;
+    document.getElementById('lesson-instructions').textContent = 'Teach A, jog to B, and teach B. The robot starts bent so you can explore Cartesian jogging before investigating singular configurations.';
+    document.getElementById('program-source-details').open = false;
+    document.getElementById('program-pendant-details').open = true;
+    document.getElementById('program-pose-details').open = false;
+    document.getElementById('program-concurrent-details').open = false;
+    document.getElementById('pendant-frame').value = 'joint'; this.updatePendantMode();
+    this.app.workspace.select('program'); this.fitWorkcell();
+    if (innerWidth >= 1000) {
+      document.getElementById('pendant-detach').click();
+      const floating = document.getElementById('floating-pendant');
+      floating.style.left = `${Math.min(innerWidth - 430, document.getElementById('controldiv').getBoundingClientRect().right + 12)}px`;
+    }
+    document.getElementById('panel-program').scrollTop = 0;
+    this.programStatus('Teaching lesson ready. First record A with Teach joint pose.');
   }
   createProjectZip() {
     if (!this.app.localRobots.currentXml) throw new Error('Load a URDF robot before exporting a workcell.');

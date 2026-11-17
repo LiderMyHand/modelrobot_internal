@@ -1,17 +1,27 @@
 const { test, before } = require('node:test');
 const assert = require('node:assert/strict');
 
-let T, createRobotModel, forwardKinematics, geometricJacobian, solveVelocity;
+let T, createRobotModel, forwardKinematics, geometricJacobian, solveVelocity, jacobianHealth, solveJogVelocity;
 before(async () => {
   T = await import('three');
   ({ createRobotModel, forwardKinematics } = await import('../frontend/planning/robot-model.js'));
-  ({ geometricJacobian, solveVelocity } = await import('../frontend/planning/velocity-ik.js'));
+  ({ geometricJacobian, solveVelocity, jacobianHealth, solveJogVelocity } = await import('../frontend/planning/velocity-ik.js'));
 });
 
 function joint(name, parent, child, axis, origin, limits = [-2, 2], type = 'revolute') {
   return { name, parent, child, type, axis, basicMatrix: new T.Matrix4().makeTranslation(...origin),
     lower: limits[0], upper: limits[1], theta: 0 };
 }
+
+test('pendant slows a feasible direction instead of applying a distorted bounded velocity', () => {
+  const result = solveJogVelocity(pivot(), [0], [0, 0.2, 0, 0, 0, 0.2], { velocityLimits: [0.05], dt: 0.1 });
+  assert.equal(result.status, 'solved');
+  assert.ok(result.speedScale <= 0.25 && result.speedScale >= 1/32);
+  assert.ok(Math.abs(result.achieved[1] - 0.2 * result.speedScale) < 1e-6);
+  const impossible = solveJogVelocity(pivot(), [0], [0.1, 0, 0, 0, 0, 0]);
+  assert.equal(impossible.status, 'unreachable_twist');
+  assert.equal(impossible.speedScale, 1);
+});
 
 function pivot() {
   return createRobotModel({ joints: [joint('turn', 'base', 'tcp', [0, 0, 1], [0, 0, 0], [-2, 2])],
@@ -38,10 +48,12 @@ test('tool-frame TCP twist rotates with the current tool orientation', () => {
   assert.ok(Math.abs(result.qdot[0] - world.qdot[0]) < 1e-9);
 });
 
-test('unreachable instantaneous direction reports a singular Jacobian residual', () => {
+test('unreachable direction of a regular one-joint chain is not a singularity', () => {
   const result = solveVelocity(pivot(), [0], [0.1, 0, 0, 0, 0, 0]);
-  assert.equal(result.status, 'singular', JSON.stringify(result));
+  assert.equal(result.status, 'unreachable_twist', JSON.stringify(result));
   assert.equal(result.rank, 1);
+  assert.equal(result.health.status, 'regular');
+  assert.equal(result.health.taskLimited, true);
   assert.ok(result.translationError > 0.099);
   assert.ok(Math.abs(result.qdot[0]) < 1e-10);
 });
@@ -79,6 +91,11 @@ test('six-axis DLS realizes a feasible twist on a rotated robot base', () => {
   const requested = J.map(row => row.reduce((sum, value, index) => sum + value * rates[index], 0));
   const result = solveVelocity(model, q, requested, { dt: 0.02, velocityLimits: Array(6).fill(0.4) });
   assert.equal(result.status, 'solved', JSON.stringify(result));
+  assert.equal(result.health.rank, 6, JSON.stringify(result.health));
+  assert.equal(result.health.taskLimited, false);
+  const straight = jacobianHealth(model, Array(6).fill(0));
+  assert.equal(straight.status, 'rank_deficient', JSON.stringify(straight));
+  assert.ok(straight.rank < straight.expectedRank);
   assert.ok(result.translationError < 1e-5 && result.rotationError < 1e-5);
   assert.ok(result.qdot.every((value, index) => Math.abs(value - rates[index]) < 1e-4));
   const p0 = forwardKinematics(model, q).position;

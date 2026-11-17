@@ -1,0 +1,151 @@
+TAP version 13
+# Subtest: finite Cartesian jog avoids the large one-Euler-step axis and orientation error
+ok 1 - finite Cartesian jog avoids the large one-Euler-step axis and orientation error
+  ---
+  duration_ms: 362.430976
+  type: 'test'
+  ...
+# Subtest: rate-limited translation reduces speed without changing direction
+ok 2 - rate-limited translation reduces speed without changing direction
+  ---
+  duration_ms: 6.396705
+  type: 'test'
+  ...
+# Subtest: failure after progressing internally returns an atomic unchanged configuration
+ok 3 - failure after progressing internally returns an atomic unchanged configuration
+  ---
+  duration_ms: 1.357725
+  type: 'test'
+  ...
+# Subtest: tool-frame translation respects rotated base and retains orientation
+ok 4 - tool-frame translation respects rotated base and retains orientation
+  ---
+  duration_ms: 2.287564
+  type: 'test'
+  ...
+# Subtest: world angular velocity composes on the left at a nonidentity TCP rotation
+ok 5 - world angular velocity composes on the left at a nonidentity TCP rotation
+  ---
+  duration_ms: 11.249104
+  type: 'test'
+  ...
+# Subtest: invalid initial joint state and malformed inputs never synthesize a recovery motion
+ok 6 - invalid initial joint state and malformed inputs never synthesize a recovery motion
+  ---
+  duration_ms: 4.760547
+  type: 'test'
+  ...
+# Subtest: real seven-axis KUKA import jogs all modes and blocks an infeasible straight-posture jog
+ok 7 - real seven-axis KUKA import jogs all modes and blocks an infeasible straight-posture jog
+  ---
+  duration_ms: 17366.995158
+  type: 'test'
+  ...
+# Subtest: student teaches two poses, plans from an explicit start, and recovers from blocked Cartesian motion
+ok 8 - student teaches two poses, plans from an explicit start, and recovers from blocked Cartesian motion
+  ---
+  duration_ms: 14580.917666
+  type: 'test'
+  ...
+# Subtest: official UR5 STL adaptation imports visibly and jogs in joint, World, and Tool modes
+ok 9 - official UR5 STL adaptation imports visibly and jogs in joint, World, and Tool modes
+  ---
+  duration_ms: 12407.341162
+  type: 'test'
+  ...
+# Subtest: Chromium pendant jogs a six-axis arm in world and tool frames and teaches targets
+not ok 10 - Chromium pendant jogs a six-axis arm in world and tool frames and teaches targets
+  ---
+  duration_ms: 9366.933012
+  type: 'test'
+  location: '/media/duzy/robot_easy/modelrobot_internal/tests/teach-pendant-browser.test.cjs:5:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    AssertionError [ERR_ASSERTION]: Jog cannot meet its finite-motion accuracy tolerance. Reduce speed or change posture. Robot unchanged.
+        at /media/duzy/robot_easy/modelrobot_internal/notes/scripts/check_teach_pendant.cjs:58:12 {
+      generatedMessage: false,
+      code: 'ERR_ASSERTION',
+      actual: 'Jog cannot meet its finite-motion accuracy tolerance. Reduce speed or change posture. Robot unchanged.',
+      expected: /World \+Z jog applied/,
+      operator: 'match'
+    }
+    
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    /media/duzy/robot_easy/modelrobot_internal/notes/scripts/check_teach_pendant.cjs:58:12 {
+    TestContext.<anonymous> (/media/duzy/robot_easy/modelrobot_internal/tests/teach-pendant-browser.test.cjs:8:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: pendant slows a feasible direction instead of applying a distorted bounded velocity
+ok 11 - pendant slows a feasible direction instead of applying a distorted bounded velocity
+  ---
+  duration_ms: 164.60546
+  type: 'test'
+  ...
+# Subtest: geometric Jacobian maps a pivot rate to TCP tangent speed and yaw rate
+ok 12 - geometric Jacobian maps a pivot rate to TCP tangent speed and yaw rate
+  ---
+  duration_ms: 2.531563
+  type: 'test'
+  ...
+# Subtest: tool-frame TCP twist rotates with the current tool orientation
+ok 13 - tool-frame TCP twist rotates with the current tool orientation
+  ---
+  duration_ms: 1.516934
+  type: 'test'
+  ...
+# Subtest: unreachable direction of a regular one-joint chain is not a singularity
+ok 14 - unreachable direction of a regular one-joint chain is not a singularity
+  ---
+  duration_ms: 0.77024
+  type: 'test'
+  ...
+# Subtest: rate and near-bound position limits report best bounded rate without hiding the shortfall
+ok 15 - rate and near-bound position limits report best bounded rate without hiding the shortfall
+  ---
+  duration_ms: 0.997748
+  type: 'test'
+  ...
+# Subtest: six-axis DLS realizes a feasible twist on a rotated robot base
+ok 16 - six-axis DLS realizes a feasible twist on a rotated robot base
+  ---
+  duration_ms: 7.289415
+  type: 'test'
+  ...
+# Subtest: velocity IK validates frame, dimension and limit inputs
+ok 17 - velocity IK validates frame, dimension and limit inputs
+  ---
+  duration_ms: 0.835462
+  type: 'test'
+  ...
+# Subtest: Chromium completes circular pick/place and exports ROS trajectory and project ZIP
+ok 18 - Chromium completes circular pick/place and exports ROS trajectory and project ZIP
+  ---
+  duration_ms: 17089.628051
+  type: 'test'
+  ...
+# Subtest: bundled six-axis workcell plans and plays a pick, CIRC transfer, LIN place and release in Chromium
+ok 19 - bundled six-axis workcell plans and plays a pick, CIRC transfer, LIN place and release in Chromium
+  ---
+  duration_ms: 13033.203654
+  type: 'test'
+  ...
+1..19
+# tests 19
+# suites 0
+# pass 18
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 44537.661525

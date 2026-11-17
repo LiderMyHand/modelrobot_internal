@@ -1,0 +1,441 @@
+{
+  "source": {
+    "repository": "https://github.com/UniversalRobots/Universal_Robots_ROS2_Description",
+    "branch": "jazzy",
+    "commit": "3852128295499b52f38f82171f5ff3f21ecdfa22",
+    "model": "ur5",
+    "license": "BSD-3-Clause",
+    "adaptation": "Vendor collision STL geometry is also used as visible geometry. Kinematics, limits, collision geometry, inertias, and frame chain are preserved. Mesh URIs become local relative paths. No real-robot calibration is supplied."
+  },
+  "unadapted": {
+    "messages": [
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/base.dae (select an STL file).",
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/shoulder.dae (select an STL file).",
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/upperarm.dae (select an STL file).",
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/forearm.dae (select an STL file).",
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/wrist1.dae (select an STL file).",
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/wrist2.dae (select an STL file).",
+      "Unsupported mesh: package://ur_description/meshes/ur5/visual/wrist3.dae (select an STL file)."
+    ],
+    "localStatus": "Saved “pi_robot” in this browser.",
+    "collisions": [],
+    "loadedAssets": 7
+  },
+  "model": {
+    "robot": "official_ur5",
+    "assets": 7,
+    "warnings": [],
+    "issues": [],
+    "tcp": "tool0",
+    "normals": [
+      {
+        "name": "base.stl",
+        "vertices": 705,
+        "zero": 0,
+        "invalid": 0
+      },
+      {
+        "name": "shoulder.stl",
+        "vertices": 2022,
+        "zero": 0,
+        "invalid": 0
+      },
+      {
+        "name": "upperarm.stl",
+        "vertices": 3528,
+        "zero": 0,
+        "invalid": 0
+      },
+      {
+        "name": "forearm.stl",
+        "vertices": 3150,
+        "zero": 0,
+        "invalid": 0
+      },
+      {
+        "name": "wrist1.stl",
+        "vertices": 2106,
+        "zero": 0,
+        "invalid": 0
+      },
+      {
+        "name": "wrist2.stl",
+        "vertices": 2106,
+        "zero": 0,
+        "invalid": 0
+      },
+      {
+        "name": "wrist3.stl",
+        "vertices": 1338,
+        "zero": 0,
+        "invalid": 0
+      }
+    ],
+    "links": [
+      {
+        "name": "world",
+        "visuals": 1
+      },
+      {
+        "name": "base_link",
+        "visuals": 1
+      },
+      {
+        "name": "base_link_inertia",
+        "visuals": 1
+      },
+      {
+        "name": "shoulder_link",
+        "visuals": 1
+      },
+      {
+        "name": "upper_arm_link",
+        "visuals": 1
+      },
+      {
+        "name": "forearm_link",
+        "visuals": 1
+      },
+      {
+        "name": "wrist_1_link",
+        "visuals": 1
+      },
+      {
+        "name": "wrist_2_link",
+        "visuals": 1
+      },
+      {
+        "name": "wrist_3_link",
+        "visuals": 1
+      },
+      {
+        "name": "ft_frame",
+        "visuals": 1
+      },
+      {
+        "name": "base",
+        "visuals": 1
+      },
+      {
+        "name": "flange",
+        "visuals": 1
+      },
+      {
+        "name": "tool0",
+        "visuals": 1
+      }
+    ]
+  },
+  "start": [
+    -0.4,
+    -1,
+    1.4,
+    -1.5,
+    -1.2,
+    0.3
+  ],
+  "names": [
+    "shoulder_pan_joint",
+    "shoulder_lift_joint",
+    "elbow_joint",
+    "wrist_1_joint",
+    "wrist_2_joint",
+    "wrist_3_joint"
+  ],
+  "trials": [
+    {
+      "mode": "joint",
+      "before": [
+        -0.4,
+        -1,
+        1.4,
+        -1.5,
+        -1.2,
+        0.3
+      ],
+      "after": [
+        -0.37,
+        -1,
+        1.4,
+        -1.5,
+        -1.2,
+        0.3
+      ],
+      "status": "Joint shoulder_pan_joint + jog applied: 0.300 rad/s, step 0.0300 rad. Replan before playback.",
+      "last": {
+        "mode": "joint",
+        "joint": "shoulder_pan_joint",
+        "sign": 1,
+        "q": [
+          -0.37,
+          -1,
+          1.4,
+          -1.5,
+          -1.2,
+          0.3
+        ],
+        "qdot": [
+          0.30000000000000027,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pose": {
+          "position": [
+            0.647385409406012,
+            -0.10203767134505687,
+            0.18274027117938008
+          ],
+          "quaternion": [
+            -0.37735840999451886,
+            0.8791590738048322,
+            0.28990400922694104,
+            -0.02521148125723721
+          ]
+        },
+        "collisionSamples": 3
+      }
+    },
+    {
+      "mode": "world",
+      "before": [
+        -0.37,
+        -1,
+        1.4,
+        -1.5,
+        -1.2,
+        0.3
+      ],
+      "after": [
+        -0.3699999999834242,
+        -1.0027708151398784,
+        1.3962329116699086,
+        -1.4934620982763025,
+        -1.1999999998892332,
+        0.300000000646544
+      ],
+      "status": "World +Z jog applied. Replan the movement program before playback.",
+      "last": {
+        "axis": 2,
+        "sign": 1,
+        "frame": "world",
+        "requested": [
+          0,
+          0,
+          0.03,
+          0,
+          0,
+          0
+        ],
+        "qdot": [
+          1.657579629110728e-10,
+          -0.027708151398784242,
+          -0.03767088330091317,
+          0.06537901723697503,
+          1.1076672912224694e-9,
+          6.465439850167343e-9
+        ],
+        "achieved": [
+          -1.4739619295080437e-9,
+          7.832973067558604e-10,
+          0.02999999784623378,
+          -7.095656551758768e-9,
+          -1.3465258375080145e-8,
+          -5.7071284770549915e-9
+        ],
+        "residual": [
+          1.4739619295080437e-9,
+          -7.832973067558604e-10,
+          2.153766217455333e-9,
+          7.095656551758768e-9,
+          1.3465258375080145e-8,
+          5.7071284770549915e-9
+        ],
+        "q": [
+          -0.3699999999834242,
+          -1.0027708151398784,
+          1.3962329116699086,
+          -1.4934620982763025,
+          -1.1999999998892332,
+          0.300000000646544
+        ],
+        "pose": {
+          "position": [
+            0.6473846063969736,
+            -0.10203735986627216,
+            0.1857404575762897
+          ],
+          "quaternion": [
+            -0.3773584099298821,
+            0.8791590740323407,
+            0.28990400866816357,
+            -0.025211480716486524
+          ]
+        },
+        "collisionSamples": 11,
+        "speedScale": 1,
+        "averageSpeedScale": 1,
+        "integrationSteps": 10,
+        "maximumPositionError": 8.825423766725586e-8,
+        "maximumOrientationError": 1.6296673133300925e-10
+      }
+    },
+    {
+      "mode": "tool",
+      "before": [
+        -0.3699999999834242,
+        -1.0027708151398784,
+        1.3962329116699086,
+        -1.4934620982763025,
+        -1.1999999998892332,
+        0.300000000646544
+      ],
+      "after": [
+        -0.37396360917922405,
+        -1.0059894253332704,
+        1.402606012093725,
+        -1.4952469845565657,
+        -1.2018000566757678,
+        0.2962124149690477
+      ],
+      "status": "Tool +X jog applied. Replan the movement program before playback.",
+      "last": {
+        "axis": 0,
+        "sign": 1,
+        "frame": "tool",
+        "requested": [
+          0.03,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "qdot": [
+          -0.039636091957998554,
+          -0.0321861019339198,
+          0.06373100423816336,
+          -0.01784886280263187,
+          -0.018000567865346095,
+          -0.037875856774962635
+        ],
+        "achieved": [
+          0.029999997084722424,
+          -1.7028458684786866e-9,
+          -1.554977847265798e-9,
+          -7.304247068743159e-9,
+          2.3821081231099543e-9,
+          6.060137086311075e-9
+        ],
+        "residual": [
+          2.915277574899733e-9,
+          1.7028458684786866e-9,
+          1.554977847265798e-9,
+          7.304247068743159e-9,
+          -2.3821081231099543e-9,
+          -6.060137086311075e-9
+        ],
+        "q": [
+          -0.37396360917922405,
+          -1.0059894253332704,
+          1.402606012093725,
+          -1.4952469845565657,
+          -1.2018000566757678,
+          0.2962124149690477
+        ],
+        "pose": {
+          "position": [
+            0.6452422335454977,
+            -0.10407088766179823,
+            0.1852169747644546
+          ],
+          "quaternion": [
+            -0.37735843758467985,
+            0.8791589901310088,
+            0.2899042258278224,
+            -0.025211495446421435
+          ]
+        },
+        "collisionSamples": 11,
+        "speedScale": 1,
+        "averageSpeedScale": 1,
+        "integrationSteps": 10,
+        "maximumPositionError": 1.055380677442077e-7,
+        "maximumOrientationError": 4.7126746067968836e-8
+      }
+    }
+  ],
+  "programming": {
+    "qA": [
+      -0.37396360917922405,
+      -1.0059894253332704,
+      1.402606012093725,
+      -1.4952469845565657,
+      -1.2018000566757678,
+      0.2962124149690477
+    ],
+    "qB": [
+      -0.3439636091792241,
+      -1.0059894253332704,
+      1.402606012093725,
+      -1.4952469845565657,
+      -1.2018000566757678,
+      0.2962124149690477
+    ],
+    "source": "# Official UR5, simplified vendor collision surfaces. Units: metres and radians.\nROBOT official_ur5\nTOOL tool0\nJOINTS taught_joints_1 shoulder_pan_joint=-0.37396360917922405 shoulder_lift_joint=-1.0059894253332704 elbow_joint=1.402606012093725 wrist_1_joint=-1.4952469845565657 wrist_2_joint=-1.2018000566757678 wrist_3_joint=0.2962124149690477\nMOVEJ taught_joints_1\nJOINTS taught_joints_2 shoulder_pan_joint=-0.3439636091792241 shoulder_lift_joint=-1.0059894253332704 elbow_joint=1.402606012093725 wrist_1_joint=-1.4952469845565657 wrist_2_joint=-1.2018000566757678 wrist_3_joint=0.2962124149690477\nMOVEJ taught_joints_2\n",
+    "planned": {
+      "duration": 0.17954940687759496,
+      "samples": 41,
+      "status": "Planned 2 move(s) over 0.18 s; 41 timed samples. Blue line shows the TCP path.",
+      "start": [
+        -0.37396360917922405,
+        -1.0059894253332704,
+        1.402606012093725,
+        -1.4952469845565657,
+        -1.2018000566757678,
+        0.2962124149690477
+      ],
+      "end": [
+        -0.3439636091792241,
+        -1.0059894253332704,
+        1.402606012093725,
+        -1.4952469845565657,
+        -1.2018000566757678,
+        0.2962124149690477
+      ]
+    },
+    "finished": {
+      "state": "finished",
+      "joints": [
+        -0.3439636091792241,
+        -1.0059894253332704,
+        1.402606012093725,
+        -1.4952469845565657,
+        -1.2018000566757678,
+        0.2962124149690477
+      ]
+    }
+  },
+  "project": {
+    "file": "ur5_teaching.workcell.zip",
+    "bytes": 59869,
+    "reopened": {
+      "robot": "official_ur5",
+      "world": "official_ur5_trial",
+      "assets": 7,
+      "joints": [
+        -0.37396360917922405,
+        -1.0059894253332704,
+        1.402606012093725,
+        -1.4952469845565657,
+        -1.2018000566757678,
+        0.2962124149690477
+      ],
+      "program": "# Official UR5, simplified vendor collision surfaces. Units: metres and radians.\nROBOT official_ur5\nTOOL tool0\nJOINTS taught_joints_1 shoulder_pan_joint=-0.37396360917922405 shoulder_lift_joint=-1.0059894253332704 elbow_joint=1.402606012093725 wrist_1_joint=-1.4952469845565657 wrist_2_joint=-1.2018000566757678 wrist_3_joint=0.2962124149690477\nMOVEJ taught_joints_1\nJOINTS taught_joints_2 shoulder_pan_joint=-0.3439636091792241 shoulder_lift_joint=-1.0059894253332704 elbow_joint=1.402606012093725 wrist_1_joint=-1.4952469845565657 wrist_2_joint=-1.2018000566757678 wrist_3_joint=0.2962124149690477\nMOVEJ taught_joints_2\n",
+      "issues": []
+    }
+  },
+  "errors": []
+}

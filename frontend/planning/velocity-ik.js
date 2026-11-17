@@ -1,5 +1,6 @@
 import { Quaternion, Vector3 } from 'three';
 import { forwardKinematics } from './robot-model.js';
+import { analyzeJacobian } from './jacobian-health.js';
 
 const finite = (value, length) => Array.isArray(value) && value.length === length && value.every(Number.isFinite);
 const norm = values => Math.hypot(...values);
@@ -37,19 +38,9 @@ function solveLinear(matrix, right) {
   return a.map(row => row[n]);
 }
 
-function numericalRank(columns) {
-  const basis = [], largest = Math.max(0, ...columns.map(norm));
-  if (largest < 1e-12) return 0;
-  for (const column of columns) {
-    const remaining = [...column];
-    for (const direction of basis) {
-      const dot = direction.reduce((sum, value, row) => sum + value * remaining[row], 0);
-      for (let row = 0; row < remaining.length; row++) remaining[row] -= dot * direction[row];
-    }
-    const length = norm(remaining);
-    if (length > largest * 1e-7) basis.push(remaining.map(value => value / length));
-  }
-  return basis.length;
+export function jacobianHealth(model, q, options = {}) {
+  return analyzeJacobian(geometricJacobian(model, q), { ...options,
+    jointTypes: model.active.map(index => model.joints[index].type) });
 }
 
 function rotateTwist(twist, quaternion, inverse = false) {
@@ -71,7 +62,7 @@ function rotateTwist(twist, quaternion, inverse = false) {
  * use the requested frame. `dt` bounds the next Euler step by joint positions.
  *
  * A bounded damped least-squares active set handles joint rate/position caps.
- * Infeasible commands return `limited` or `singular` with the best bounded
+ * Infeasible commands return `limited`, `singular`, or `unreachable_twist` with the best bounded
  * qdot and actual twist; callers decide whether to apply that approximation.
  */
 export function solveVelocity(model, q, twist, options = {}) {
@@ -97,10 +88,13 @@ export function solveVelocity(model, q, twist, options = {}) {
   const weights = [1, 1, 1, orientationWeight, orientationWeight, orientationWeight];
   const columns = Array.from({ length: n }, (_, column) => jacobian.map((row, index) => row[column] * weights[index]));
   const target = requestedWorld.map((value, index) => value * weights[index]);
-  const rank = numericalRank(columns);
+  const health = analyzeJacobian(jacobian, { jointTypes: model.active.map(index => model.joints[index].type) });
+  const rank = health.rank;
   const lower = [], upper = [];
   for (let index = 0; index < n; index++) {
     const joint = model.joints[model.active[index]];
+    if (joint.type !== 'continuous' && (q[index] < joint.lower - 1e-10 || q[index] > joint.upper + 1e-10))
+      return { status: 'invalid_target', reason: `Joint ${model.jointNames[index]} starts outside its position limit.` };
     const limit = velocityLimits[index];
     const low = joint.type === 'continuous' ? -Infinity : (joint.lower - q[index]) / dt;
     const high = joint.type === 'continuous' ? Infinity : (joint.upper - q[index]) / dt;
@@ -139,10 +133,31 @@ export function solveVelocity(model, q, twist, options = {}) {
   const residual = twist.map((value, index) => value - achieved[index]);
   const translationError = norm(residual.slice(0, 3)), rotationError = norm(residual.slice(3, 6));
   const status = translationError <= translationTolerance && rotationError <= rotationTolerance ? 'solved' :
-    limited.size ? 'limited' : 'singular';
-  return { status, qdot, achieved, residual, translationError, rotationError, rank,
+    limited.size ? 'limited' : health.status === 'rank_deficient' ? 'singular' : 'unreachable_twist';
+  return { status, qdot, achieved, residual, translationError, rotationError, rank, health,
     limitedJoints: [...limited].map(index => model.jointNames[index]),
     nextQ: q.map((value, index) => value + dt * qdot[index]),
     ...(status === 'limited' ? { reason: `Joint velocity or position limit prevents the requested TCP twist (${[...limited].map(index => model.jointNames[index]).join(', ')}).` } : {}),
-    ...(status === 'singular' ? { reason: 'Requested TCP twist is outside the local Jacobian range at this configuration.' } : {}) };
+    ...(status === 'singular' ? { reason: `The Jacobian provides only ${health.rank}/${health.expectedRank} independent motion directions. This can be a singular posture or a structural restriction of this chain. For a serial arm, use Joint mode to change the posture, then retry the TCP jog.` } : {}),
+    ...(status === 'unreachable_twist' ? { reason: 'The requested TCP velocity cannot be achieved within the solver tolerance by this chain. Use Joint mode or choose a direction compatible with its degrees of freedom; reducing speed may help near a poorly conditioned posture.' } : {}) };
+}
+
+/** Jog policy: keep the requested Cartesian direction and lower its speed when
+ * rate/one-step position limits prevent it. Never apply a partial-direction
+ * bounded approximation. Stop below 1/32 speed rather than creeping at a bound.
+ */
+export function solveJogVelocity(model, q, twist, options = {}) {
+  let result; const limitedJoints = new Set();
+  for (let speedScale = 1; speedScale >= 1 / 32; speedScale /= 2) {
+    const effectiveRequested = twist.map(value => value * speedScale);
+    const linear = norm(effectiveRequested.slice(0, 3)), angular = norm(effectiveRequested.slice(3));
+    result = solveVelocity(model, q, effectiveRequested, { ...options,
+      translationTolerance: linear ? Math.max(1e-8, Math.min(1e-4, linear * 0.02)) : 1e-4,
+      rotationTolerance: angular ? Math.max(1e-8, Math.min(1e-3, angular * 0.02)) : 1e-3 });
+    result = { ...result, speedScale, effectiveRequested };
+    for (const name of result.limitedJoints || []) limitedJoints.add(name);
+    result.limitedJoints = [...limitedJoints];
+    if (result.status !== 'limited') return result;
+  }
+  return { ...result, reason: `${result.reason} Speed reduction to 3% was insufficient. Jog the opposite direction or change posture in Joint mode.` };
 }

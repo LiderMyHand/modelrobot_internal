@@ -81,6 +81,7 @@ async function main() {
     result.seamSurfaceDistance = { min: Math.min(...distances), max: Math.max(...distances) };
     assert.ok(result.seamSurfaceDistance.max < 0.04);
     assert.ok(Math.abs(result.seamSurfaceDistance.min - 0.025) < 1e-4);
+    await page.locator('#process-export').evaluate(element => { const details = element.closest('details'); if (details) details.open = true; });
     const processDownload = await Promise.all([
       page.waitForEvent('download'), page.locator('#process-export').click(),
     ]).then(([download]) => download);

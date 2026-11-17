@@ -1,0 +1,156 @@
+
+> build
+> coffee --compile --output scripts coffee/modelrobot.litcoffee coffee/parserobot.litcoffee coffee/scene.litcoffee && esbuild frontend/runtime.js --bundle --minify --format=iife --loader:.xml=text --loader:.urdf=text --loader:.sdf=text --loader:.robot=text --loader:.mprg=text --loader:.txt=text --outfile=scripts/runtime.bundle.js && esbuild frontend/planning/worker-entry.js --bundle --minify --format=iife --outfile=scripts/planning-worker.bundle.js
+
+
+  scripts/runtime.bundle.js  1.2mb ⚠️
+
+⚡ Done in 82ms
+
+  scripts/planning-worker.bundle.js  417.2kb
+
+⚡ Done in 70ms
+TAP version 13
+# Subtest: planner collision query uses detached URDF and SDF transforms at each q
+ok 1 - planner collision query uses detached URDF and SDF transforms at each q
+  ---
+  duration_ms: 89.261707
+  type: 'test'
+  ...
+# Subtest: grabbed object follows tool, collides with scene, and release freezes its world pose
+ok 2 - grabbed object follows tool, collides with scene, and release freezes its world pose
+  ---
+  duration_ms: 2.151642
+  type: 'test'
+  ...
+# Subtest: grasp distance uses object collision geometry and rejects objects without it
+ok 3 - grasp distance uses object collision geometry and rejects objects without it
+  ---
+  duration_ms: 1.756327
+  type: 'test'
+  ...
+# Subtest: nested model join preserves world pose, follows a carried parent, and checks outside obstacles
+ok 4 - nested model join preserves world pose, follows a carried parent, and checks outside obstacles
+  ---
+  duration_ms: 1.662431
+  type: 'test'
+  ...
+# Subtest: attached object may start at exact support contact but penetration is blocked
+ok 5 - attached object may start at exact support contact but penetration is blocked
+  ---
+  duration_ms: 1.362325
+  type: 'test'
+  ...
+# Subtest: same or adjacent robot links are excluded; contained sphere still intersects box
+ok 6 - same or adjacent robot links are excluded; contained sphere still intersects box
+  ---
+  duration_ms: 5.998156
+  type: 'test'
+  ...
+# Subtest: declared carrier contact exempts only the fixed robot base assembly
+ok 7 - declared carrier contact exempts only the fixed robot base assembly
+  ---
+  duration_ms: 1.81057
+  type: 'test'
+  ...
+# Subtest: planner rejects attachment cycles through a mounted robot base
+ok 8 - planner rejects attachment cycles through a mounted robot base
+  ---
+  duration_ms: 1.153873
+  type: 'test'
+  ...
+# Subtest: STL-like mesh uses BVH narrow phase; missing mesh fails explicitly
+ok 9 - STL-like mesh uses BVH narrow phase; missing mesh fails explicitly
+  ---
+  duration_ms: 2.207497
+  type: 'test'
+  ...
+# Subtest: finite SDF ground plane permits exact support contact and blocks downward penetration
+ok 10 - finite SDF ground plane permits exact support contact and blocks downward penetration
+  ---
+  duration_ms: 2.849426
+  type: 'test'
+  ...
+# Subtest: 6D IK reaches both TCP position and orientation with a transformed robot base
+ok 11 - 6D IK reaches both TCP position and orientation with a transformed robot base
+  ---
+  duration_ms: 57.78505
+  type: 'test'
+  ...
+# Subtest: equivalent Q and AA pose targets yield the same IK branch from the same seed
+ok 12 - equivalent Q and AA pose targets yield the same IK branch from the same seed
+  ---
+  duration_ms: 3.965448
+  type: 'test'
+  ...
+# Subtest: 6D IK rejects unreachable poses, bad options and directly actuated mimic joints
+ok 13 - 6D IK rejects unreachable poses, bad options and directly actuated mimic joints
+  ---
+  duration_ms: 5.412412
+  type: 'test'
+  ...
+# Subtest: LIN preserves endpoint poses and CIRC passes its via pose on a long arc
+ok 14 - LIN preserves endpoint poses and CIRC passes its via pose on a long arc
+  ---
+  duration_ms: 0.75958
+  type: 'test'
+  ...
+# Subtest: equivalent AA endpoints use the same shortest LIN orientation path
+ok 15 - equivalent AA endpoints use the same shortest LIN orientation path
+  ---
+  duration_ms: 0.321837
+  type: 'test'
+  ...
+# Subtest: opposite exact half-turn quaternion signs have the same endpoint but opposite LIN midpoints
+ok 16 - opposite exact half-turn quaternion signs have the same endpoint but opposite LIN midpoints
+  ---
+  duration_ms: 0.337035
+  type: 'test'
+  ...
+# Subtest: Cartesian solver includes CIRC via sample and reports blocked geometry without detouring
+ok 17 - Cartesian solver includes CIRC via sample and reports blocked geometry without detouring
+  ---
+  duration_ms: 2.568868
+  type: 'test'
+  ...
+# Subtest: PTP plans directly, checks interior states, then routes around a joint-space obstacle
+ok 18 - PTP plans directly, checks interior states, then routes around a joint-space obstacle
+  ---
+  duration_ms: 2.048718
+  type: 'test'
+  ...
+# Subtest: timing produces bounded velocity and acceleration and zero endpoint derivatives
+ok 19 - timing produces bounded velocity and acceleration and zero endpoint derivatives
+  ---
+  duration_ms: 6.275016
+  type: 'test'
+  ...
+# Subtest: timing retains a narrow interior knot and falls back to a real stop at an unsafe rounded corner
+ok 20 - timing retains a narrow interior knot and falls back to a real stop at an unsafe rounded corner
+  ---
+  duration_ms: 6.327266
+  type: 'test'
+  ...
+# Subtest: top-level planner returns a timed CIRC and ROS-shaped trajectory fields
+ok 21 - top-level planner returns a timed CIRC and ROS-shaped trajectory fields
+  ---
+  duration_ms: 53.917137
+  type: 'test'
+  ...
+# Subtest: near-coincident circular via and uniform fractions retain via without extreme retiming
+ok 22 - near-coincident circular via and uniform fractions retain via without extreme retiming
+  ---
+  duration_ms: 24.225091
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 218.204872
+{"status":"passed","clean":{"status":"Planned 6 move(s) over 8.90 s; 3343 timed samples. Blue line shows the TCP path.","diagnostics":[],"planned":true,"types":["PTP","LIN","LIN","LIN","CIRC","LIN"],"duration":8.899827123739415,"samples":3343,"q":[0,0]},"played":{"state":"finished","time":8.899827123739415,"q":[0.1500089999262434,1.8856267036702264e-10],"named":{"slide_x":0.1500089999262434,"slide_y":1.8856267036702264e-10},"status":"Playback finished."},"blocked":{"status":"Line 11: CIRC: IK reached the pose only in a configuration rejected by collision/state validation..","diagnostics":["Line 11: CIRC: IK reached the pose only in a configuration rejected by collision/state validation.."],"planned":false,"q":[0,0]},"restored":{"status":"Planned 3 move(s) over 3.96 s; 1300 timed samples. Blue line shows the TCP path; orange shows the weld seam.","diagnostics":[],"planned":true,"types":["PTP","CIRC","LIN"],"duration":3.9575549169994724,"samples":1300,"q":[0,0]}}
+{"status":"passed","clean":{"status":"Planned 6 move(s) over 8.90 s; 3343 timed samples. Blue line shows the TCP path.","diagnostics":[],"planned":true,"types":["PTP","LIN","LIN","LIN","CIRC","LIN"],"duration":8.899827123739415,"samples":3343,"q":[0,0]},"played":{"state":"finished","time":8.899827123739415,"q":[0.1500089999262434,1.8856267036702264e-10],"named":{"slide_x":0.1500089999262434,"slide_y":1.8856267036702264e-10},"status":"Playback finished."},"variant":{"status":"Planned 6 move(s) over 10.73 s; 3291 timed samples. Blue line shows the TCP path.","diagnostics":[],"planned":true,"types":["PTP","LIN","LIN","LIN","CIRC","LIN"],"duration":10.729210021263137,"samples":3291,"q":[0,0]},"variantPlayed":{"state":"finished","time":10.729210021263137,"named":{"slide_x":0.15000899987702,"slide_y":1.5739961145358713e-10}},"blocked":{"status":"Line 11: CIRC: IK reached the pose only in a configuration rejected by collision/state validation..","diagnostics":["Line 11: CIRC: IK reached the pose only in a configuration rejected by collision/state validation.."],"planned":false,"q":[0,0]},"restored":{"status":"Planned 3 move(s) over 3.96 s; 1300 timed samples. Blue line shows the TCP path; orange shows the weld seam.","diagnostics":[],"planned":true,"types":["PTP","CIRC","LIN"],"duration":3.9575549169994724,"samples":1300,"q":[0,0]},"grabSyntax":"Syntax valid: 7 command(s), 4 target(s).","badGrab":{"status":"Line 9: GRAB pick_box is 0.483 m from the TCP; bring the TCP within 0.040 m of its collision surface.","diagnostics":["Line 9: GRAB pick_box is 0.483 m from the TCP; bring the TCP within 0.040 m of its collision surface."],"planned":false,"q":[0,-0.3,0.6,0.2,-0.3,0.2]},"pickRestored":{"status":"Planned 3 move(s) over 14.30 s; 2425 timed samples. Blue line shows the TCP path.","diagnostics":[],"planned":true,"types":["PTP","CIRC","LIN"],"duration":14.300891588297592,"samples":2425,"q":[0,-0.3,0.6,0.2,-0.3,0.2]}}

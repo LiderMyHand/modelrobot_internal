@@ -110,7 +110,7 @@ export function solvePose(model, target, options = {}) {
   }
   const poseReached = best.residual.positionError <= positionTolerance && best.residual.orientationError <= orientationTolerance;
   return { status: poseReached ? 'collision' : 'unreachable',
-    reason: poseReached ? 'IK reached the pose only in a disallowed configuration.' : 'No joint configuration met the position and orientation tolerances.', q: best.q,
+    reason: poseReached ? 'IK reached the pose only in a configuration rejected by collision/state validation.' : 'No joint configuration met the position and orientation tolerances.', q: best.q,
     pose: { position: best.pose.position, quaternion: best.pose.quaternion },
     positionError: best.residual.positionError, orientationError: best.residual.orientationError };
 }

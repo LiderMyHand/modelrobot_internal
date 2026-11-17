@@ -41,6 +41,7 @@ async function main() {
       await page.evaluate(()=>App.workcellUI.player.seek((App.workcellUI.plan.events[0].time+App.workcellUI.plan.events[1].time)/2));
       await page.screenshot({path:'notes/artifacts/browser_demo_carry.png',fullPage:true});
       await page.evaluate(()=>App.workcellUI.player.reset());
+      await page.locator('#trajectory-export').evaluate(element => { const details = element.closest('details'); if (details) details.open = true; });
       const [download]=await Promise.all([page.waitForEvent('download'),page.locator('#trajectory-export').click()]);
       trajectory=JSON.parse(readFileSync(await download.path(),'utf8'));
     }

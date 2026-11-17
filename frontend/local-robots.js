@@ -49,6 +49,18 @@ export class LocalRobots {
       geometry.dispose();
       throw new Error('STL contains no valid triangles.');
     }
+    // Some vendor STL exports store a zero vector for every facet normal.
+    // STLLoader preserves those vectors, making otherwise valid meshes black.
+    // Recover flat facet normals from triangle winding instead of trusting them.
+    const normals = geometry.getAttribute('normal');
+    let invalidNormals = !normals || normals.count !== values.count;
+    if (!invalidNormals) {
+      for (let index = 0; index < normals.count; index++) {
+        const lengthSquared = normals.getX(index) ** 2 + normals.getY(index) ** 2 + normals.getZ(index) ** 2;
+        if (!Number.isFinite(lengthSquared) || lengthSquared < 1e-20) { invalidNormals = true; break; }
+      }
+    }
+    if (invalidNormals) geometry.computeVertexNormals();
     return geometry;
   }
   status(message, error = false, params = {}) {
@@ -275,7 +287,7 @@ export class LocalRobots {
       const record = { id, name: savedName, urdf: xml, csv: savedCsv, assets: [...retained.values()], updated: Date.now() };
       await this.transaction('readwrite', store => store.put(record));
       await this.refresh(this.document.id);
-      if (this.document !== documentState) return;
+      if (this.document !== documentState || this.currentXml !== xml) return;
       if (warnings.length) this.status('{warnings} Robot saved; add missing files to complete it.', false, { warnings });
       else this.status('Saved “{name}” in this browser.', false, { name: record.name });
     }).catch(error => this.status('Robot loaded, but browser saving failed: ' + error.message, true));

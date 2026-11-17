@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/UniversalRobots/Universal_Robots_ROS2_Description",
+  "branch": "jazzy",
+  "commit": "3852128295499b52f38f82171f5ff3f21ecdfa22",
+  "model": "ur5",
+  "license": "BSD-3-Clause",
+  "adaptation": "Vendor collision STL geometry is also used as visible geometry. Kinematics, limits, collision geometry, inertias, and frame chain are preserved. Mesh URIs become local relative paths. No real-robot calibration is supplied."
+}

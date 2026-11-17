@@ -41,7 +41,7 @@ const freePort = () => new Promise((resolve, reject) => {
       'planning status must be visible above the fold');
     assert.equal(await page.locator('#program-concurrent-details').getAttribute('open'), null);
     await page.screenshot({ path: 'notes/artifacts/pick_place_program_before.png' });
-    await page.locator('#program-pendant-details summary').click();
+    await page.locator('#program-pendant-details > summary').click();
     await page.locator('#pendant-frame').selectOption('world');
     await page.locator('[data-pendant-axis="2"][data-pendant-sign="1"]').click();
     const after = await page.evaluate(() => ({ pendantStatus: document.getElementById('pendant-status').textContent,

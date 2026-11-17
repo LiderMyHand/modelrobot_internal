@@ -1,0 +1,127 @@
+{
+  "source": "# Exercise 3: straight segments and an arc, metres/radians.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE a world 0.15 0 0 Q 0 0 0 1\nPOSE v world 0.35 0.14 0 Q 0 0 0 1\nPOSE b world 0.55 0 0 Q 0 0 0 1\nMOVEJ a\nMOVEL v\nMOVEL b\nMOVEL a\nPAUSE 0.5\nMOVEC v b\nMOVEL a\n",
+  "clean": {
+    "status": "Planned 6 move(s) over 8.90 s; 3343 timed samples. Blue line shows the TCP path.",
+    "diagnostics": [],
+    "planned": true,
+    "types": [
+      "PTP",
+      "LIN",
+      "LIN",
+      "LIN",
+      "CIRC",
+      "LIN"
+    ],
+    "duration": 8.899827123739415,
+    "samples": 3343,
+    "q": [
+      0,
+      0
+    ]
+  },
+  "played": {
+    "state": "finished",
+    "time": 8.899827123739415,
+    "q": [
+      0.1500089999262434,
+      1.8856267036702264e-10
+    ],
+    "named": {
+      "slide_x": 0.1500089999262434,
+      "slide_y": 1.8856267036702264e-10
+    },
+    "status": "Playback finished."
+  },
+  "variantSource": "# Exercise 3: straight segments and an arc, metres/radians.\nROBOT seam_cartesian\nTOOL tcp_link\nPOSE a world 0.15 0 0 Q 0 0 0 1\nPOSE v world 0.35 0.10 0 Q 0 0 0 1\nPOSE b world 0.55 0 0 Q 0 0 0 1\nMOVEJ a\nMOVEL v\nMOVEL b\nMOVEL a\nPAUSE 0.5\nMOVEC v b\nMOVEL a\n",
+  "variant": {
+    "status": "Planned 6 move(s) over 10.73 s; 3291 timed samples. Blue line shows the TCP path.",
+    "diagnostics": [],
+    "planned": true,
+    "types": [
+      "PTP",
+      "LIN",
+      "LIN",
+      "LIN",
+      "CIRC",
+      "LIN"
+    ],
+    "duration": 10.729210021263137,
+    "samples": 3291,
+    "q": [
+      0,
+      0
+    ]
+  },
+  "variantPlayed": {
+    "state": "finished",
+    "time": 10.729210021263137,
+    "named": {
+      "slide_x": 0.15000899987702,
+      "slide_y": 1.5739961145358713e-10
+    }
+  },
+  "blocked": {
+    "status": "Line 11: CIRC: IK reached the pose only in a configuration rejected by collision/state validation..",
+    "diagnostics": [
+      "Line 11: CIRC: IK reached the pose only in a configuration rejected by collision/state validation.."
+    ],
+    "planned": false,
+    "q": [
+      0,
+      0
+    ]
+  },
+  "restored": {
+    "status": "Planned 3 move(s) over 3.96 s; 1300 timed samples. Blue line shows the TCP path; orange shows the weld seam.",
+    "diagnostics": [],
+    "planned": true,
+    "types": [
+      "PTP",
+      "CIRC",
+      "LIN"
+    ],
+    "duration": 3.9575549169994724,
+    "samples": 1300,
+    "q": [
+      0,
+      0
+    ]
+  },
+  "grabSyntax": "Syntax valid: 7 command(s), 4 target(s).",
+  "badGrab": {
+    "status": "Line 9: GRAB pick_box is 0.483 m from the TCP; bring the TCP within 0.040 m of its collision surface.",
+    "diagnostics": [
+      "Line 9: GRAB pick_box is 0.483 m from the TCP; bring the TCP within 0.040 m of its collision surface."
+    ],
+    "planned": false,
+    "q": [
+      0,
+      -0.3,
+      0.6,
+      0.2,
+      -0.3,
+      0.2
+    ]
+  },
+  "pickRestored": {
+    "status": "Planned 3 move(s) over 14.30 s; 2425 timed samples. Blue line shows the TCP path.",
+    "diagnostics": [],
+    "planned": true,
+    "types": [
+      "PTP",
+      "CIRC",
+      "LIN"
+    ],
+    "duration": 14.300891588297592,
+    "samples": 2425,
+    "q": [
+      0,
+      -0.3,
+      0.6,
+      0.2,
+      -0.3,
+      0.2
+    ]
+  },
+  "errors": []
+}

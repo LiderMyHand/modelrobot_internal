@@ -39,6 +39,7 @@ const freePort = () => new Promise((resolve, reject) => {
     await page.locator('#standard-view').selectOption('top');
     const plan = async zone => page.evaluate(async program => {
       const ui = App.workcellUI;
+      ui.player.reset(); // Compare both zone settings from the same explicit start pose.
       ui.programSource.value = program;
       await ui.planCurrentProgram();
       const result = ui.plan;

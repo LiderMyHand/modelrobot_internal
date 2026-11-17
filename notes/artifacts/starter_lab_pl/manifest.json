@@ -1,0 +1,27 @@
+{
+  "build": "bash build.sh",
+  "pdf": "mymodelrobot_cwiczenia.pdf",
+  "tool": "pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+  "files": {
+    "main.tex": "761924f0af127fdd653eb662c85bec05f10d65cbae4ff9f7990bd5dc188e45cc",
+    "build.sh": "0fed44c4c58319c4f123db1bf066199e5e24315145d8f58c16ec9bf0713aeb1f",
+    "README.md": "4453f47a20584d9688d14d926b12ea5672463c0ff472024739d9d256b44eba9d",
+    "mymodelrobot_cwiczenia.pdf": "ee9578644b2cfd411a67c915bdded1609b50e9793031c77455c02921a3fcb23f",
+    "assets/kuka.png": "4ab4c92e133413365dbcc4732ab403ae8f9ccedbf0b9a1bf1cf2dcd568ff3d7b",
+    "assets/start.png": "dadcab36637c7410cbc6e2fae0df9686df7705cb53bf3d131426c643fd37478a",
+    "assets/ur5.png": "fe3eac07e390694af08583a532fdf3d2e2a87856e672583692af20e336c6e76c",
+    "licenses/KUKA_BSD2.txt": "0ab62d350d3df667b6193d191622bd508c55588b67b7f9746f8a1bb5d7a3f8a9",
+    "licenses/UR5_BSD3.txt": "143077f9f6a8de5a99f78c2c2472801fb53cf240277ef661642f079b9acdfff8",
+    "projekty/03_paths.workcell.zip": "ddb200fc6c6da559bc0f3e2e62a4b157a5dbf7e551d253155aeccbede9d91012",
+    "projekty/04_collision.workcell.zip": "627b634b337b41360efb29772e185dc3ba23cb3b96c2fed9f61f65a6a85c8259",
+    "projekty/kuka_iiwa.workcell.zip": "c9654a6f03e710a4ecfe9d4e9847a2f1351c8f33f238c317e2ebad02f918722a",
+    "projekty/ur5.workcell.zip": "f1859f2bb3a544e76ee8e322ffa21e0831f416410e307a7e482a4bf5d67b5ffb",
+    "examples/02_two_poses.robot": "90b5c780992fff2f8e8c68389323bb8652a15775d26f99e9b5e40d4fbed2638f",
+    "examples/03_paths.robot": "1af2b611aa510eb1d1c794094de5a013a7e98a7287e097608092c595e6f5ea54",
+    "examples/03_paths_v010.robot": "5cc0b26d5ce76d2fa3cb681409f3eac0615969885e1c311e276f353b462b44fc",
+    "examples/05_grab_too_early.robot": "5cf6d14301de1b11c2e7bf9b9c539a324d296bc77671bef9932e23d0077ad093",
+    "examples/05_pick_place.robot": "aac0a5ce4dfb5490e635fe0ff7f9a6e63e7f3dc9450d26b394e4d5d9656515f9",
+    "examples/05_pick_place_correct.robot": "aac0a5ce4dfb5490e635fe0ff7f9a6e63e7f3dc9450d26b394e4d5d9656515f9",
+    "examples/04_obstacle.world.sdf": "60ecc8936ea29c903b366c61189e743ee0080173c4e83b5bef9903faf5849f51"
+  }
+}

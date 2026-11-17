@@ -39,7 +39,9 @@ async function main() {
     await page.waitForFunction(() => App.workcellUI.sceneModel.models.size === 2);
     await page.locator('#tab-program').click();
     const plan = async text => page.evaluate(async program => {
-      const ui = App.workcellUI; ui.programSource.value = program;
+      const ui = App.workcellUI;
+      ui.player.reset(); // Compare both zone settings from the same explicit start pose.
+      ui.programSource.value = program;
       await ui.planCurrentProgram();
       const result = ui.plan;
       if (!result) return { status: document.getElementById('program-status').textContent,
